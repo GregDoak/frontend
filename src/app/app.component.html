@@ -1,0 +1,11 @@
+<h1>
+  {{ title }}
+</h1>
+<nav>
+  <ul>
+    <li><a [routerLink]="['eager']">Eager</a></li>
+    <li><a [routerLink]="['lazy']">Lazy Loading</a></li>
+  </ul>
+</nav>
+<hr>
+<router-outlet></router-outlet>
