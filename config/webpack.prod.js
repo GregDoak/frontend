@@ -24,18 +24,6 @@ module.exports = function (options) {
 
     devtool: 'source-map',
 
-
-    entry: {
-      'polyfills': './src/polyfills.ts',
-      'main': ['./src/main.ts', './src/styles/app.css']
-    },
-
-    output: {
-      path: helpers.root('dist'),
-      filename: 'js/[name].[chunkhash].bundle.js',
-      chunkFilename: 'js/[id].[chunkhash].chunk.js'
-    },
-
     module: {
       rules: [
 
@@ -53,6 +41,14 @@ module.exports = function (options) {
           loader: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: 'css-loader'
+          }),
+          include: [helpers.root('src', 'styles')]
+        },
+        {
+          test: /\.scss$/,
+          loader: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: 'css-loader!sass-loader'
           }),
           include: [helpers.root('src', 'styles')]
         },

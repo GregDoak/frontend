@@ -11,6 +11,7 @@ const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
+const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 
 module.exports = function (options) {
   /**
@@ -19,6 +20,17 @@ module.exports = function (options) {
    * This is the object where all configuration gets set
    */
   var config = {};
+
+  config.entry = {
+    'polyfills': './src/polyfills.ts',
+    'main': ['./src/main.ts']
+  };
+
+  config.output = {
+    path: helpers.root('dist'),
+    filename: 'js/[name].[chunkhash].bundle.js',
+    chunkFilename: 'js/[id].[chunkhash].chunk.js'
+  };
 
   /**
    * Resolve
@@ -43,8 +55,32 @@ module.exports = function (options) {
         exclude: [helpers.root('src', 'styles')]
       },
 
+      /*
+      * to string and sass loader support for *.scss files (from Angular components)
+      * Returns compiled css content as string
+      */
+      {
+        test: /\.scss$/,
+        use: ['to-string-loader', 'css-loader', 'sass-loader'],
+        exclude: [helpers.root('src', 'styles')]
+      },
+
       // support for .html as raw text
-      {test: /\.html$/, use: 'raw-loader', exclude: helpers.root('src', 'assets')}
+      {test: /\.html$/, use: 'raw-loader', exclude: helpers.root('src', 'assets')},
+      {
+        test: /\.(eot|woff2?|svg|ttf)([\?]?.*)$/,
+        use: 'file-loader'
+      },
+      /* Loader for font awesome.
+       */
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "url-loader?limit=10000&minetype=application/font-woff"
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "file-loader"
+      }
     ]
   };
 
@@ -93,6 +129,15 @@ module.exports = function (options) {
         'API_URL': JSON.stringify(options.API_URL),
         'ENV': JSON.stringify(options.ENV)
       }
+    }),
+
+    new ProvidePlugin({
+      jQuery: 'jquery',
+      $: 'jquery',
+      jquery: 'jquery',
+      Popper: ['popper.js', 'default'],
+      "Tether": 'tether',
+      "window.Tether": "tether"
     }),
 
     new webpack.LoaderOptionsPlugin({

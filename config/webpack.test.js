@@ -1,3 +1,4 @@
+const helpers = require('./helpers');
 var commonConfig = require('./webpack.common.js');
 var webpackMerge = require('webpack-merge');
 var path = require('path');
@@ -22,10 +23,12 @@ module.exports = function (options) {
           use: 'istanbul-instrumenter-loader',
           exclude: [/\.spec\.ts$/, /\.e2e\.ts$/, /node_modules/]
         },
-
-        {test: /\.ts$/, enforce: 'pre', use: 'tslint-loader'}
-
-
+        {test: /\.ts$/, enforce: 'pre', use: 'tslint-loader'},
+        {
+          test: /\.scss$/,
+          loader: ['raw-loader', 'sass-loader'],
+          exclude: [helpers.root('src/index.html')]
+        }
       ]
     }
   });

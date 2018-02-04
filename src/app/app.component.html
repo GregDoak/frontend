@@ -1,11 +1,35 @@
-<h1>
-  {{ title }}
-</h1>
-<nav>
-  <ul>
-    <li><a [routerLink]="['eager']">Eager</a></li>
-    <li><a [routerLink]="['lazy']">Lazy Loading</a></li>
+<header class="app-header navbar">
+  <button class="navbar-toggler mobile-sidebar-toggler d-lg-none" type="button">&#9776;</button>
+  <a class="navbar-brand" [routerLink]="[ '' ]"></a>
+  <ul class="nav navbar-nav d-md-down-none">
+    <li class="nav-item">
+      <button class="btn btn-secondary navbar-toggler sidebar-toggler">&#9776;</button>
+    </li>
   </ul>
-</nav>
-<hr>
-<router-outlet></router-outlet>
+  <ul class="nav navbar-nav ml-auto my-2 my-lg-0">
+  </ul>
+</header>
+
+here
+<i class="fa fa-phone"></i>
+
+<div class="app-body">
+  <div class="sidebar">
+  </div>
+
+  <main class="main">
+
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+  <aside class="aside-menu">
+  </aside>
+
+</div>
+
+<footer class="app-footer">
+  <a [routerLink]="[ '' ]">App</a> &copy; 2018 App.
+  <span class="float-right">Powered by <a [routerLink]="[ '' ]">App</a></span>
+</footer>

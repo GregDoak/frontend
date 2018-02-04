@@ -16,18 +16,6 @@ module.exports = function (options) {
 
     devtool: 'cheap-module-source-map',
 
-    entry: {
-      'polyfills': './src/polyfills.ts',
-      'main': ['./src/main.ts', './src/styles/app.css']
-    },
-
-    output: {
-      path: helpers.root('dist'),
-      filename: 'js/[name].bundle.js',
-      chunkFilename: 'js/[id].chunk.js'
-    },
-
-
     module: {
       rules: [
 
@@ -58,6 +46,11 @@ module.exports = function (options) {
         {
           test: /\.css$/,
           use: ['style-loader', 'css-loader'],
+          include: [helpers.root('src', 'styles')]
+        },
+        {
+          test: /\.scss$/,
+          use: ['style-loader', 'css-loader', 'sass-loader'],
           include: [helpers.root('src', 'styles')]
         },
 
