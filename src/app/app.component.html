@@ -3,18 +3,21 @@
   <a class="navbar-brand" [routerLink]="[ '' ]"></a>
   <ul class="nav navbar-nav d-md-down-none">
     <li class="nav-item">
-      <button class="btn btn-secondary navbar-toggler sidebar-toggler">&#9776;</button>
+      <button class="navbar-toggler d-md-down-none" type="button" appSidebarToggler>
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <button class="navbar-toggler d-md-down-none" type="button" appAsideMenuToggler>
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </li>
   </ul>
   <ul class="nav navbar-nav ml-auto my-2 my-lg-0">
   </ul>
 </header>
 
-here
-<i class="fa fa-phone"></i>
-
 <div class="app-body">
   <div class="sidebar">
+    sidebar
   </div>
 
   <main class="main">
@@ -25,11 +28,11 @@ here
   </main>
 
   <aside class="aside-menu">
+    side menu
   </aside>
 
 </div>
 
 <footer class="app-footer">
-  <a [routerLink]="[ '' ]">App</a> &copy; 2018 App.
-  <span class="float-right">Powered by <a [routerLink]="[ '' ]">App</a></span>
+  &copy; 2018 App.
 </footer>
