@@ -1,38 +1,33 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
+
+import './core/config/app.imports';
+
+import { ROUTES } from './core/config/app.routes';
+import { APP_COMPONENTS } from './core/config/app.components';
+import { APP_DIRECTIVES } from './core/config/app.directives';
+import { APP_MODULES } from './core/config/app.modules';
+import { APP_PROVIDERS } from './core/config/app.providers';
+
 import { RouterModule } from '@angular/router';
 import { EagerComponent } from './eager.component';
-
-import { ROUTES } from './app.routes';
-import { AsideToggleDirective } from './core/directives/aside.directive';
-import { NAV_DROPDOWN_DIRECTIVES } from './core/directives/nav-dropdown.directive';
-import { ReplaceDirective } from './core/directives/replace.directive';
-import { SIDEBAR_TOGGLE_DIRECTIVES } from './core/directives/sidebar.directive';
-
-import 'jquery';
-import 'bootstrap';
-import 'styles/styles.scss'
-import 'app/core/config/fort-awesome.config';
-
-const APP_DIRECTIVES = [
-  AsideToggleDirective,
-  NAV_DROPDOWN_DIRECTIVES,
-  ReplaceDirective,
-  SIDEBAR_TOGGLE_DIRECTIVES
-];
 
 @NgModule({
   declarations: [
     AppComponent,
     EagerComponent,
+    ...APP_COMPONENTS,
     ...APP_DIRECTIVES
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(ROUTES)
+    RouterModule.forRoot(ROUTES),
+    ...APP_MODULES
   ],
-  providers: [],
+  providers: [
+    ...APP_PROVIDERS
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

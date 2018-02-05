@@ -1,36 +1,34 @@
 <header class="app-header navbar">
-  <button class="navbar-toggler mobile-sidebar-toggler d-lg-none" type="button">&#9776;</button>
+  <button class="navbar-toggler d-lg-none" type="button" appMobileSidebarToggler>
+    <span class="navbar-toggler-icon"></span>
+  </button>
   <a class="navbar-brand" [routerLink]="[ '' ]"></a>
-  <ul class="nav navbar-nav d-md-down-none">
+  <ul class="nav navbar-nav d-md-down-none" *ngIf="authenticationService.isLoggedIn()">
     <li class="nav-item">
       <button class="navbar-toggler d-md-down-none" type="button" appSidebarToggler>
         <span class="navbar-toggler-icon"></span>
       </button>
+    </li>
+  </ul>
+  <ul class="nav navbar-nav ml-auto" *ngIf="authenticationService.isLoggedIn()">
+    <li class="nav-item d-md-down-none">
       <button class="navbar-toggler d-md-down-none" type="button" appAsideMenuToggler>
         <span class="navbar-toggler-icon"></span>
       </button>
     </li>
   </ul>
-  <ul class="nav navbar-nav ml-auto my-2 my-lg-0">
-  </ul>
 </header>
 
 <div class="app-body">
-  <div class="sidebar">
-    sidebar
-  </div>
+  <app-sidebar></app-sidebar>
 
   <main class="main">
-
     <div class="container-fluid">
       <router-outlet></router-outlet>
     </div>
   </main>
 
-  <aside class="aside-menu">
-    side menu
-  </aside>
-
+  <app-aside></app-aside>
 </div>
 
 <footer class="app-footer">

@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { AuthenticationService } from './core/authentication/authentication.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
 })
-export class AppComponent implements OnInit {
-  public title = `app works! - Environment : ${process.env.ENV}`;
-
-  ngOnInit() {
-    console.log('on init');
+export class AppComponent {
+  constructor(public authenticationService: AuthenticationService) {
   }
 }
