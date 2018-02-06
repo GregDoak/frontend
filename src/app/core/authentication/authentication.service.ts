@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { User } from './user.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class AuthenticationService {
@@ -10,72 +11,46 @@ export class AuthenticationService {
   private allowRefresh: boolean;
   private User: User;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private jwtHelperService: JwtHelperService, private router: Router) {
     this.allowRefresh = true;
   }
 
-  public login(username, password) {
+  public login(username, password): Observable<object> {
     let body = JSON.stringify({username: username, password: password});
     let options = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
-    return this.http.post(process.env.API_URL, body, options).pipe();
-
-    /*
-    return this.http.post(API_URL + '/api/authentication/login', body, options)
-      .map((response) => response.json())
-      .catch((response: any) => Observable.throw(response.json() || 'Server error'));
-      */
+    return this.http.post(process.env.API_URL + 'authentication/login', body, options).pipe();
   }
 
-  public logout() {
+  public logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('refresh_token');
-    this.router.navigate(['login']).catch(() => Observable.throw('Routing Error'));
+    this.router.navigate(['login']);
   }
 
-  public isLoggedIn() {
-    return false;
-    /*
+  public isLoggedIn(): boolean {
+
     let token = localStorage.getItem('token');
     let refreshToken = localStorage.getItem('refresh_token');
-    if (token !== null) {
-      this.User = this.jwtHelper.decodeToken(token);
-      if (this.jwtHelper.isTokenExpired(token)) {
-        if (this.allowRefresh) {
-          this.allowRefresh = false;
-          this.refresh(refreshToken).subscribe(
-            (response) => {
-                localStorage.setItem('token', response.data.token);
-                localStorage.setItem('refresh_token', response.data.refresh_token);
-                this.processMenu$.emit(true);
-                this.allowRefresh = true;
-                let redirect = this.redirectUrl ? this.redirectUrl : '';
-                this.router.navigate([redirect]);
+    // console.log(token);
+    // console.log(this.jwtHelperService.decodeToken(token));
+    return false;
 
-            },
-            () => {
-              this.allowRefresh = true;
-            }
-          );
-        }
-      }
-    }
-    return token !== null && refreshToken !== null && !this.jwtHelper.isTokenExpired(token);
-    */
+    // return token !== null && refreshToken !== null && !this.jwtHelperService.isTokenExpired(token);
   }
 
-  public getUsername() {
+  public getUsername(): string {
     return this.User.username;
   }
 
-  public getRoles() {
+  public getRoles(): string[] {
     return this.User.roles;
   }
 
-  public isMemberOf(member) {
+  public isMemberOf(member): boolean {
     return this.User.roles.indexOf(member) > -1;
   }
 
-  private refresh(refreshToken) {
+  private refresh(refreshToken): void {
     /*
     let body = JSON.stringify({refresh_token: refreshToken});
     let options = new RequestOptions({ headers: new Headers({'Content-Type': 'application/json'})});

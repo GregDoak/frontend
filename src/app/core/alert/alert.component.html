@@ -1,0 +1,9 @@
+<alert *ngIf="alert.type" (close)="closeAlert()" [type]="alert.type" [dismissible]="true">
+  <div *ngIf="alert.message" [innerHTML]="alert.message">
+  </div>
+  <ul *ngIf="alert.messages.length > 0">
+    <li *ngFor="let message of alert.messages" [innerHTML]="message">
+    </li>
+  </ul>
+</alert>
+

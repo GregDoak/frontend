@@ -16,6 +16,12 @@ module.exports = function (options) {
 
     devtool: 'cheap-module-source-map',
 
+    output: {
+      path: helpers.root('dist'),
+      filename: 'js/[name].bundle.js',
+      chunkFilename: 'js/[id].chunk.js'
+    },
+
     module: {
       rules: [
 

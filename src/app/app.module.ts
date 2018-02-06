@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 import './core/config/app.imports';
@@ -12,6 +12,17 @@ import { APP_PROVIDERS } from './core/config/app.providers';
 
 import { RouterModule } from '@angular/router';
 import { EagerComponent } from './eager.component';
+import { JwtModule, JwtModuleOptions } from '@auth0/angular-jwt';
+
+export function gettoken() {
+  return localStorage.getItem('access_token');
+};
+const jwtConf: JwtModuleOptions = {
+  config: {
+    tokenGetter: gettoken,
+    whitelistedDomains: ['localhost:8000']
+  }
+};
 
 @NgModule({
   declarations: [
@@ -23,8 +34,10 @@ import { EagerComponent } from './eager.component';
   imports: [
     BrowserModule,
     RouterModule.forRoot(ROUTES),
-    ...APP_MODULES
+    ...APP_MODULES,
+    JwtModule.forRoot(jwtConf)
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     ...APP_PROVIDERS
   ],

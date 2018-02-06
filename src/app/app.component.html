@@ -20,9 +20,34 @@
 </header>
 
 <div class="app-body">
-  <app-sidebar></app-sidebar>
+  <div class="sidebar">
+    <div class="sidebar-nav" *ngIf="authenticationService.isLoggedIn()">
+      <ul class="nav">
+        <li class="nav-item">
+          <a [routerLink]="['eager']" routerLinkActive="active" class="nav-link">
+            <i class="fa fa-fw fa-chevron-right"></i>
+            Eager
+          </a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['lazy']" routerLinkActive="active" class="nav-link">
+            <i class="fa fa-fw fa-chevron-right"></i>
+            Lazy
+          </a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['login']" routerLinkActive="active" class="nav-link">
+            <i class="fa fa-fw fa-chevron-right"></i>
+            Login
+          </a>
+        </li>
+      </ul>
+    </div>
+    <button class="sidebar-minimizer" type="button" appSidebarMinimizer appBrandMinimizer></button>
+  </div>
 
   <main class="main">
+    <app-alert></app-alert>
     <div class="container-fluid">
       <router-outlet></router-outlet>
     </div>
