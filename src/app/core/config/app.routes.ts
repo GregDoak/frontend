@@ -1,12 +1,14 @@
 import { Routes } from '@angular/router';
 
 import { LoginComponent } from '../../login/login.component';
-import { EagerComponent } from '../../eager.component';
-import { AuthenticatedGuard } from '../authentication/guards';
+import { AdminGuard, AuthenticatedGuard } from '../authentication/guards';
+import { P404Component } from '../pages/404.component';
+import { HomeComponent } from '../../home/home.component';
 
 export const ROUTES: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'eager', component: EagerComponent, canActivate: [AuthenticatedGuard]},
-  {path: 'lazy', loadChildren: './lazy/lazy.module#LazyModule', canActivate: [AuthenticatedGuard]},
-  {path: '', redirectTo: 'eager', pathMatch: 'full'}
+  {path: 'login', component: LoginComponent, data: {title: 'Login'}},
+  {path: 'admin', loadChildren: './admin/admin.module#AdminModule', canActivate: [AdminGuard], data: {title: 'Admin'}},
+  {path: 'my', loadChildren: './my/my.module#MyModule', canActivate: [AuthenticatedGuard], data: {title: 'My'}},
+  {path: '', component: HomeComponent, canActivate: [AuthenticatedGuard], data: {title: 'Home'}},
+  {path: '**', component: P404Component, data: {title: '404'}}
 ];

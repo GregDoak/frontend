@@ -1,52 +1,23 @@
-<header class="app-header navbar">
-  <button class="navbar-toggler d-lg-none" type="button" appMobileSidebarToggler>
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" [routerLink]="[ '' ]"></a>
-  <ul class="nav navbar-nav d-md-down-none" *ngIf="authenticationService.isLoggedIn()">
-    <li class="nav-item">
-      <button class="navbar-toggler d-md-down-none" type="button" appSidebarToggler>
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </li>
-  </ul>
-  <ul class="nav navbar-nav ml-auto" *ngIf="authenticationService.isLoggedIn()">
-    <li class="nav-item d-md-down-none">
-      <button class="navbar-toggler d-md-down-none" type="button" appAsideMenuToggler>
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </li>
-  </ul>
-</header>
+<app-header></app-header>
 
 <div class="app-body">
   <div class="sidebar">
-    <div class="sidebar-nav" *ngIf="authenticationService.isLoggedIn()">
-      <ul class="nav">
-        <li class="nav-item">
-          <a [routerLink]="['eager']" routerLinkActive="active" class="nav-link">
-            <i class="fa fa-fw fa-chevron-right"></i>
-            Eager
-          </a>
-        </li>
-        <li class="nav-item">
-          <a [routerLink]="['lazy']" routerLinkActive="active" class="nav-link">
-            <i class="fa fa-fw fa-chevron-right"></i>
-            Lazy
-          </a>
-        </li>
-        <li class="nav-item">
-          <a [routerLink]="['login']" routerLinkActive="active" class="nav-link">
-            <i class="fa fa-fw fa-chevron-right"></i>
-            Login
-          </a>
-        </li>
-      </ul>
-    </div>
+    <app-sidebar-nav></app-sidebar-nav>
     <button class="sidebar-minimizer" type="button" appSidebarMinimizer appBrandMinimizer></button>
   </div>
 
   <main class="main">
+    <ol class="breadcrumb" *ngIf="authenticationService.isLoggedIn()">
+      <app-breadcrumbs></app-breadcrumbs>
+      <li class="breadcrumb-menu d-md-down-none">
+        <div class="btn-group" role="group" aria-label="Quick Links">
+          <a class="btn" [routerLink]=" [''] " (click)="authenticationService.logout()">
+            <i class="fa fa-sign-out-alt" aria-hidden="true"></i>
+            Logout
+          </a>
+        </div>
+      </li>
+    </ol>
     <app-alert></app-alert>
     <div class="container-fluid">
       <router-outlet></router-outlet>
@@ -56,6 +27,4 @@
   <app-aside></app-aside>
 </div>
 
-<footer class="app-footer">
-  &copy; 2018 App.
-</footer>
+<app-footer></app-footer>

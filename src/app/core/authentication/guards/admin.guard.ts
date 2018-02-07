@@ -15,12 +15,13 @@ export class AdminGuard implements CanActivate {
   }
 
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (
-      this.authenticationService.isLoggedIn() &&
-      this.authenticationService.isMemberOf('ROLE_ADMIN')
-    ) {
+    if (this.authenticationService.isLoggedIn() && (
+        this.authenticationService.isMemberOf('ROLE_ADMIN') ||
+        this.authenticationService.isMemberOf('ROLE_SUPER_ADMIN')
+      )) {
       return true;
     }
+
     /*
     this.alertService.showAlert(
       'danger',

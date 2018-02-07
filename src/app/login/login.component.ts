@@ -1,18 +1,14 @@
-import {
-  Component, OnInit
-} from '@angular/core';
-
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../core/authentication/authentication.service';
 import { AlertService } from '../core/alert/alert.service';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   public loginForm: FormGroup;
   public processing: boolean;
@@ -41,9 +37,6 @@ export class LoginComponent implements OnInit {
 
   }
 
-  public ngOnInit(): void {
-  }
-
   /**
    * @param {FormGroup} form
    */
@@ -57,7 +50,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('refresh_token', response['data'].refresh_token);
           let redirect = this.authenticationService.redirectUrl ? this.authenticationService.redirectUrl : '';
           console.log(redirect);
-          this.router.navigate([redirect]).catch(() => Observable.throw('Routing Error'));
+          this.router.navigate([redirect]).catch(() => 'Routing Error');
         },
         (error) => {
           this.processing = false;

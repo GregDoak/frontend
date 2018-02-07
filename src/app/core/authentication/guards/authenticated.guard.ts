@@ -11,11 +11,17 @@ export class AuthenticatedGuard implements CanActivate {
   constructor(private authenticationService: AuthenticationService, private router: Router) {
   }
 
+  /**
+   * @param {ActivatedRouteSnapshot} route
+   * @param {RouterStateSnapshot} state
+   * @returns {boolean}
+   */
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (
-      this.authenticationService.isLoggedIn() &&
-      this.authenticationService.isMemberOf('ROLE_USER')
-    ) {
+    if (this.authenticationService.isLoggedIn() && (
+        this.authenticationService.isMemberOf('ROLE_USER') ||
+        this.authenticationService.isMemberOf('ROLE_ADMIN') ||
+        this.authenticationService.isMemberOf('ROLE_SUPER_ADMIN')
+      )) {
       return true;
     }
 
@@ -23,7 +29,7 @@ export class AuthenticatedGuard implements CanActivate {
     this.authenticationService.redirectUrl = state.url;
 
     // Navigate to the login page
-    this.router.navigate(['login']);
+    this.router.navigate(['login']).catch(() => 'Routing Error');
     return false;
   }
 }

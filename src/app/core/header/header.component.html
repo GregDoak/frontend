@@ -1,0 +1,20 @@
+<header class="app-header navbar">
+  <button class="navbar-toggler d-lg-none" type="button" appMobileSidebarToggler>
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" [routerLink]="[ '' ]"></a>
+  <ul class="nav navbar-nav d-md-down-none" *ngIf="authenticationService.isLoggedIn()">
+    <li class="nav-item">
+      <button class="navbar-toggler d-md-down-none" type="button" appSidebarToggler>
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </li>
+  </ul>
+  <ul class="nav navbar-nav ml-auto" *ngIf="authenticationService.isLoggedIn()">
+    <li class="nav-item d-md-down-none">
+      <button class="navbar-toggler d-md-down-none" type="button" appAsideMenuToggler>
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </li>
+  </ul>
+</header>
