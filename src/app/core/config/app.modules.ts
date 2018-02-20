@@ -11,7 +11,7 @@ const jwtConfig: JwtModuleOptions = {
   config: {
     skipWhenExpired: true,
     tokenGetter: getToken,
-    whitelistedDomains: ['localhost:8000']
+    whitelistedDomains: [process.env.API_HOST]
   }
 };
 
@@ -23,5 +23,3 @@ export const APP_MODULES = [
   ReactiveFormsModule,
   TabsModule.forRoot()
 ];
-
-

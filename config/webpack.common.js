@@ -123,9 +123,11 @@ module.exports = function (options) {
     new CleanWebpackPlugin(['doc', 'dist', 'coverage'], {root: helpers.root('')}),
 
     new DefinePlugin({
+      'API_HOST': JSON.stringify(options.API_HOST),
       'API_URL': JSON.stringify(options.API_URL),
       'ENV': JSON.stringify(options.ENV),
       'process.env': {
+        'API_HOST': JSON.stringify(options.API_HOST),
         'API_URL': JSON.stringify(options.API_URL),
         'ENV': JSON.stringify(options.ENV)
       }

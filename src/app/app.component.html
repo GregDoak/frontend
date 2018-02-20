@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <div class="app-body">
-  <div class="sidebar">
+  <div class="sidebar" *ngIf="authenticationService.isLoggedIn()">
     <app-sidebar-nav></app-sidebar-nav>
     <button class="sidebar-minimizer" type="button" appSidebarMinimizer appBrandMinimizer></button>
   </div>
@@ -27,4 +27,4 @@
   <app-aside></app-aside>
 </div>
 
-<app-footer></app-footer>
+<app-footer *ngIf="authenticationService.isLoggedIn()"></app-footer>

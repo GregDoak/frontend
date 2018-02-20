@@ -35,6 +35,10 @@ export class LoginComponent {
     this.processing = false;
     this.submitted = false;
 
+    if (this.authenticationService.isLoggedIn()) {
+      this.router.navigate(['']).catch(() => 'Routing Error');
+    }
+
   }
 
   /**

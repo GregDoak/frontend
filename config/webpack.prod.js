@@ -85,8 +85,8 @@ module.exports = function (options) {
       }),
 
       new AngularCompilerPlugin({
-        mainPath: "src/main.ts",
-        tsConfigPath: "tsconfig.app.json"
+        mainPath: "./src/main.ts",
+        tsConfigPath: "./tsconfig.app.json"
       }),
 
       // Inject script and link tags into html files

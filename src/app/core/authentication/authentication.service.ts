@@ -54,7 +54,6 @@ export class AuthenticationService {
             this.allowRefresh = true;
             let redirect = this.redirectUrl ? this.redirectUrl : '';
             this.router.navigate([redirect]).catch(() => 'Routing Error');
-
           },
           () => {
             this.allowRefresh = true;
