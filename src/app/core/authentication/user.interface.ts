@@ -1,4 +1,9 @@
-export interface User {
-  username: string;
-  roles: string[];
+export interface UserInterface {
+  id: string,
+  username: string
+  person?: object,
+  loginCount: number,
+  enabled: boolean,
+  createdOn: string,
+  roles: object[]
 }

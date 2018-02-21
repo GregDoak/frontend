@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-import { User } from './user.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { TokenInterface } from './token.interface';
 
 @Injectable()
 export class AuthenticationService {
   public redirectUrl: string;
   private allowRefresh: boolean;
-  private User: User;
+  private token: TokenInterface;
 
   /**
    * @param {HttpClient} http
@@ -44,7 +44,7 @@ export class AuthenticationService {
     let token = localStorage.getItem('token');
     let refreshToken = localStorage.getItem('refresh_token');
     if (token !== null) {
-      this.User = this.jwtHelperService.decodeToken(token);
+      this.token = this.jwtHelperService.decodeToken(token);
       if (this.jwtHelperService.isTokenExpired(token) && this.allowRefresh) {
         this.allowRefresh = false;
         this.refresh(refreshToken).subscribe(
@@ -70,14 +70,14 @@ export class AuthenticationService {
    * @returns {string}
    */
   public getUsername(): string {
-    return this.User.username;
+    return this.token.username;
   }
 
   /**
    * @returns {string[]}
    */
   public getRoles(): string[] {
-    return this.User.roles;
+    return this.token.roles;
   }
 
   /**
@@ -85,7 +85,7 @@ export class AuthenticationService {
    * @returns {boolean}
    */
   public isMemberOf(member: string): boolean {
-    return this.User.roles.indexOf(member) > -1;
+    return this.token.roles.indexOf(member) > -1;
   }
 
   /**
