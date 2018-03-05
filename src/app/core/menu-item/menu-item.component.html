@@ -1,0 +1,13 @@
+<a [routerLink]=" [navigationItem.url] " class="card">
+  <div class="px-1 py-3">
+    <i class="{{ navigationItem.icon }} fa-2x fa-pull-left fa-border"></i>
+    <div>
+      <h4 class="card-title">
+        {{ navigationItem.name }}
+      </h4>
+      <p class="card-text" *ngIf="navigationItem.description">
+        {{ navigationItem.description }}
+      </p>
+    </div>
+  </div>
+</a>

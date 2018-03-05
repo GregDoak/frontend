@@ -1,1 +1,94 @@
-list of users
+<div class="animated fadeIn">
+  <div class="row py-3" *ngIf="!loadingService.isLoading()">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-user fa-fw" aria-hidden="true"></i>
+          Users
+          <div class="float-right">
+            <a [routerLink]=" ['create'] " class="btn btn-primary btn-sm">
+              <i class="fas fa-user-plus" aria-hidden="true"></i>
+              Create
+            </a>
+          </div>
+        </div>
+        <div class="card-body">
+          <table class="table table-hover table-sm table-striped">
+            <thead>
+            <tr>
+              <th>
+                Username
+              </th>
+              <th>
+                Login Count
+              </th>
+              <th>
+                Last Login
+              </th>
+              <th>
+                Security Roles
+              </th>
+              <th>
+                Actions
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of users">
+              <td>
+                {{ user.username}}
+              </td>
+              <td>
+                {{ user.loginCount }}
+              </td>
+              <td>
+                {{ user.lastLogin | date:"dd/MM/yy H:m:s" }}
+              </td>
+              <td>
+                {{ user.roles.length }}
+                <!--suppress HtmlUnknownAttribute -->
+                <span *ngIf="user.roles.length > 0"
+                      [popover]="rolesTemplate"
+                      popoverTitle="Roles"
+                      placement="right"
+                      triggers="mouseenter:mouseleave">
+                  <i class="fas fa-1x fa-question-circle" aria-hidden="true"></i>
+                </span>
+              </td>
+              <td>
+                <div class="btn-group-sm" role="group">
+                  <a [routerLink]="[ 'update', user.id ]" type="button" class="btn btn-warning">
+                    <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>
+                    Update
+                  </a>
+                  <a [routerLink]="['delete', user.id]" type="button" class="btn btn-danger">
+                    <i class="fas fa-trash-alt fa-fw" aria-hidden="true"></i>
+                    Delete
+                  </a>
+                </div>
+              </td>
+              <ng-template #rolesTemplate>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let role of user.roles">
+                    {{ role.title }}
+                  </li>
+                </ul>
+              </ng-template>
+            </tr>
+            </tbody>
+          </table>
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          &nbsp;
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

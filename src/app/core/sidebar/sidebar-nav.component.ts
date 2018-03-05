@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { navigationItems } from './navigation-items';
+import { navigationItems } from '../navigation/navigation-items';
 
 @Component({
   selector: 'app-sidebar-nav',

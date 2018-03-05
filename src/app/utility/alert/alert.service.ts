@@ -54,7 +54,7 @@ export class AlertService {
     };
   }
 
-  public clearAlert(delay: 0) {
+  public clearAlert(delay?: 0) {
     let type = this.alertStatus.getValue().type;
     delay = (type === 'danger') ? 0 : delay;
     setTimeout(() => {

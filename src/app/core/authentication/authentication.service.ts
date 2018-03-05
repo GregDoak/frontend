@@ -89,6 +89,19 @@ export class AuthenticationService {
   }
 
   /**
+   * @param {string[]} members
+   * @returns {boolean}
+   */
+  public isMembersOf(members: string[]): boolean {
+    for (let member of members) {
+      if (this.isMemberOf(member)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * @param {string} refreshToken
    * @returns {Observable<object>}
    */

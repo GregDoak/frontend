@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { P404Component } from '../core/pages/404.component';
 import { AdminComponent } from './admin.component';
 import { AdminGuard } from '../core/authentication/guards';
+import { CoreModule } from '../core/core.module';
 
 const COMPONENTS = [
   AdminComponent
@@ -20,7 +21,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    CoreModule
   ],
   declarations: [...COMPONENTS]
 })

@@ -5,6 +5,8 @@ import { P404Component } from '../../core/pages/404.component';
 import { AdminUserCreateComponent } from './create.component';
 import { AdminUserDeleteComponent } from './delete.component';
 import { AdminUserUpdateComponent } from './update.component';
+import { CommonModule } from '@angular/common';
+import { PopoverModule } from 'ngx-bootstrap';
 
 const COMPONENTS = [
   AdminUserCreateComponent,
@@ -23,6 +25,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    CommonModule,
+    PopoverModule.forRoot(),
     RouterModule.forChild(routes)
   ],
   declarations: [...COMPONENTS]
