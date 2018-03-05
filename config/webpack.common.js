@@ -60,8 +60,24 @@ module.exports = function (options) {
       * Returns compiled css content as string
       */
       {
-        test: /\.scss$/,
-        use: ['to-string-loader', 'css-loader', 'sass-loader'],
+        test: /\.(scss)$/,
+        use: [{
+          loader: 'style-loader'
+        }, {
+          loader: 'css-loader'
+        }, {
+          loader: 'postcss-loader',
+          options: {
+            plugins: function () {
+              return [
+                require('precss'),
+                require('autoprefixer')
+              ];
+            }
+          }
+        }, {
+          loader: 'sass-loader'
+        }],
         exclude: [helpers.root('src', 'styles')]
       },
 

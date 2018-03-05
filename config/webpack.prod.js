@@ -103,7 +103,7 @@ module.exports = function (options) {
       // Extract css files
       // Reference: https://github.com/webpack/extract-text-webpack-plugin
       // Disabled when in test mode or not in build mode
-      new ExtractTextPlugin({filename: '[name].[hash].css'}),
+      new ExtractTextPlugin({filename: '[name].[hash].css', allChunks: true}),
 
 
       new ModuleConcatenationPlugin(),
