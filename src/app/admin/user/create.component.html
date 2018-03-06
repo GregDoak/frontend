@@ -1,78 +1,96 @@
-<div class="animated fadeIn">
-  <div class="row py-3">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-header">
-          <i class="fas fa-user fa-fw" aria-hidden="true"></i>
-          Create User
-        </div>
-        <div class="card-body">
-          <div class="col-xs-12 col-sm-12 col-md-4">
-            <form novalidate="">
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-prepend">
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row py-3" *ngIf="loadingService.isReady()">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-user fa-fw" aria-hidden="true"></i>
+            Create User
+          </div>
+          <div class="card-body">
+            <div class="col-xs-12 col-sm-12 col-md-4">
+              <form [formGroup]="createForm" novalidate>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
                     <span class="input-group-text">
                       <i class="fas fa-user fa-fw"></i>
                     </span>
+                    </div>
+                    <input class="form-control" name="username" placeholder="Username" type="text"
+                           [formControl]="createForm.get('username')">
                   </div>
-                  <input class="form-control" id="username" name="username" placeholder="Username" type="text">
                 </div>
-              </div>
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-prepend">
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-asterisk fa-fw"></i>
+                    </span>
+                    </div>
+                    <input class="form-control" name="password" placeholder="Password" type="password"
+                           [formControl]="createForm.get('password')">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-asterisk fa-fw"></i>
+                    </span>
+                    </div>
+                    <input class="form-control" name="confirmPassword" placeholder="Confirm Password" type="password"
+                           [formControl]="createForm.get('confirmPassword')">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-users fa-fw"></i>
+                    </span>
+                    </div>
+                    <ngx-select [multiple]="true" [items]="groups" optionTextField="title"
+                                [formControl]="createForm.get('groups')" class="form-control ng2-select"
+                                placeholder="Groups">
+                      <ng-template ngx-select-option let-option let-text="text">
+                        <span [innerHtml]="text" [title]="option.data.description"></span>&nbsp;
+                        <i class="fas fa-1x fa-fw fa-question-circle" aria-hidden="true"></i>
+                      </ng-template>
+                    </ngx-select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
                     <span class="input-group-text">
                       <i class="fas fa-lock fa-fw"></i>
                     </span>
+                    </div>
+                    <ngx-select [multiple]="true" [items]="roles" optionTextField="title"
+                                [formControl]="createForm.get('roles')" class="form-control ng2-select"
+                                placeholder="Roles">
+                      <ng-template ngx-select-option let-option let-text="text">
+                        <span [innerHtml]="text" [title]="option.data.description"></span>&nbsp;
+                        <i class="fas fa-1x fa-fw fa-question-circle" aria-hidden="true"></i>
+                      </ng-template>
+                    </ngx-select>
                   </div>
-                  <input class="form-control" id="password" name="password" placeholder="Password" type="password">
                 </div>
-              </div>
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="fas fa-lock fa-fw"></i>
-                    </span>
-                  </div>
-                  <input class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"
-                         type="password">
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="col-12">
-            <div class="form-group">
-              <label>Roles:</label>
-              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" *ngFor="let role of roles">
-                {{ role.title }}
-                <!--suppress HtmlUnknownAttribute -->
-                <span [popover]="roleTemplate"
-                      [popoverTitle]="role.title"
-                      placement="right"
-                      triggers="mouseenter:mouseleave">
-                  <i class="fas fa-1x fa-question-circle" aria-hidden="true"></i>
-                </span>
-                <ng-template #roleTemplate>
-                  <p class="p-1 pt-3">
-                    {{ role.description }}
-                  </p>
-                </ng-template>
-              </div>
+              </form>
             </div>
           </div>
-        </div>
-        <div class="card-footer">
-          <button class="btn btn-sm btn-primary" type="submit">
-            Submit
-          </button>
-          <button type="button" class="btn btn-sm btn-danger">
-            Reset
-          </button>
-          <a [routerLink]="['/admin/users']" class="btn btn-sm btn-warning">
-            Cancel
-          </a>
+          <div class="card-footer">
+            <button type="button" class="btn btn-sm btn-primary" (click)="onSubmit(createForm)">
+              Submit
+            </button>
+            <button type="button" class="btn btn-sm btn-danger">
+              Reset
+            </button>
+            <a [routerLink]="['/admin/users']" class="btn btn-sm btn-warning">
+              Cancel
+            </a>
+          </div>
         </div>
       </div>
     </div>

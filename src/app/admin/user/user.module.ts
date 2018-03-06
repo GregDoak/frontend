@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminUserListComponent } from './list.component';
 import { P404Component } from '../../core/pages/404.component';
@@ -6,7 +6,9 @@ import { AdminUserCreateComponent } from './create.component';
 import { AdminUserDeleteComponent } from './delete.component';
 import { AdminUserUpdateComponent } from './update.component';
 import { CommonModule } from '@angular/common';
-import { PopoverModule } from 'ngx-bootstrap';
+import { PaginationModule, PopoverModule } from 'ngx-bootstrap';
+import { NgxSelectModule } from 'ngx-select-ex';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const COMPONENTS = [
   AdminUserCreateComponent,
@@ -26,10 +28,15 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    NgxSelectModule,
+    PaginationModule.forRoot(),
     PopoverModule.forRoot(),
+    ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [...COMPONENTS]
+  declarations: [...COMPONENTS],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AdminUserModule {
 }

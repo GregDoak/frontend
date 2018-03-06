@@ -1,9 +1,11 @@
 import { UserInterface } from '../user/user.interface';
 
 export interface RoleInterface {
-  id: string,
+  id?: string,
   title: string,
   description: string,
-  createdBy: UserInterface,
-  createdOn: string,
+  createdBy?: UserInterface,
+  createdOn?: string,
+  updatedBy?: UserInterface,
+  updatedOn?: string
 }

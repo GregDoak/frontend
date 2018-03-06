@@ -1,8 +1,10 @@
-<div class="animated fadeIn">
-  <div class="row py-3">
-    <ng-container *ngFor="let navigationItem of menuService.getNavigationItems()">
-      <app-menu-item class="col-sm-6 col-md-4" *ngIf="authenticationService.isMembersOf(navigationItem.roles)"
-                     [navigationItem]="navigationItem"></app-menu-item>
-    </ng-container>
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row py-3">
+      <ng-container *ngFor="let navigationItem of menuService.getNavigationItems()">
+        <app-menu-item class="col-sm-6 col-md-4" *ngIf="authenticationService.isMembersOf(navigationItem.roles)"
+                       [navigationItem]="navigationItem"></app-menu-item>
+      </ng-container>
+    </div>
   </div>
 </div>

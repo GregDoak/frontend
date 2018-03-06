@@ -18,6 +18,7 @@ export class AuthenticationService {
    */
   constructor(private http: HttpClient, private jwtHelperService: JwtHelperService, private router: Router) {
     this.allowRefresh = true;
+    this.redirectUrl = this.router.routerState.snapshot.url;
   }
 
   /**

@@ -6,4 +6,6 @@ export interface GroupInterface {
   description: string,
   createdBy: UserInterface,
   createdOn: string,
+  updatedBy?: UserInterface,
+  updatedOn?: string
 }

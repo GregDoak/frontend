@@ -21,7 +21,7 @@ export class AlertComponent implements OnInit {
   }
 
   public closeAlert() {
-    this.alertService.showAlert(null, null, null);
+    this.alertService.show(null, null, null);
   }
 
 }

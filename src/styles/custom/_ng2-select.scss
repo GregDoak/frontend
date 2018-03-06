@@ -1,0 +1,15 @@
+.ngx-select {
+  padding-top: 0;
+  padding-bottom: 0;
+  border: 0;
+}
+
+.ngx-select > .ui-select-match-item {
+  margin: 0 1px 1px 0;
+}
+
+.ngx-select > .form-control,
+.ngx-select > .ui-select-match > .form-control {
+  padding: 0;
+  border: 0;
+}

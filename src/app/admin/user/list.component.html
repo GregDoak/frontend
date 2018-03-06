@@ -1,50 +1,78 @@
 <div class="animated fadeIn">
-  <div class="row py-3" *ngIf="!loadingService.isLoading()">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-header">
-          <i class="fas fa-user fa-fw" aria-hidden="true"></i>
-          Users
-          <div class="float-right">
-            <a [routerLink]=" ['create'] " class="btn btn-primary btn-sm">
-              <i class="fas fa-user-plus" aria-hidden="true"></i>
-              Create
-            </a>
+  <div class="row" *ngIf="loadingService.isReady()">
+    <div class="col-12 breadcrumb page-header-bar">
+      <div class="container-fluid">
+        <a [routerLink]=" ['create'] " class="btn btn-primary">
+          <i class="fas fa-user-plus" aria-hidden="true"></i>
+          Create
+        </a>
+        <button type="button" class="btn btn-secondary" (click)="tableService.doExport()">
+          Export
+        </button>
+        <button type="button" class="btn btn-outline-secondary" (click)="columns[0].visible = !columns[0].visible">
+          Username
+        </button>
+        <div class="float-right" *ngIf="tableService.config.filtering">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-search fa-fw" aria-hidden="true"></i>
+              </span>
+            </div>
+            <input
+              type="text"
+              placeholder="{{ tableService.config.filtering.placeholder }}"
+              class="form-control"
+              [(ngModel)]="tableService.config.filtering.searchTerm"
+              (keyup)="tableService.onChangeTable()">
           </div>
         </div>
-        <div class="card-body">
-          <table class="table table-hover table-sm table-striped">
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="loadingService.isReady()">
+    <div class="col-12">
+      <div class="card card-fixed">
+        <div class="card-body card-body-fixed">
+          <table class="table table-fixed table-striped">
             <thead>
             <tr>
-              <th>
-                Username
-              </th>
-              <th>
-                Login Count
-              </th>
-              <th>
-                Last Login
-              </th>
-              <th>
-                Security Roles
-              </th>
-              <th>
-                Actions
-              </th>
+              <ng-container *ngFor="let column of tableService.getColumns(); let index = index">
+                <th *ngIf="tableService.isColumnVisible(index)">
+                  <div (click)="tableService.onSortColumn(column)">
+                    <div class="float-left" role="button">
+                      {{ column.title }}
+                    </div>
+                    <div class="float-right" role="button">
+                    <span
+                      *ngIf="column.name === tableService.config.sorting.column.name && 'asc' === tableService.config.sorting.column.order">
+                      &#8639;
+                    </span>
+                      <span
+                        *ngIf="column.name === tableService.config.sorting.column.name && 'desc' === tableService.config.sorting.column.order">
+                      &#8643;
+                    </span>
+                      <span *ngIf="column.name !== null">
+                      &#8645;
+                    </span>
+                    </div>
+                  </div>
+                </th>
+              </ng-container>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let user of users">
-              <td>
+            <tr *ngFor="let user of tableService.getRows()">
+              <td *ngIf="tableService.isColumnVisible(0)">
                 {{ user.username}}
               </td>
-              <td>
+              <td *ngIf="tableService.isColumnVisible(1)">
                 {{ user.loginCount }}
               </td>
-              <td>
-                {{ user.lastLogin | date:"dd/MM/yy H:m:s" }}
+              <td *ngIf="tableService.isColumnVisible(2)">
+                {{ user.lastLogin | date:"dd/MM/yy HH:mm:ss" }}
               </td>
-              <td>
+              <td *ngIf="tableService.isColumnVisible(3)">
                 {{ user.roles.length }}
                 <!--suppress HtmlUnknownAttribute -->
                 <span *ngIf="user.roles.length > 0"
@@ -55,7 +83,7 @@
                   <i class="fas fa-1x fa-question-circle" aria-hidden="true"></i>
                 </span>
               </td>
-              <td>
+              <td *ngIf="tableService.isColumnVisible(4)">
                 <div class="btn-group-sm" role="group">
                   <a [routerLink]="[ 'update', user.id ]" type="button" class="btn btn-warning">
                     <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>
@@ -77,16 +105,23 @@
             </tr>
             </tbody>
           </table>
-          <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-            <li class="page-item active">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
-        </div>
-        <div class="card-footer">
-          &nbsp;
+          <div class="container-fluid">
+            <pagination [directionLinks]="tableService.config.pagination.directionLinks"
+                        [boundaryLinks]="tableService.config.pagination.boundaryLinks"
+                        [totalItems]="tableService.config.pagination.collectionSize"
+                        [(ngModel)]="tableService.config.pagination.page"
+                        [itemsPerPage]="tableService.config.pagination.itemsPerPage"
+                        [maxSize]="tableService.config.pagination.maxSize"
+                        (pageChanged)="tableService.setPageNumber($event)"
+                        class="d-inline-flex">
+            </pagination>
+            <div class="d-inline-flex px-3">
+              <p class="text-muted">
+                Showing {{ tableService.config.pagination.start + 1 }} - {{ tableService.config.pagination.end }} of
+                {{ tableService.config.pagination.collectionSize}}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

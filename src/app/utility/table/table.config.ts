@@ -1,16 +1,26 @@
 export const tableConfig = {
+  exporting: {
+    enabled: true,
+    filename: 'export.csv'
+  },
   filtering: {
-    search: '',
-    placeholder: 'Filter'
+    enabled: true,
+    placeholder: 'Filter',
+    searchTerm: '',
   },
   pagination: {
-    page: 0,
+    enabled: true,
+    boundaryLinks: true,
     collectionSize: 0,
-    pageSize: 10,
+    directionLinks: false,
+    end: 0,
+    itemsPerPage: 15,
     maxSize: 5,
-    boundaryLinks: true
+    page: 1,
+    start: 0
   },
   sorting: {
+    enabled: true,
     column: {
       name: null,
       order: null

@@ -23,7 +23,7 @@ export class AdminGuard implements CanActivate {
     }
 
     /*
-    this.alertService.showAlert(
+    this.alertService.show(
       'danger',
       global.unauthorisedMessage,
       global.unauthorisedMessages)

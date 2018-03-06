@@ -54,11 +54,11 @@ export class AlertService {
     };
   }
 
-  public clearAlert(delay?: 0) {
+  public clear(delay = 0) {
     let type = this.alertStatus.getValue().type;
     delay = (type === 'danger') ? 0 : delay;
     setTimeout(() => {
-      this.showAlert(null, null, null);
+      this.show(null, null, null);
     }, delay);
   }
 
@@ -69,7 +69,7 @@ export class AlertService {
     let type = 'danger';
     let message = AlertService.formatMessage(error);
     let messages = error.messages ? error.messages : [];
-    this.showAlert(type, message, messages);
+    this.show(type, message, messages);
   }
 
   public handleSuccess(success: any) {
@@ -79,10 +79,10 @@ export class AlertService {
     let type = success.type;
     let message = AlertService.formatMessage(success);
     let messages = success.messages ? success.messages : [];
-    this.showAlert(type, message, messages);
+    this.show(type, message, messages);
   }
 
-  public showAlert(type: string, message: string, messages: string[] = []) {
+  public show(type: string, message: string, messages: string[] = []) {
     let alert: Alert = {
       type: <string> type,
       message: <string> message,

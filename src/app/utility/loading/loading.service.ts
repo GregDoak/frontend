@@ -4,6 +4,7 @@ import { LoadingInterface } from './loading.interface';
 
 @Injectable()
 export class LoadingService {
+  private counter = 1;
 
   public loadingStatus: BehaviorSubject<LoadingInterface> = new BehaviorSubject<LoadingInterface>({
     status: false,
@@ -12,15 +13,26 @@ export class LoadingService {
 
   private loading = true;
 
-  public clearLoading() {
-    this.showLoading(null);
+  public clear() {
+    this.counter--;
+    if (this.counter <= 0) {
+      this.show(null);
+    }
   }
 
-  public isLoading() {
+  public isLoading(): boolean {
     return this.loading;
   }
 
-  public showLoading(message: string) {
+  public isReady(): boolean {
+    return !this.loading;
+  }
+
+  public setCounter(counter: number) {
+    this.counter = counter;
+  }
+
+  public show(message: string) {
     this.loading = (message !== null);
     let loading: LoadingInterface = {
       status: this.loading,

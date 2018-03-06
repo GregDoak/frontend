@@ -1,11 +1,15 @@
 import { RoleInterface } from '../role/role.interface';
+import { GroupInterface } from '../group/group.interface';
 
 export interface UserInterface {
-  id: string,
+  id?: string,
   username: string,
-  lastLogin: string,
-  loginCount: number,
-  enabled: boolean,
-  createdOn: string,
+  password?: string;
+  confirmPassword?: string,
+  lastLogin?: string,
+  loginCount?: number,
+  enabled?: boolean,
+  createdOn?: string,
+  groups: GroupInterface[],
   roles: RoleInterface[]
 }

@@ -1,0 +1,31 @@
+.table-fixed {
+  table {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  thead, tfoot {
+    display: table;
+    width: calc(100% - 17px);
+  }
+
+  tbody {
+    display: block;
+    max-height: 50vh;
+    overflow-y: scroll;
+  }
+
+  tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  thead tr {
+    table-layout: fixed;
+  }
+
+  tbody tr:last-child {
+    border-bottom: 1px solid $table-border-color;
+  }
+}
