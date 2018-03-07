@@ -1,7 +1,7 @@
 export const tableConfig = {
   exporting: {
     enabled: true,
-    filename: 'export.csv'
+    filename: 'export'
   },
   filtering: {
     enabled: true,
@@ -25,5 +25,8 @@ export const tableConfig = {
       name: null,
       order: null
     }
+  },
+  toggling: {
+    enabled: true
   }
 };

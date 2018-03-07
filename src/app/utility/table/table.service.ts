@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { TableColumnInterface } from './table-column.interface';
 import { tableConfig } from './table.config';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 @Injectable()
 export class TableService {
@@ -10,36 +12,31 @@ export class TableService {
   private data: any[] = [];
   private rows: any[] = [];
 
-  public doExport() {
-    let rows: string[] = this.rows;
+  public doExport(type = 'csv') {
+    let rows: any[] = this.rows;
     if (!this.config.exporting.enabled || rows.length === 0) {
       return false;
     }
-    const replacer = (key, value) => value === null ? '' : value;
+    let replacer = (key, value) => value === null || value === undefined ? '' : value;
     const header = this.columns.map((column: TableColumnInterface) => {
-      return column.name !== null ? column.name : null;
-    });
-    let data: string[] = rows.map(
+      return column.name !== null && column.visible !== false ? column.name : null;
+    }).filter(column => column);
+
+    let data: any[] = rows.map(
       (row) => header.map(
         (fieldName) => JSON.stringify(row[fieldName], replacer)
-      ).join(','));
-    data.unshift(header.join(','));
-    let csv: string = data.join('\r\n');
+      )
+    );
 
-    let blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
-    if (navigator.msSaveBlob) {
-      navigator.msSaveBlob(blob, this.config.exporting.filename);
-    } else {
-      let link = document.createElement('a');
-      if (link.download !== undefined) {
-        let url = URL.createObjectURL(blob);
-        link.setAttribute('href', url);
-        link.setAttribute('download', this.config.exporting.filename);
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
+    switch (type.toLowerCase()) {
+      case 'csv':
+        this.exportCsv(header, data);
+        break;
+      case 'pdf':
+        this.exportPdf(header, data);
+        break;
+      default:
+        return false;
     }
   }
 
@@ -53,11 +50,26 @@ export class TableService {
   /**
    * @returns {any[]}
    */
+  public getData(): any[] {
+    return this.data;
+  }
+
+  /**
+   * @returns {any[]}
+   */
   public getRows(): any[] {
     return this.rows;
   }
 
-  public onChangeTable(): any {
+  /**
+   * @param {number} index
+   * @returns {boolean}
+   */
+  public isColumnVisible(index: number): boolean {
+    return this.columns[index].visible !== false;
+  }
+
+  public onChangeTable(): void {
     let filteredData = this.onChangeFilter();
     let sortedData = this.onChangeSort(filteredData);
     this.rows = this.onChangePage(sortedData);
@@ -94,10 +106,9 @@ export class TableService {
 
   /**
    * @param {number} index
-   * @returns {boolean}
    */
-  public isColumnVisible(index: number): boolean {
-    return this.columns[index].visible !== false;
+  public onToggleColumn(index: number): void {
+    this.columns[index].visible = !this.isColumnVisible(index);
   }
 
   /**
@@ -121,6 +132,38 @@ export class TableService {
   public setPageNumber(event: any) {
     this.config.pagination.page = event.page;
     this.onChangeTable();
+  }
+
+  /**
+   * @param {any[]} header
+   * @param {any[]} rows
+   */
+  private exportCsv(header: any[], rows: any[]): void {
+    rows.unshift(header.join(','));
+    let csv: string = rows.join('\r\n');
+
+    let blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+    if (navigator.msSaveBlob) {
+      navigator.msSaveBlob(blob, this.config.exporting.filename + '.csv');
+    } else {
+      let link = document.createElement('a');
+      if (link.download !== undefined) {
+        let url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', this.config.exporting.filename + '.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    }
+  }
+
+  private exportPdf(header: any[], rows: any[]): void {
+    console.log('here');
+    let pdf = new jsPDF();
+    pdf.autoTable(header, rows);
+    pdf.save(this.config.exporting.filename + '.pdf');
   }
 
   /**

@@ -6,11 +6,12 @@ import { UserService } from '../../entity/security/user/user.service';
 import { UserInterface } from '../../entity/security/user/user.interface';
 import { TableService } from '../../utility/table/table.service';
 import { TableColumnInterface } from '../../utility/table/table-column.interface';
+import { BsDropdownConfig } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-admin-user-list',
   templateUrl: 'list.component.html',
-  providers: [TableService, UserService]
+  providers: [{provide: BsDropdownConfig, useValue: {autoClose: false}}, TableService, UserService]
 })
 export class AdminUserListComponent implements OnInit, OnDestroy {
   public columns: TableColumnInterface[] = [
@@ -47,6 +48,7 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this.loadingService.show('Getting the users list...');
+    this.tableService.config.exporting.filename = 'users';
 
     this.userService.getUsers().subscribe(
       (response) => {

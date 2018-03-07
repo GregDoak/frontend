@@ -6,7 +6,7 @@ import { AdminUserCreateComponent } from './create.component';
 import { AdminUserDeleteComponent } from './delete.component';
 import { AdminUserUpdateComponent } from './update.component';
 import { CommonModule } from '@angular/common';
-import { PaginationModule, PopoverModule } from 'ngx-bootstrap';
+import { BsDropdownModule, PaginationModule, PopoverModule } from 'ngx-bootstrap';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -27,6 +27,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    BsDropdownModule.forRoot(),
     CommonModule,
     FormsModule,
     NgxSelectModule,
