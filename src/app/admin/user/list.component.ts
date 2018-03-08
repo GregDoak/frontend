@@ -17,7 +17,7 @@ import { LinkInterface } from '../../core/link/link.interface';
 export class AdminUserListComponent implements OnInit, OnDestroy {
   public tableHeaderBrand: TableHeaderBrandInterface = {
     title: 'Users',
-    icon: 'fas fa-fw fa-users'
+    icon: 'fas fa-fw fa-user'
   };
 
   public tableHeaderLinks: LinkInterface[] = [
