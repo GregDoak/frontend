@@ -10,17 +10,17 @@
             <app-table-columns [tableService]="tableService"></app-table-columns>
             </thead>
             <tbody>
-            <tr *ngFor="let user of tableService.getRows(); let index = index">
-              <td *ngIf="tableService.isColumnVisible(index)">
+            <tr *ngFor="let user of tableService.getRows()">
+              <td *ngIf="tableService.isColumnVisible(0)">
                 {{ user.username }}
               </td>
-              <td *ngIf="tableService.isColumnVisible(index)">
+              <td *ngIf="tableService.isColumnVisible(1)">
                 {{ user.loginCount }}
               </td>
-              <td *ngIf="tableService.isColumnVisible(index)">
+              <td *ngIf="tableService.isColumnVisible(2)">
                 {{ user.lastLogin | date:"dd/MM/yy HH:mm:ss" }}
               </td>
-              <td *ngIf="tableService.isColumnVisible(index)">
+              <td *ngIf="tableService.isColumnVisible(3)">
                 {{ user.roles.length }}
                 <!--suppress HtmlUnknownAttribute -->
                 <span *ngIf="user.roles.length > 0"
@@ -31,7 +31,7 @@
                   <i class="fas fa-1x fa-question-circle" aria-hidden="true"></i>
                 </span>
               </td>
-              <td *ngIf="tableService.isColumnVisible(index)">
+              <td *ngIf="tableService.isColumnVisible(4)">
                 <div class="badge badge-success" *ngIf="user.enabled">
                   Enabled
                 </div>
@@ -39,10 +39,10 @@
                   Disabled
                 </div>
               </td>
-              <td *ngIf="tableService.isColumnVisible(index)">
+              <td *ngIf="tableService.isColumnVisible(5)">
                 {{ user.createdOn | date:"dd/MM/yy HH:mm:ss" }}
               </td>
-              <td *ngIf="tableService.isColumnVisible(index)">
+              <td *ngIf="tableService.isColumnVisible(6)">
                 <div class="btn-group-sm" role="group">
                   <a [routerLink]="[ 'update', user.id ]" type="button" class="btn btn-warning">
                     <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>
