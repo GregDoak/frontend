@@ -17,23 +17,26 @@ export class TableService {
     if (!this.config.exporting.enabled || rows.length === 0) {
       return false;
     }
-    let replacer = (key, value) => value === null || value === undefined ? '' : value;
-    const header = this.columns.map((column: TableColumnInterface) => {
-      return column.name !== null && column.visible !== false ? column.name : null;
+
+    let headers: TableColumnInterface[] = this.columns.map((column: TableColumnInterface) => {
+      return column.name !== null && column.visible !== false ? column : null;
     }).filter(column => column);
 
     let data: any[] = rows.map(
-      (row) => header.map(
-        (fieldName) => JSON.stringify(row[fieldName], replacer)
+      (row) => headers.map(
+        (field) => {
+          let value = row[field.name];
+          return value === null || value === undefined ? '' : value;
+        }
       )
     );
 
     switch (type.toLowerCase()) {
       case 'csv':
-        this.exportCsv(header, data);
+        this.exportCsv(headers, data);
         break;
       case 'pdf':
-        this.exportPdf(header, data);
+        this.exportPdf(headers, data);
         break;
       default:
         return false;
@@ -87,7 +90,7 @@ export class TableService {
             sortOrder = 'desc';
             break;
           case 'desc':
-            sortOrder = null;
+            sortOrder = 'asc';
             break;
           default:
             sortOrder = 'asc';
@@ -135,12 +138,12 @@ export class TableService {
   }
 
   /**
-   * @param {any[]} header
+   * @param {TableColumnInterface[]} columns
    * @param {any[]} rows
    */
-  private exportCsv(header: any[], rows: any[]): void {
-    rows.unshift(header.join(','));
-    let csv: string = rows.join('\r\n');
+  private exportCsv(columns: TableColumnInterface[], rows: any[]): void {
+    let data = [columns.map((column: TableColumnInterface) => column.title)].concat(rows);
+    let csv: string = data.map((row) => row.map((column) => JSON.stringify(column))).join('\r\n');
 
     let blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
     if (navigator.msSaveBlob) {
@@ -159,8 +162,13 @@ export class TableService {
     }
   }
 
-  private exportPdf(header: any[], rows: any[]): void {
-    console.log('here');
+  /**
+   * @param {TableColumnInterface[]} columns
+   * @param {any[]} rows
+   */
+  private exportPdf(columns: TableColumnInterface[], rows: any[]): void {
+    let header = columns.map((column: TableColumnInterface) => column.title);
+
     let pdf = new jsPDF();
     pdf.autoTable(header, rows);
     pdf.save(this.config.exporting.filename + '.pdf');

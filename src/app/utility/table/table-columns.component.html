@@ -1,0 +1,24 @@
+<tr>
+  <ng-container *ngFor="let column of tableService.getColumns(); let index = index">
+    <th *ngIf="tableService.isColumnVisible(index)">
+      <div (click)="tableService.onSortColumn(column)">
+        <div class="float-left" role="button">
+          {{ column.title }}
+        </div>
+        <div class="float-right" role="button" *ngIf="tableService.config.sorting.enabled">
+          <div
+            *ngIf="column.name === tableService.config.sorting.column.name && 'asc' === tableService.config.sorting.column.order">
+            <i class="fas fa-fw fa-sort-up" aria-label="Ascending"></i>
+          </div>
+          <div
+            *ngIf="column.name === tableService.config.sorting.column.name && 'desc' === tableService.config.sorting.column.order">
+            <i class="fas fa-fw fa-sort-down" aria-label="Descending"></i>
+          </div>
+          <div *ngIf="column.name !== null && column.name !== tableService.config.sorting.column.name">
+            <i class="fas fa-fw fa-sort" aria-label="Sort"></i>
+          </div>
+        </div>
+      </div>
+    </th>
+  </ng-container>
+</tr>

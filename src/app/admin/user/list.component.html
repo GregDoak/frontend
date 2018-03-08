@@ -1,120 +1,26 @@
 <div class="animated fadeIn">
-  <nav class="navbar navbar-expand-lg bg-white">
-    <div class="navbar-brand">
-      <i class="fas fa-fw fa-users" aria-hidden="true"></i>
-      Users
-    </div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="navbar-toggler-icon"></i>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['create']">
-            <i class="fas fa-fw fa-user-plus" aria-hidden="true"></i>
-            Create
-          </a>
-        </li>
-      </ul>
-      <ul class="navbar-nav" *ngIf="tableService.config.exporting">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" (click)="false" id="columnsDropdown" role="button"
-             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-fw fa-columns" aria-hidden="true"></i>
-            Columns
-          </a>
-          <div class="dropdown-menu" aria-labelledby="columnsDropdown">
-            <button class="dropdown-item" type="button" (click)="tableService.onToggleColumn(index)"
-                    *ngFor="let column of tableService.getColumns();let index = index">
-              <span *ngIf="!tableService.isColumnVisible(index)">
-                <i class="far fa-fw fa-square" aria-label="Hidden"></i>
-              </span>
-              <span *ngIf="tableService.isColumnVisible(index)">
-                <i class="far fa-fw fa-check-square" aria-label="Shown"></i>
-              </span>
-              {{ column.title }}
-            </button>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" (click)="false" id="exportingDropdown" role="button"
-             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-fw fa-download" aria-hidden="true"></i>
-            Export
-          </a>
-          <div class="dropdown-menu" aria-labelledby="exportingDropdown">
-            <button class="dropdown-item" type="button" (click)="tableService.doExport('csv')">
-              <i class="far fa-fw fa-file" aria-hidden="true"></i>
-              As CSV
-            </button>
-            <button class="dropdown-item" type="button" (click)="tableService.doExport('pdf')">
-              <i class="far fa-fw fa-file-pdf" aria-hidden="true"></i>
-              As PDF
-            </button>
-          </div>
-        </li>
-      </ul>
-      <div class="form-inline my-2 my-lg-0">
-        <div class="input-group" *ngIf="tableService.config.filtering">
-          <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="fa fa-search fa-fw" aria-hidden="true"></i>
-              </span>
-          </div>
-          <input
-            type="text"
-            placeholder="{{ tableService.config.filtering.placeholder }}"
-            class="form-control mr-sm-2"
-            [(ngModel)]="tableService.config.filtering.searchTerm"
-            (keyup)="tableService.onChangeTable()">
-        </div>
-      </div>
-    </div>
-  </nav>
+  <app-table-header [tableService]="tableService" [tableHeaderBrand]="tableHeaderBrand"
+                    [links]="tableHeaderLinks"></app-table-header>
   <div class="row" *ngIf="loadingService.isReady()">
     <div class="col-12">
       <div class="card card-fixed">
         <div class="card-body card-body-fixed">
           <table class="table table-fixed table-striped">
             <thead>
-            <tr>
-              <ng-container *ngFor="let column of tableService.getColumns(); let index = index">
-                <th *ngIf="tableService.isColumnVisible(index)">
-                  <div (click)="tableService.onSortColumn(column)">
-                    <div class="float-left" role="button">
-                      {{ column.title }}
-                    </div>
-                    <div class="float-right" role="button">
-                      <span
-                        *ngIf="column.name === tableService.config.sorting.column.name && 'asc' === tableService.config.sorting.column.order">
-                        <i class="fas fa-fw fa-sort-up" aria-label="Ascending"></i>
-                      </span>
-                      <span
-                        *ngIf="column.name === tableService.config.sorting.column.name && 'desc' === tableService.config.sorting.column.order">
-                        <i class="fas fa-fw fa-sort-down" aria-label="Descending"></i>
-                      </span>
-                      <span *ngIf="column.name !== null">
-                        <i class="fas fa-fw fa-sort" aria-label="Sort"></i>
-                      </span>
-                    </div>
-                  </div>
-                </th>
-              </ng-container>
-            </tr>
+            <app-table-columns [tableService]="tableService"></app-table-columns>
             </thead>
             <tbody>
-            <tr *ngFor="let user of tableService.getRows()">
-              <td *ngIf="tableService.isColumnVisible(0)">
-                {{ user.username}}
+            <tr *ngFor="let user of tableService.getRows(); let index = index">
+              <td *ngIf="tableService.isColumnVisible(index)">
+                {{ user.username }}
               </td>
-              <td *ngIf="tableService.isColumnVisible(1)">
+              <td *ngIf="tableService.isColumnVisible(index)">
                 {{ user.loginCount }}
               </td>
-              <td *ngIf="tableService.isColumnVisible(2)">
+              <td *ngIf="tableService.isColumnVisible(index)">
                 {{ user.lastLogin | date:"dd/MM/yy HH:mm:ss" }}
               </td>
-              <td *ngIf="tableService.isColumnVisible(3)">
+              <td *ngIf="tableService.isColumnVisible(index)">
                 {{ user.roles.length }}
                 <!--suppress HtmlUnknownAttribute -->
                 <span *ngIf="user.roles.length > 0"
@@ -125,7 +31,18 @@
                   <i class="fas fa-1x fa-question-circle" aria-hidden="true"></i>
                 </span>
               </td>
-              <td *ngIf="tableService.isColumnVisible(4)">
+              <td *ngIf="tableService.isColumnVisible(index)">
+                <div class="badge badge-success" *ngIf="user.enabled">
+                  Enabled
+                </div>
+                <div class="badge badge-danger" *ngIf="!user.enabled">
+                  Disabled
+                </div>
+              </td>
+              <td *ngIf="tableService.isColumnVisible(index)">
+                {{ user.createdOn | date:"dd/MM/yy HH:mm:ss" }}
+              </td>
+              <td *ngIf="tableService.isColumnVisible(index)">
                 <div class="btn-group-sm" role="group">
                   <a [routerLink]="[ 'update', user.id ]" type="button" class="btn btn-warning">
                     <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>
@@ -147,26 +64,7 @@
             </tr>
             </tbody>
           </table>
-          <div class="container-fluid">
-            <pagination [directionLinks]="tableService.config.pagination.directionLinks"
-                        [boundaryLinks]="tableService.config.pagination.boundaryLinks"
-                        [totalItems]="tableService.config.pagination.collectionSize"
-                        [(ngModel)]="tableService.config.pagination.page"
-                        [itemsPerPage]="tableService.config.pagination.itemsPerPage"
-                        [maxSize]="tableService.config.pagination.maxSize"
-                        (pageChanged)="tableService.setPageNumber($event)"
-                        class="d-inline-flex">
-            </pagination>
-            <div class="d-inline-flex px-3">
-              <p class="text-muted">
-                Showing {{ tableService.config.pagination.start + 1 }} - {{ tableService.config.pagination.end }} of
-                {{ tableService.config.pagination.collectionSize}}
-                <span *ngIf="tableService.config.filtering.searchTerm !== ''">
-                  (filtered from {{ tableService.getData().length }} rows)
-                </span>
-              </p>
-            </div>
-          </div>
+          <app-table-pagination [tableService]="tableService"></app-table-pagination>
         </div>
       </div>
     </div>

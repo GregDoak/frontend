@@ -1,0 +1,77 @@
+<nav class="navbar navbar-expand-lg bg-white">
+  <div class="navbar-brand" *ngIf="tableHeaderBrand">
+    <i [class]="tableHeaderBrand.icon" aria-hidden="true" *ngIf="tableHeaderBrand.icon !== null"></i>
+    <ng-container *ngIf="tableHeaderBrand.title !== null">
+      {{ tableHeaderBrand.title }}
+    </ng-container>
+  </div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="fas fa-fw fa-bars"></i>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" *ngFor="let link of links">
+        <a class="nav-link" [routerLink]="[link.url]">
+          <i [class]="link.icon" aria-hidden="true" *ngIf="link.icon !== null"></i>
+          <ng-container *ngIf="link.title !== null">
+            {{ link.title }}
+          </ng-container>
+        </a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown" *ngIf="tableService.config.toggling.enabled">
+        <a class="nav-link dropdown-toggle" (click)="false" id="columnsDropdown" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-fw fa-columns" aria-hidden="true"></i>
+          Columns
+        </a>
+        <div class="dropdown-menu" aria-labelledby="columnsDropdown">
+          <button class="dropdown-item" type="button" (click)="tableService.onToggleColumn(index)"
+                  *ngFor="let column of tableService.getColumns();let index = index">
+              <span *ngIf="!tableService.isColumnVisible(index)">
+                <i class="far fa-fw fa-square" aria-label="Hidden"></i>
+              </span>
+            <span *ngIf="tableService.isColumnVisible(index)">
+                <i class="far fa-fw fa-check-square" aria-label="Shown"></i>
+              </span>
+            {{ column.title }}
+          </button>
+        </div>
+      </li>
+      <li class="nav-item dropdown" *ngIf="tableService.config.exporting.enabled">
+        <a class="nav-link dropdown-toggle" (click)="false" id="exportingDropdown" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-fw fa-download" aria-hidden="true"></i>
+          Export
+        </a>
+        <div class="dropdown-menu" aria-labelledby="exportingDropdown">
+          <button class="dropdown-item" type="button" (click)="tableService.doExport('csv')">
+            <i class="far fa-fw fa-file" aria-hidden="true"></i>
+            As CSV
+          </button>
+          <button class="dropdown-item" type="button" (click)="tableService.doExport('pdf')">
+            <i class="far fa-fw fa-file-pdf" aria-hidden="true"></i>
+            As PDF
+          </button>
+        </div>
+      </li>
+    </ul>
+    <div class="form-inline my-2 my-lg-0">
+      <div class="input-group" *ngIf="tableService.config.filtering.enabled">
+        <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-search fa-fw" aria-hidden="true"></i>
+              </span>
+        </div>
+        <input
+          type="text"
+          placeholder="{{ tableService.config.filtering.placeholder }}"
+          class="form-control mr-sm-2"
+          [(ngModel)]="tableService.config.filtering.searchTerm"
+          (keyup)="tableService.onChangeTable()">
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,20 @@
+<div class="container-fluid" *ngIf="tableService.config.pagination.enabled">
+  <pagination [directionLinks]="tableService.config.pagination.directionLinks"
+              [boundaryLinks]="tableService.config.pagination.boundaryLinks"
+              [totalItems]="tableService.config.pagination.collectionSize"
+              [(ngModel)]="tableService.config.pagination.page"
+              [itemsPerPage]="tableService.config.pagination.itemsPerPage"
+              [maxSize]="tableService.config.pagination.maxSize"
+              (pageChanged)="tableService.setPageNumber($event)"
+              class="d-inline-flex">
+  </pagination>
+  <div class="d-inline-flex px-3">
+    <p class="text-muted">
+      Showing {{ tableService.config.pagination.start + 1 }} - {{ tableService.config.pagination.end }} of
+      {{ tableService.config.pagination.collectionSize}}
+      <span *ngIf="tableService.config.filtering.searchTerm !== ''">
+        (filtered from {{ tableService.getData().length }} rows)
+      </span>
+    </p>
+  </div>
+</div>

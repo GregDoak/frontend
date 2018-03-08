@@ -6,14 +6,28 @@ import { UserService } from '../../entity/security/user/user.service';
 import { UserInterface } from '../../entity/security/user/user.interface';
 import { TableService } from '../../utility/table/table.service';
 import { TableColumnInterface } from '../../utility/table/table-column.interface';
-import { BsDropdownConfig } from 'ngx-bootstrap';
+import { TableHeaderBrandInterface } from '../../utility/table/table-header-brand.interface';
+import { LinkInterface } from '../../core/link/link.interface';
 
 @Component({
   selector: 'app-admin-user-list',
   templateUrl: 'list.component.html',
-  providers: [{provide: BsDropdownConfig, useValue: {autoClose: false}}, TableService, UserService]
+  providers: [UserService]
 })
 export class AdminUserListComponent implements OnInit, OnDestroy {
+  public tableHeaderBrand: TableHeaderBrandInterface = {
+    title: 'Users',
+    icon: 'fas fa-fw fa-users'
+  };
+
+  public tableHeaderLinks: LinkInterface[] = [
+    {
+      url: 'create',
+      title: 'Create',
+      icon: 'fas fa=fw fa-user-plus'
+    }
+  ];
+
   public columns: TableColumnInterface[] = [
     {
       title: 'Username',
@@ -30,6 +44,14 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
     {
       title: 'Security Roles',
       name: null
+    },
+    {
+      title: 'Enabled',
+      name: 'enabled'
+    },
+    {
+      title: 'Created On',
+      name: 'createdOn'
     },
     {
       title: 'Actions',

@@ -6,9 +6,10 @@ import { AdminUserCreateComponent } from './create.component';
 import { AdminUserDeleteComponent } from './delete.component';
 import { AdminUserUpdateComponent } from './update.component';
 import { CommonModule } from '@angular/common';
-import { BsDropdownModule, PaginationModule, PopoverModule } from 'ngx-bootstrap';
+import { PopoverModule } from 'ngx-bootstrap';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TableModule } from '../../utility/table/table.module';
 
 const COMPONENTS = [
   AdminUserCreateComponent,
@@ -27,14 +28,13 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    BsDropdownModule.forRoot(),
     CommonModule,
     FormsModule,
     NgxSelectModule,
-    PaginationModule.forRoot(),
     PopoverModule.forRoot(),
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    TableModule
   ],
   declarations: [...COMPONENTS],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
