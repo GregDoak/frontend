@@ -1,15 +1,15 @@
 <div class="container-fluid">
   <div class="animated fadeIn">
     <div class="row py-3" *ngIf="loadingService.isReady()">
-      <div class="col-12">
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-5">
         <div class="card">
           <div class="card-header">
             <i class="fas fa-user fa-fw" aria-hidden="true"></i>
             Create User
           </div>
           <div class="card-body">
-            <div class="col-xs-12 col-sm-12 col-md-4">
-              <form [formGroup]="createForm" novalidate>
+            <div class="col-12">
+              <form [formGroup]="createForm" (submit)="onSubmit(createForm)" novalidate>
                 <div class="form-group">
                   <div class="input-group">
                     <div class="input-group-prepend">
@@ -17,8 +17,14 @@
                       <i class="fas fa-user fa-fw"></i>
                     </span>
                     </div>
-                    <input class="form-control" name="username" placeholder="Username" type="text"
-                           [formControl]="createForm.get('username')">
+                    <input class="form-control" name="username" placeholder="Username" type="text" title="Username"
+                           [formControl]="createForm.get('username')"
+                           [ngClass]="{'is-invalid':createForm.get('username').hasError('required') && submitted}">
+                  </div>
+                  <div
+                    *ngIf="createForm.get('username').hasError('required') && submitted"
+                    class="text-danger">
+                    The username is a required field.
                   </div>
                 </div>
                 <div class="form-group">
@@ -28,8 +34,14 @@
                       <i class="fas fa-asterisk fa-fw"></i>
                     </span>
                     </div>
-                    <input class="form-control" name="password" placeholder="Password" type="password"
-                           [formControl]="createForm.get('password')">
+                    <input class="form-control" name="password" placeholder="Password" type="password" title="Password"
+                           [formControl]="createForm.get('password')"
+                           [ngClass]="{'is-invalid':createForm.get('password').hasError('required') && submitted}">
+                  </div>
+                  <div
+                    *ngIf="createForm.get('password').hasError('required') && submitted"
+                    class="text-danger">
+                    The Password is a required field.
                   </div>
                 </div>
                 <div class="form-group">
@@ -40,7 +52,19 @@
                     </span>
                     </div>
                     <input class="form-control" name="confirmPassword" placeholder="Confirm Password" type="password"
-                           [formControl]="createForm.get('confirmPassword')">
+                           title="Confirm Password"
+                           [formControl]="createForm.get('confirmPassword')"
+                           [ngClass]="{'is-invalid':(createForm.get('confirmPassword').hasError('required') || createForm.get('confirmPassword').hasError('matchPassword')) && submitted}">
+                  </div>
+                  <div
+                    *ngIf="createForm.get('confirmPassword').hasError('required') && submitted"
+                    class="text-danger">
+                    The Confirm Password is a required field.
+                  </div>
+                  <div
+                    *ngIf="createForm.get('confirmPassword').hasError('matchPassword') && submitted"
+                    class="text-danger">
+                    The Confirm Password must match the password field.
                   </div>
                 </div>
                 <div class="form-group">
@@ -52,7 +76,7 @@
                     </div>
                     <ngx-select [multiple]="true" [items]="groups" optionTextField="title"
                                 [formControl]="createForm.get('groups')" class="form-control ng2-select"
-                                placeholder="Groups">
+                                placeholder="Groups" title="Groups">
                       <ng-template ngx-select-option let-option let-text="text">
                         <span [innerHtml]="text" [title]="option.data.description"></span>&nbsp;
                         <i class="fas fa-1x fa-fw fa-question-circle" aria-hidden="true"></i>
@@ -69,7 +93,7 @@
                     </div>
                     <ngx-select [multiple]="true" [items]="roles" optionTextField="title"
                                 [formControl]="createForm.get('roles')" class="form-control ng2-select"
-                                placeholder="Roles">
+                                placeholder="Roles" title="Roles">
                       <ng-template ngx-select-option let-option let-text="text">
                         <span [innerHtml]="text" [title]="option.data.description"></span>&nbsp;
                         <i class="fas fa-1x fa-fw fa-question-circle" aria-hidden="true"></i>
@@ -77,19 +101,22 @@
                     </ngx-select>
                   </div>
                 </div>
+                <div class="form-group">
+                  <button class="btn btn-primary" [disabled]="processing">
+                    <i class="far fa-fw fa-save" aria-hidden="true"></i>
+                    Save
+                  </button>
+                  <button type="button" class="btn btn-danger" (click)="createForm.reset();">
+                    <i class="fas fa-fw fa-undo" aria-hidden="true"></i>
+                    Reset
+                  </button>
+                  <a [routerLink]="['/admin/users']" class="btn btn-warning">
+                    <i class="fas fa-fw fa-times" aria-hidden="true"></i>
+                    Cancel
+                  </a>
+                </div>
               </form>
             </div>
-          </div>
-          <div class="card-footer">
-            <button type="button" class="btn btn-sm btn-primary" (click)="onSubmit(createForm)">
-              Submit
-            </button>
-            <button type="button" class="btn btn-sm btn-danger">
-              Reset
-            </button>
-            <a [routerLink]="['/admin/users']" class="btn btn-sm btn-warning">
-              Cancel
-            </a>
           </div>
         </div>
       </div>

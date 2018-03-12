@@ -10,6 +10,7 @@ import { RoleService } from '../../entity/security/role/role.service';
 import { Router } from '@angular/router';
 import { UserInterface } from '../../entity/security/user/user.interface';
 import { UserService } from '../../entity/security/user/user.service';
+import { PasswordValidator } from '../../utility/validators/password.validator';
 
 
 @Component({
@@ -34,12 +35,14 @@ export class AdminUserCreateComponent implements OnInit, OnDestroy {
               private router: Router,
               private userService: UserService) {
 
-    this.createForm = formBuilder.group({
+    this.createForm = this.formBuilder.group({
       username: [null, Validators.required],
       password: [null, Validators.required],
       confirmPassword: [null, Validators.required],
       groups: [null],
       roles: [null]
+    }, {
+      validator: [PasswordValidator.matchPassword]
     });
   }
 
@@ -87,6 +90,7 @@ export class AdminUserCreateComponent implements OnInit, OnDestroy {
           this.router.navigate(['/admin/users']).catch(() => 'Routing Error');
         },
         (error) => {
+          this.processing = false;
           this.alertService.handleError(error);
           this.loadingService.clear();
         }

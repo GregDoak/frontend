@@ -22,7 +22,7 @@ export class UserService {
   }
 
   public update(user: UserInterface): Observable<object> {
-    return this.http.put(process.env.API_URL + 'admin/user', user).pipe();
+    return this.http.put(process.env.API_URL + 'admin/user/' + user.id, user).pipe();
   }
 
   public delete(user: UserInterface): Observable<object> {
