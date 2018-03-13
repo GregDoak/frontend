@@ -5,6 +5,9 @@ import { AdminGroupCreateComponent } from './create.component';
 import { AdminGroupDeleteComponent } from './delete.component';
 import { AdminGroupListComponent } from './list.component';
 import { AdminGroupUpdateComponent } from './update.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TableModule } from '../../utility/table/table.module';
+import { CommonModule } from '@angular/common';
 
 const COMPONENTS = [
   AdminGroupCreateComponent,
@@ -23,7 +26,11 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forChild(routes)
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(routes),
+    TableModule
   ],
   declarations: [...COMPONENTS]
 })

@@ -1,4 +1,4 @@
-export interface CronInterface {
+export interface CronJobTaskInterface {
   id: number,
   command: string,
   startDate: string,

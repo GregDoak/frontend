@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { P404Component } from '../../core/pages/404.component';
 import { AdminAuditListComponent } from './list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TableModule } from '../../utility/table/table.module';
+import { CommonModule } from '@angular/common';
 
 const COMPONENTS = [
   AdminAuditListComponent
@@ -14,7 +17,11 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forChild(routes)
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(routes),
+    TableModule
   ],
   declarations: [...COMPONENTS]
 })

@@ -1,1 +1,71 @@
-create roles
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row py-3" *ngIf="loadingService.isReady()">
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-lock fa-fw" aria-hidden="true"></i>
+            Create Role
+          </div>
+          <div class="card-body">
+            <div class="col-12">
+              <form [formGroup]="createForm" (submit)="onSubmit(createForm)" novalidate>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-bookmark fa-fw" aria-hidden="true"></i>
+                    </span>
+                    </div>
+                    <input class="form-control" name="title" placeholder="Title" type="text" title="Title"
+                           [formControl]="createForm.get('title')"
+                           [ngClass]="{'is-invalid':createForm.get('title').hasError('required') && submitted}">
+                  </div>
+                  <p class="text-muted">
+                    <i class="fas fa-question-circle fa-fw" aria-hidden="true"></i>
+                    Roles should be prefixed with ROLE_ and in SNAKE_CASE
+                  </p>
+                  <div
+                    *ngIf="createForm.get('title').hasError('required') && submitted"
+                    class="text-danger">
+                    The title is a required field.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fas fa-fw fa-quote-left" aria-hidden="true"></i>
+                      </span>
+                    </div>
+                    <textarea class="form-control" name="description" placeholder="Description" title="Description"
+                              rows="5" maxlength="1000" [formControl]="createForm.get('description')"
+                              [ngClass]="{'is-invalid':createForm.get('description').hasError('required') && submitted}"></textarea>
+                  </div>
+                  <p class="text-muted">
+                    {{ 1000 - (createForm.get('description').value !== null ? createForm.get('description').value.length
+                    : 0) }} characters remaining.
+                  </p>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary" [disabled]="processing">
+                    <i class="far fa-fw fa-save" aria-hidden="true"></i>
+                    Save
+                  </button>
+                  <button type="button" class="btn btn-danger" (click)="createForm.reset();">
+                    <i class="fas fa-fw fa-undo" aria-hidden="true"></i>
+                    Reset
+                  </button>
+                  <a [routerLink]="['/admin/roles']" class="btn btn-warning">
+                    <i class="fas fa-fw fa-times" aria-hidden="true"></i>
+                    Cancel
+                  </a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

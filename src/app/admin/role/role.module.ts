@@ -5,6 +5,9 @@ import { AdminRoleCreateComponent } from './create.component';
 import { AdminRoleDeleteComponent } from './delete.component';
 import { AdminRoleListComponent } from './list.component';
 import { AdminRoleUpdateComponent } from './update.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { TableModule } from '../../utility/table/table.module';
 
 const COMPONENTS = [
   AdminRoleCreateComponent,
@@ -23,7 +26,11 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forChild(routes)
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(routes),
+    TableModule
   ],
   declarations: [...COMPONENTS]
 })

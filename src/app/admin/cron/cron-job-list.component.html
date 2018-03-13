@@ -10,28 +10,30 @@
             <app-table-columns [tableService]="tableService"></app-table-columns>
             </thead>
             <tbody>
-            <tr *ngFor="let group of tableService.getRows()">
+            <tr *ngFor="let cronJob of tableService.getRows()">
               <td *ngIf="tableService.isColumnVisible(0)">
-                {{ group.title }}
+                {{ cronJob.hostname }}
               </td>
               <td *ngIf="tableService.isColumnVisible(1)">
-                {{ group.description }}
+                {{ cronJob.pid }}
               </td>
               <td *ngIf="tableService.isColumnVisible(2)">
-                {{ group.createdOn | date:"dd/MM/yy HH:mm:ss" }}
+                {{ cronJob.startDate | date:"dd/MM/yy HH:mm:ss" }}
               </td>
               <td *ngIf="tableService.isColumnVisible(3)">
-                {{ group.updatedOn }}
+                {{ cronJob.endDate | date:"dd/MM/yy HH:mm:ss" }}
               </td>
               <td *ngIf="tableService.isColumnVisible(4)">
+                {{ cronJob.endDate | amDifference: cronJob.startDate :'seconds' : true : 0}} seconds
+              </td>
+              <td *ngIf="tableService.isColumnVisible(5)">
+                {{ cronJob.tasks.length }}
+              </td>
+              <td *ngIf="tableService.isColumnVisible(6)">
                 <div class="btn-group-sm" role="group">
-                  <a [routerLink]="[ 'update', group.id ]" type="button" class="btn btn-warning">
+                  <a [routerLink]="[ 'update', cronJob.id ]" type="button" class="btn btn-warning">
                     <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>
-                    Update
-                  </a>
-                  <a [routerLink]="['delete', group.id]" type="button" class="btn btn-danger">
-                    <i class="fas fa-trash-alt fa-fw" aria-hidden="true"></i>
-                    Delete
+                    View
                   </a>
                 </div>
               </td>

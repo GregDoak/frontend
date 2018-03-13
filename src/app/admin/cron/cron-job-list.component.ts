@@ -1,24 +1,24 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../core/authentication/authentication.service';
-import { GroupInterface } from '../../entity/security/group/group.interface';
-import { GroupService } from '../../entity/security/group/group.service';
+import { CronJobService } from './cron-job.service';
 import { AlertService } from '../../utility/alert/alert.service';
 import { LoadingService } from '../../utility/loading/loading.service';
 import { TableService } from '../../utility/table/table.service';
-import { TableColumnInterface } from '../../utility/table/table-column.interface';
-import { LinkInterface } from '../../core/link/link.interface';
 import { TableHeaderBrandInterface } from '../../utility/table/table-header-brand.interface';
+import { LinkInterface } from '../../core/link/link.interface';
+import { TableColumnInterface } from '../../utility/table/table-column.interface';
+import { CronJobInterface } from './cron-job.interface';
 
 @Component({
-  selector: 'app-admin-group-list',
-  templateUrl: 'list.component.html',
-  providers: [GroupService]
+  selector: 'app-admin-cron-list',
+  templateUrl: 'cron-job-list.component.html',
+  providers: [CronJobService]
 })
-export class AdminGroupListComponent implements OnInit, OnDestroy {
+export class AdminCronJobListComponent implements OnInit, OnDestroy {
 
   public tableHeaderBrand: TableHeaderBrandInterface = {
-    title: 'Groups',
-    icon: 'fas fa-fw fa-users'
+    title: 'Cron Jobs',
+    icon: 'fas fa-fw fa-clock'
   };
 
   public tableHeaderLinks: LinkInterface[] = [
@@ -31,20 +31,28 @@ export class AdminGroupListComponent implements OnInit, OnDestroy {
 
   public columns: TableColumnInterface[] = [
     {
-      title: 'Title',
-      name: 'title'
+      title: 'Host Name',
+      name: 'hostname'
     },
     {
-      title: 'Description',
-      name: 'description'
+      title: 'Process ID',
+      name: 'pid'
     },
     {
-      title: 'Created On',
-      name: 'createdOn'
+      title: 'Start Date',
+      name: 'startDate'
     },
     {
-      title: 'Updated On',
-      name: 'updatedOn'
+      title: 'End Date',
+      name: 'endDate'
+    },
+    {
+      title: 'Duration',
+      name: null
+    },
+    {
+      title: 'Tasks',
+      name: 'tasks'
     },
     {
       title: 'Actions',
@@ -52,24 +60,25 @@ export class AdminGroupListComponent implements OnInit, OnDestroy {
     }
   ];
 
-  public groups: GroupInterface[];
+  public cronJobs: CronJobInterface[];
 
   constructor(public alertService: AlertService,
               public authenticationService: AuthenticationService,
-              private groupService: GroupService,
+              private cronJobService: CronJobService,
               public loadingService: LoadingService,
               public tableService: TableService) {
   }
 
   public ngOnInit() {
-    this.loadingService.show('Getting the group list...');
-    this.tableService.config.exporting.filename = 'groups';
+    this.loadingService.show('Getting the cron job list...');
+    this.tableService.config.exporting.filename = 'cron-jobs';
 
-    this.groupService.getGroups().subscribe(
+    this.cronJobService.getCronJobs().subscribe(
       (response) => {
-        this.groups = response['data'];
+        this.cronJobs = response['data'];
         this.tableService.setColumns(this.columns);
-        this.tableService.setData(this.groups);
+        this.tableService.setData(this.cronJobs);
+        this.tableService.onSortColumn(this.columns[3], 'desc');
         this.loadingService.clear();
       },
       (error) => this.alertService.handleError(error)

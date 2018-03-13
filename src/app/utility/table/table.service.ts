@@ -80,10 +80,10 @@ export class TableService {
 
   /**
    * @param {TableColumnInterface} column
+   * @param {string} sortOrder
    */
-  public onSortColumn(column: TableColumnInterface) {
+  public onSortColumn(column: TableColumnInterface, sortOrder = 'asc') {
     if (column.name) {
-      let sortOrder = 'asc';
       if (this.config.sorting.column.name === column.name) {
         switch (this.config.sorting.column.order) {
           case 'asc':

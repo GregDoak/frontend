@@ -61,6 +61,5 @@ export class AdminUserDeleteComponent implements OnInit, OnDestroy {
         this.loadingService.clear();
       }
     );
-
   }
 }

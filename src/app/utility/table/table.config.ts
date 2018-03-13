@@ -12,9 +12,9 @@ export const tableConfig = {
     enabled: true,
     boundaryLinks: true,
     collectionSize: 0,
-    directionLinks: false,
+    directionLinks: true,
     end: 0,
-    itemsPerPage: 15,
+    itemsPerPage: 10,
     maxSize: 5,
     page: 1,
     start: 0
