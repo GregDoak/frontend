@@ -44,7 +44,7 @@ export class AdminRoleDeleteComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit() {
-    this.loadingService.show('Deleting User...');
+    this.loadingService.show('Deleting Role...');
     this.processing = true;
     let role: RoleInterface = {
       id: this.role.id

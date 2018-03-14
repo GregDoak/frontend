@@ -35,6 +35,18 @@ export class AdminUserUpdateComponent implements OnInit, OnDestroy {
               private userService: UserService) {
   }
 
+  public buildForm() {
+    this.updateForm = this.formBuilder.group({
+      username: [this.user.username, Validators.required],
+      groups: [this.user.groups.map((group: GroupInterface) => {
+        return group.id
+      })],
+      roles: [this.user.roles.map((role: RoleInterface) => {
+        return role.id
+      })]
+    });
+  }
+
   public ngOnInit() {
     this.loadingService.setCounter(3);
     this.loadingService.show('Generating the form...');
@@ -80,6 +92,7 @@ export class AdminUserUpdateComponent implements OnInit, OnDestroy {
       let user: UserInterface = {
         id: this.user.id,
         username: form.value.username,
+        groups: form.value.groups,
         roles: form.value.roles
       };
       this.userService.update(user).subscribe(
@@ -97,12 +110,41 @@ export class AdminUserUpdateComponent implements OnInit, OnDestroy {
     }
   }
 
-  private buildForm() {
-    this.updateForm = this.formBuilder.group({
-      username: [this.user.username, Validators.required],
-      roles: [this.user.roles.map((role: RoleInterface) => {
-        return role.id
-      })]
-    });
+  public onUpdateGroup(groupId: string, action = 'add') {
+    for (let group of this.groups) {
+      if (group.id === groupId) {
+        let groupRoles = group.roles.map((role: RoleInterface) => {
+          return role.id;
+        });
+        let valueRoles = [];
+        if (action === 'add') {
+          valueRoles = this.addRoles(groupRoles);
+        } else {
+          valueRoles = this.removeRoles(groupRoles);
+        }
+        console.log(groupRoles, valueRoles, action);
+        this.updateForm.get('roles').setValue(valueRoles);
+      }
+    }
+  }
+
+  /**
+   * @param {any[]} groupRoles
+   * @returns {any[]}
+   */
+  private removeRoles(groupRoles: any[]): any[] {
+    let valueRoles = this.updateForm.get('roles').value;
+    for (let roleId of groupRoles) {
+      let index = valueRoles.indexOf(roleId);
+      if (index > -1) {
+        valueRoles.splice(index, 1);
+      }
+    }
+    return valueRoles;
+  }
+
+  private addRoles(groupRoles: any[]): any[] {
+    let valueRoles = this.updateForm.get('roles').value;
+    return valueRoles.concat(groupRoles);
   }
 }

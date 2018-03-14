@@ -27,6 +27,13 @@ export class AdminRoleUpdateComponent implements OnInit, OnDestroy {
               private router: Router) {
   }
 
+  public buildForm() {
+    this.updateForm = this.formBuilder.group({
+      title: [this.role.title, Validators.required],
+      description: [this.role.description, Validators.required]
+    });
+  }
+
   public ngOnInit() {
     this.loadingService.setCounter(1);
     this.loadingService.show('Generating the form...');
@@ -71,12 +78,5 @@ export class AdminRoleUpdateComponent implements OnInit, OnDestroy {
         }
       );
     }
-  }
-
-  private buildForm() {
-    this.updateForm = this.formBuilder.group({
-      title: [this.role.title, Validators.required],
-      description: [this.role.description, Validators.required]
-    });
   }
 }

@@ -8,6 +8,8 @@ import { AdminGroupUpdateComponent } from './update.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from '../../utility/table/table.module';
 import { CommonModule } from '@angular/common';
+import { NgxSelectModule } from 'ngx-select-ex';
+import { PopoverModule } from 'ngx-bootstrap';
 
 const COMPONENTS = [
   AdminGroupCreateComponent,
@@ -28,6 +30,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    NgxSelectModule,
+    PopoverModule.forRoot(),
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     TableModule

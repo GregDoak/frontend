@@ -39,6 +39,10 @@ export class AdminGroupListComponent implements OnInit, OnDestroy {
       name: 'description'
     },
     {
+      title: 'Roles',
+      name: null
+    },
+    {
       title: 'Created On',
       name: 'createdOn'
     },

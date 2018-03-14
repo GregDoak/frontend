@@ -1,1 +1,93 @@
-update group
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row py-3" *ngIf="loadingService.isReady()">
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-users fa-fw" aria-hidden="true"></i>
+            Update Group
+          </div>
+          <div class="card-body">
+            <div class="col-12">
+              <form [formGroup]="updateForm" (submit)="onSubmit(updateForm)" novalidate>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-bookmark fa-fw" aria-hidden="true"></i>
+                    </span>
+                    </div>
+                    <input class="form-control" name="title" placeholder="Title" type="text" title="Title"
+                           [formControl]="updateForm.get('title')"
+                           [ngClass]="{'is-invalid':updateForm.get('title').hasError('required') && submitted}">
+                  </div>
+                  <p class="text-muted">
+                    <i class="fas fa-question-circle fa-fw" aria-hidden="true"></i>
+                    Groups should be prefixed with GROUP_ and in SNAKE_CASE
+                  </p>
+                  <div
+                    *ngIf="updateForm.get('title').hasError('required') && submitted"
+                    class="text-danger">
+                    The title is a required field.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fas fa-fw fa-quote-left" aria-hidden="true"></i>
+                      </span>
+                    </div>
+                    <textarea class="form-control" name="description" placeholder="Description" title="Description"
+                              rows="5" maxlength="1000" [formControl]="updateForm.get('description')"
+                              [ngClass]="{'is-invalid':updateForm.get('description').hasError('required') && submitted}"></textarea>
+                  </div>
+                  <p class="text-muted">
+                    {{ 1000 - (updateForm.get('description').value !== null ? updateForm.get('description').value.length
+                    : 0) }} characters remaining.
+                  </p>
+                  <div
+                    *ngIf="updateForm.get('description').hasError('required') && submitted"
+                    class="text-danger">
+                    The description is a required field.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-lock fa-fw"></i>
+                    </span>
+                    </div>
+                    <ngx-select [multiple]="true" [items]="roles" optionTextField="title"
+                                [formControl]="updateForm.get('roles')" class="form-control ng2-select"
+                                placeholder="Roles" title="Roles">
+                      <ng-template ngx-select-option let-option let-text="text">
+                        <span [innerHtml]="text" [title]="option.data.description"></span>&nbsp;
+                        <i class="fas fa-1x fa-fw fa-question-circle" aria-hidden="true"></i>
+                      </ng-template>
+                    </ngx-select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary" [disabled]="processing">
+                    <i class="far fa-fw fa-save" aria-hidden="true"></i>
+                    Save
+                  </button>
+                  <button type="button" class="btn btn-danger" (click)="buildForm();">
+                    <i class="fas fa-fw fa-undo" aria-hidden="true"></i>
+                    Reset
+                  </button>
+                  <a [routerLink]="['/admin/groups']" class="btn btn-warning">
+                    <i class="fas fa-fw fa-times" aria-hidden="true"></i>
+                    Cancel
+                  </a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

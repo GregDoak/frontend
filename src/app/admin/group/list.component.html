@@ -18,12 +18,23 @@
                 {{ group.description }}
               </td>
               <td *ngIf="tableService.isColumnVisible(2)">
-                {{ group.createdOn | date:"dd/MM/yy HH:mm:ss" }}
+                {{ group.roles.length }}
+                <!--suppress HtmlUnknownAttribute -->
+                <span *ngIf="group.roles.length > 0"
+                      [popover]="rolesTemplate"
+                      popoverTitle="Roles"
+                      placement="right"
+                      triggers="mouseenter:mouseleave">
+                  <i class="fas fa-1x fa-question-circle" aria-hidden="true"></i>
+                </span>
               </td>
               <td *ngIf="tableService.isColumnVisible(3)">
-                {{ group.updatedOn }}
+                {{ group.createdOn | date:"dd/MM/yy HH:mm:ss" }}
               </td>
               <td *ngIf="tableService.isColumnVisible(4)">
+                {{ group.updatedOn | date:"dd/MM/yy HH:mm:ss" }}
+              </td>
+              <td *ngIf="tableService.isColumnVisible(5)">
                 <div class="btn-group-sm" role="group">
                   <a [routerLink]="[ 'update', group.id ]" type="button" class="btn btn-warning">
                     <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>
@@ -35,6 +46,13 @@
                   </a>
                 </div>
               </td>
+              <ng-template #rolesTemplate>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let role of group.roles">
+                    {{ role.title }}
+                  </li>
+                </ul>
+              </ng-template>
             </tr>
             </tbody>
           </table>

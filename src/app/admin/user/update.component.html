@@ -31,6 +31,24 @@
                   <div class="input-group">
                     <div class="input-group-prepend">
                     <span class="input-group-text">
+                      <i class="fas fa-users fa-fw"></i>
+                    </span>
+                    </div>
+                    <ngx-select [multiple]="true" [items]="groups" (remove)="onUpdateGroup($event, 'remove')"
+                                (select)="onUpdateGroup($event)" optionTextField="title"
+                                [formControl]="updateForm.get('groups')" class="form-control ng2-select"
+                                placeholder="Groups" title="Groups">
+                      <ng-template ngx-select-option let-option let-text="text">
+                        <span [innerHtml]="text" [title]="option.data.description"></span>&nbsp;
+                        <i class="fas fa-1x fa-fw fa-question-circle" aria-hidden="true"></i>
+                      </ng-template>
+                    </ngx-select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">
                       <i class="fas fa-lock fa-fw"></i>
                     </span>
                     </div>
@@ -49,7 +67,7 @@
                     <i class="far fa-fw fa-save" aria-hidden="true"></i>
                     Save
                   </button>
-                  <button type="button" class="btn btn-danger" (click)="updateForm.reset();">
+                  <button type="button" class="btn btn-danger" (click)="buildForm();">
                     <i class="fas fa-fw fa-undo" aria-hidden="true"></i>
                     Reset
                   </button>
