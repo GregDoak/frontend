@@ -1,1 +1,46 @@
-list of audits
+<div class="animated fadeIn">
+  <app-table-header [tableService]="tableService" [tableHeaderBrand]="tableHeaderBrand"></app-table-header>
+  <div class="row" *ngIf="loadingService.isReady()">
+    <div class="col-12">
+      <div class="card card-fixed">
+        <div class="card-body card-body-fixed">
+          <table class="table table-fixed table-striped">
+            <thead>
+            <app-table-columns [tableService]="tableService"></app-table-columns>
+            </thead>
+            <tbody>
+            <tr *ngFor="let auditLog of tableService.getRows()">
+              <td *ngIf="tableService.isColumnVisible(0)" class="w-50">
+                <div *ngIf="!auditLog['target']">
+                  {{ auditLog.action | titlecase }} {{ auditLog.source.interface }} {{ auditLog.source.entity.title }}
+                  from table {{ auditLog.table }} by {{ auditLog.updatedBy.entity.username }}
+                </div>
+                <div *ngIf="auditLog['target']">
+                  {{ auditLog.action | titlecase }} {{ auditLog.target.interface }} {{ auditLog.target.entity.title }}
+                  from {{ auditLog.source.interface }} {{ auditLog.source.entity.title }} from table
+                  {{ auditLog.table }} by {{ auditLog.updatedBy.entity.username }}
+                </div>
+              </td>
+              <td *ngIf="tableService.isColumnVisible(1)">
+                {{ auditLog.changes }}
+              </td>
+              <td *ngIf="tableService.isColumnVisible(2)">
+                {{ auditLog.updatedOn | date:"dd/MM/yy HH:mm:ss" }}
+              </td>
+              <td *ngIf="tableService.isColumnVisible(3)">
+                <div class="btn-group-sm" role="group" *ngIf="auditLog.changes > 0">
+                  <a [routerLink]="[ 'view', auditLog.id ]" type="button" class="btn btn-warning">
+                    <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+                    View
+                  </a>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <app-table-pagination [tableService]="tableService"></app-table-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <tr>
   <ng-container *ngFor="let column of tableService.getColumns(); let index = index">
-    <th *ngIf="tableService.isColumnVisible(index)">
+    <th *ngIf="tableService.isColumnVisible(index)" [class]="column.class">
       <div (click)="tableService.onSortColumn(column)">
         <div class="float-left" role="button">
           {{ column.title }}

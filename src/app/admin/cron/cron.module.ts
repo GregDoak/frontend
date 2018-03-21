@@ -6,13 +6,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from '../../utility/table/table.module';
 import { CommonModule } from '@angular/common';
 import { MomentModule } from 'angular2-moment';
+import { AdminCronJobTaskListComponent } from './cron-job-task-list.component';
+import { AdminCronJobTaskCreateComponent } from './cron-job-task-create.component';
 
 const COMPONENTS = [
-  AdminCronJobListComponent
+  AdminCronJobListComponent,
+  AdminCronJobTaskListComponent,
+  AdminCronJobTaskCreateComponent
 ];
 
 const routes: Routes = [
-  {path: '', component: AdminCronJobListComponent, pathMatch: 'full', data: {title: 'List'}},
+  {path: '', pathMatch: 'full', redirectTo: 'list'},
+  {path: 'list', component: AdminCronJobListComponent, pathMatch: 'full', data: {title: 'List'}},
+  {path: 'tasks', component: AdminCronJobTaskListComponent, pathMatch: 'full', data: {title: 'Tasks'}},
+  {path: 'tasks/create', component: AdminCronJobTaskCreateComponent, pathMatch: 'full', data: {title: 'Create'}},
   {path: '**', component: P404Component, data: {title: '404'}}
 ];
 

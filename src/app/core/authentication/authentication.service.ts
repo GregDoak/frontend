@@ -54,7 +54,7 @@ export class AuthenticationService {
             localStorage.setItem('refresh_token', response['data'].refresh_token);
             this.allowRefresh = true;
             let redirect = this.redirectUrl ? this.redirectUrl : '';
-            this.router.navigate([redirect]).catch(() => 'Routing Error');
+            // this.router.navigate([redirect]).catch(() => 'Routing Error');
           },
           () => {
             this.allowRefresh = true;

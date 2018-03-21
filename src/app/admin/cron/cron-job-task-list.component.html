@@ -1,5 +1,6 @@
 <div class="animated fadeIn">
-  <app-table-header [tableService]="tableService" [tableHeaderBrand]="tableHeaderBrand"></app-table-header>
+  <app-table-header [tableService]="tableService" [tableHeaderBrand]="tableHeaderBrand"
+                    [links]="tableHeaderLinks"></app-table-header>
   <div class="row" *ngIf="loadingService.isReady()">
     <div class="col-12">
       <div class="card card-fixed">

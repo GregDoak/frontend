@@ -6,11 +6,17 @@ import 'jspdf-autotable';
 
 @Injectable()
 export class TableService {
-  public config = tableConfig;
+  public config;
+  public defaultConfig;
 
   private columns: TableColumnInterface[] = [];
   private data: any[] = [];
   private rows: any[] = [];
+
+  public constructor() {
+    this.defaultConfig = tableConfig;
+    this.setConfig();
+  }
 
   public doExport(type = 'csv') {
     let rows: any[] = this.rows;
@@ -119,6 +125,10 @@ export class TableService {
    */
   public setColumns(columns: TableColumnInterface[]) {
     this.columns = columns;
+  }
+
+  public setConfig() {
+    this.config = JSON.parse(JSON.stringify(this.defaultConfig));
   }
 
   /**

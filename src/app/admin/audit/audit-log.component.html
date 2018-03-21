@@ -1,0 +1,25 @@
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let key of keys; let index = index" [ngClass]="{'highlight':isHighlight(key)}">
+    <div [ngSwitch]="true">
+      <h5>
+        {{ key | titlecase }}:
+      </h5>
+      <p *ngSwitchCase="isDateField(key)">
+        {{ getValue(key) | date:"dd/MM/yy HH:mm:ss" }}
+      </p>
+      <p *ngSwitchCase="isUserField(key)">
+        <ng-container *ngIf="getValue(key)!== null">
+          {{ getValue(key).username }}
+        </ng-container>
+      </p>
+      <p *ngSwitchCase="isTitleArray(key)">
+        <span class="ml-2 badge badge-pill badge-secondary" *ngFor="let role of getValue(key)">
+          {{ role.title }}
+        </span>
+      </p>
+      <p *ngSwitchDefault>
+        {{ getValue(key) }}
+      </p>
+    </div>
+  </li>
+</ul>

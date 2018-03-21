@@ -1,0 +1,118 @@
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row py-3">
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-user fa-fw" aria-hidden="true"></i>
+            Create User
+          </div>
+          <div class="card-body">
+            <div class="col-12">
+              <form [formGroup]="createForm" (submit)="onSubmit(createForm)" novalidate>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-terminal fa-fw"></i>
+                    </span>
+                    </div>
+                    <input class="form-control" name="command" placeholder="Command" type="text" title="Command"
+                           [formControl]="createForm.get('command')"
+                           [ngClass]="{'is-invalid':createForm.get('command').hasError('required') && submitted}">
+                  </div>
+                  <div
+                    *ngIf="createForm.get('command').hasError('required') && submitted"
+                    class="text-danger">
+                    The Command is a required field.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-calendar fa-fw"></i>
+                    </span>
+                    </div>
+                    <input class="form-control" name="startDate" placeholder="Start Date" type="text" title="Start Date"
+                           [formControl]="createForm.get('startDate')">
+                  </div>
+                  <div
+                    class="text-muted">
+                    Leave empty to start immediately.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-calendar-times fa-fw"></i>
+                    </span>
+                    </div>
+                    <input class="form-control" name="intervalPeriod" placeholder="Interval Period" type="text"
+                           title="Interval Period" [formControl]="createForm.get('intervalPeriod')"
+                           [ngClass]="{'is-invalid':createForm.get('intervalPeriod').hasError('required') && submitted}">
+                  </div>
+                  <div
+                    *ngIf="createForm.get('intervalPeriod').hasError('required') && submitted"
+                    class="text-danger">
+                    The Interval Period is a required field.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-comment-alt fa-fw"></i>
+                    </span>
+                    </div>
+                    <input class="form-control" name="intervalContext" placeholder="Interval Context" type="text"
+                           title="Interval Context" [formControl]="createForm.get('intervalContext')"
+                           [ngClass]="{'is-invalid':createForm.get('intervalContext').hasError('required') && submitted}">
+                  </div>
+                  <div
+                    *ngIf="createForm.get('intervalContext').hasError('required') && submitted"
+                    class="text-danger">
+                    The Interval Context is a required field.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-exclamation-triangle fa-fw"></i>
+                      Priority: {{ createForm.get('priority').value }}
+                    </span>
+                    </div>
+                    <input class="form-control" name="priority" placeholder="Priority" type="range" title="Priority"
+                           min="1" max="10" [formControl]="createForm.get('priority')"
+                           [ngClass]="{'is-invalid':createForm.get('priority').hasError('required') && submitted}">
+                  </div>
+                  <div
+                    *ngIf="createForm.get('priority').hasError('required') && submitted"
+                    class="text-danger">
+                    The Priority is a required field.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary" [disabled]="processing">
+                    <i class="far fa-fw fa-save" aria-hidden="true"></i>
+                    Save
+                  </button>
+                  <button type="button" class="btn btn-danger" (click)="createForm.reset();">
+                    <i class="fas fa-fw fa-undo" aria-hidden="true"></i>
+                    Reset
+                  </button>
+                  <a [routerLink]="['/admin/users']" class="btn btn-warning">
+                    <i class="fas fa-fw fa-times" aria-hidden="true"></i>
+                    Cancel
+                  </a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

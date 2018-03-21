@@ -1,24 +1,33 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../core/authentication/authentication.service';
-import { CronJobService } from './cron-job.service';
 import { AlertService } from '../../utility/alert/alert.service';
 import { LoadingService } from '../../utility/loading/loading.service';
 import { TableService } from '../../utility/table/table.service';
 import { TableHeaderBrandInterface } from '../../utility/table/table-header-brand.interface';
+import { LinkInterface } from '../../core/link/link.interface';
 import { TableColumnInterface } from '../../utility/table/table-column.interface';
 import { CronJobInterface } from './cron-job.interface';
+import { CronJobTaskService } from './cron-job-task.service';
 
 @Component({
-  selector: 'app-admin-cron-list',
-  templateUrl: 'cron-job-list.component.html',
-  providers: [CronJobService]
+  selector: 'app-admin-cron-job-task-list',
+  templateUrl: 'cron-job-task-list.component.html',
+  providers: [CronJobTaskService]
 })
-export class AdminCronJobListComponent implements OnInit, OnDestroy {
+export class AdminCronJobTaskListComponent implements OnInit, OnDestroy {
 
   public tableHeaderBrand: TableHeaderBrandInterface = {
-    title: 'Cron Jobs',
-    icon: 'fas fa-fw fa-clock'
+    title: 'Cron Job Tasks',
+    icon: 'fas fa-fw fa-tasks'
   };
+
+  public tableHeaderLinks: LinkInterface[] = [
+    {
+      url: 'create',
+      title: 'Create',
+      icon: 'fas fa=fw fa-plus-circle'
+    }
+  ];
 
   public columns: TableColumnInterface[] = [
     {
@@ -55,7 +64,7 @@ export class AdminCronJobListComponent implements OnInit, OnDestroy {
 
   constructor(public alertService: AlertService,
               public authenticationService: AuthenticationService,
-              private cronJobService: CronJobService,
+              private cronJobTaskService: CronJobTaskService,
               public loadingService: LoadingService,
               public tableService: TableService) {
   }
@@ -64,7 +73,7 @@ export class AdminCronJobListComponent implements OnInit, OnDestroy {
     this.loadingService.show('Getting the cron job list...');
     this.tableService.config.exporting.filename = 'cron-jobs';
 
-    this.cronJobService.getCronJobs().subscribe(
+    this.cronJobTaskService.getCronJobTasks().subscribe(
       (response) => {
         this.cronJobs = response['data'];
         this.tableService.setColumns(this.columns);

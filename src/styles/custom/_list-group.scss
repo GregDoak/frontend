@@ -1,0 +1,12 @@
+app-admin-audit-log .highlight {
+  background-color: #FFFF99;
+}
+
+app-admin-audit-log .list-group-item:first-child {
+  border-top: none;
+}
+
+app-admin-audit-log .list-group-item {
+  border-left: none;
+  border-right: none;
+}
