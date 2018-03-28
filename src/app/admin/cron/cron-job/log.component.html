@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row py-3" *ngIf="loadingService.isReady()">
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-5" *ngFor="let cronJobLog of cronJobs['jobs']">
+        <div class="card">
+          <div class="card-header">
+            <div class="float-left">
+              <i class="fas fa-tasks fa-fw" aria-hidden="true"></i>
+              Command
+            </div>
+            <div class="float-right">
+              <a [routerLink]="['/admin/cron-job-tasks/update', cronJobLog.cronJobTask.id]">
+                <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>
+                Edit
+              </a>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="col-12">
+              <div>
+                <div>
+                  Command:
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                  </div>
+                  <p class="text-muted form-control">
+                    {{ cronJobLog.cronJobTask.command }} exited with code {{ cronJobLog.exitCode }}
+                  </p>
+                </div>
+              </div>
+              <div *ngIf="cronJobLog.output.length > 0">
+                <div>
+                  Output:
+                </div>
+                <div class="code-block">
+                  <div *ngFor="let line of cronJobLog.output">
+                    {{ line }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="text-muted">
+              Completed in {{ cronJobLog.endedOn | amDifference: cronJobLog.startedOn :'seconds' : true : 0}} seconds
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

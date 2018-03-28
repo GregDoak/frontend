@@ -1,0 +1,117 @@
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row py-3" *ngIf="loadingService.isReady()">
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-user fa-fw" aria-hidden="true"></i>
+            Update Cron Job Task
+          </div>
+          <div class="card-body">
+            <div class="col-12">
+              <form [formGroup]="updateForm" (submit)="onSubmit(updateForm)" novalidate>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-terminal fa-fw"></i>
+                    </span>
+                    </div>
+                    <input class="form-control" name="command" placeholder="Command" type="text" title="Command"
+                           [formControl]="updateForm.get('command')"
+                           [ngClass]="{'is-invalid':updateForm.get('command').hasError('required') && submitted}">
+                  </div>
+                  <p class="text-muted">
+                    e.g. php ../bin/console cache:clear
+                  </p>
+                  <p
+                    *ngIf="updateForm.get('command').hasError('required') && submitted"
+                    class="text-danger">
+                    The Command is a required field.
+                  </p>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-calendar-times fa-fw"></i>
+                    </span>
+                    </div>
+                    <input class="form-control" name="intervalPeriod" placeholder="Interval Period" type="text"
+                           title="Interval Period" [formControl]="updateForm.get('intervalPeriod')"
+                           [ngClass]="{'is-invalid':updateForm.get('intervalPeriod').hasError('required') && submitted}">
+                  </div>
+                  <p
+                    *ngIf="updateForm.get('intervalPeriod').hasError('required') && submitted"
+                    class="text-danger">
+                    The Interval Period is a required field.
+                  </p>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-comment-alt fa-fw"></i>
+                    </span>
+                    </div>
+                    <ngx-select [items]="intervalContexts" [formControl]="updateForm.get('intervalContext')"
+                                class="form-control ng2-select" placeholder="Interval Context" title="Interval Context">
+                    </ngx-select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-exclamation-triangle fa-fw"></i>
+                      Priority: {{ updateForm.get('priority').value }}
+                    </span>
+                    </div>
+                    <input class="form-control" name="priority" placeholder="Priority" type="range" title="Priority"
+                           min="1" max="10" [formControl]="updateForm.get('priority')"
+                           [ngClass]="{'is-invalid':updateForm.get('priority').hasError('required') && submitted}">
+                  </div>
+                  <p
+                    *ngIf="updateForm.get('priority').hasError('required') && submitted"
+                    class="text-danger">
+                    The Priority is a required field.
+                  </p>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      Active:
+                    </span>
+                    </div>
+                    <div class="form-control">
+                      <label class="switch switch-sm switch-3d switch-success">
+                        <input type="checkbox" class="switch-input" [formControl]="updateForm.get('active')">
+                        <span class="switch-label"></span>
+                        <span class="switch-handle"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary" [disabled]="processing">
+                    <i class="far fa-fw fa-save" aria-hidden="true"></i>
+                    Save
+                  </button>
+                  <button type="button" class="btn btn-danger" (click)="buildForm();">
+                    <i class="fas fa-fw fa-undo" aria-hidden="true"></i>
+                    Reset
+                  </button>
+                  <a [routerLink]="['../../']" class="btn btn-warning">
+                    <i class="fas fa-fw fa-times" aria-hidden="true"></i>
+                    Cancel
+                  </a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

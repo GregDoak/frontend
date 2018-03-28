@@ -26,12 +26,12 @@
                 {{ cronJob.endDate | amDifference: cronJob.startDate :'seconds' : true : 0}} seconds
               </td>
               <td *ngIf="tableService.isColumnVisible(5)">
-                {{ cronJob.tasks.length }}
+                {{ cronJob.jobs.length }}
               </td>
               <td *ngIf="tableService.isColumnVisible(6)">
                 <div class="btn-group-sm" role="group">
-                  <a [routerLink]="[ 'update', cronJob.id ]" type="button" class="btn btn-warning">
-                    <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>
+                  <a [routerLink]="[ 'log', cronJob.id ]" type="button" class="btn btn-warning">
+                    <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
                     View
                   </a>
                 </div>

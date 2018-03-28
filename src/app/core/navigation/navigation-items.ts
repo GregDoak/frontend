@@ -29,15 +29,15 @@ export const navigationItems: NavigationItemInterface[] = [
         description: 'View cron jobs and history.',
         children: [
           {
-            name: 'Cron Jobs History',
-            url: '/admin/cron-jobs/list',
+            name: 'Cron Jobs',
+            url: '/admin/cron-jobs',
             icon: 'fas fa-fw fa-clock',
             roles: ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'],
             description: 'View cron jobs and history.'
           },
           {
             name: 'Cron Jobs Tasks',
-            url: '/admin/cron-jobs/tasks',
+            url: '/admin/cron-job-tasks',
             icon: 'fas fa-fw fa-tasks',
             roles: ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'],
             description: 'View cron jobs tasks and history.'

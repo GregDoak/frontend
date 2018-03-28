@@ -89,6 +89,7 @@ export class TableService {
    * @param {string} sortOrder
    */
   public onSortColumn(column: TableColumnInterface, sortOrder = 'asc') {
+    sortOrder = sortOrder.toLowerCase();
     if (column.name) {
       if (this.config.sorting.column.name === column.name) {
         switch (this.config.sorting.column.order) {

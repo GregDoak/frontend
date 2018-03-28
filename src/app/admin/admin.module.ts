@@ -12,7 +12,18 @@ const COMPONENTS = [
 const routes: Routes = [
   {path: '', component: AdminComponent, pathMatch: 'full', canActivate: [AdminGuard], data: {title: 'Menu'}},
   {path: 'audit-logs', loadChildren: './audit/audit.module#AdminAuditModule', canActivate: [AdminGuard], data: {title: 'Audit Logs'}},
-  {path: 'cron-jobs', loadChildren: './cron/cron.module#AdminCronModule', canActivate: [AdminGuard], data: {title: 'Cron Jobs'}},
+  {
+    path: 'cron-jobs',
+    loadChildren: './cron/cron-job/cron-job.module#AdminCronJobModule',
+    canActivate: [AdminGuard],
+    data: {title: 'Cron Jobs'}
+  },
+  {
+    path: 'cron-job-tasks',
+    loadChildren: './cron/cron-job-task/cron-job-task.module#AdminCronJobTaskModule',
+    canActivate: [AdminGuard],
+    data: {title: 'Cron Job Tasks'}
+  },
   {path: 'groups', loadChildren: './group/group.module#AdminGroupModule', canActivate: [AdminGuard], data: {title: 'Group'}},
   {path: 'roles', loadChildren: './role/role.module#AdminRoleModule', canActivate: [AdminGuard], data: {title: 'Roles'}},
   {path: 'users', loadChildren: './user/user.module#AdminUserModule', canActivate: [AdminGuard], data: {title: 'Users'}},

@@ -1,33 +1,24 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../core/authentication/authentication.service';
-import { AlertService } from '../../utility/alert/alert.service';
-import { LoadingService } from '../../utility/loading/loading.service';
-import { TableService } from '../../utility/table/table.service';
-import { TableHeaderBrandInterface } from '../../utility/table/table-header-brand.interface';
-import { LinkInterface } from '../../core/link/link.interface';
-import { TableColumnInterface } from '../../utility/table/table-column.interface';
+import { AuthenticationService } from '../../../core/authentication/authentication.service';
+import { CronJobService } from './cron-job.service';
+import { AlertService } from '../../../utility/alert/alert.service';
+import { LoadingService } from '../../../utility/loading/loading.service';
+import { TableService } from '../../../utility/table/table.service';
+import { TableHeaderBrandInterface } from '../../../utility/table/table-header-brand.interface';
+import { TableColumnInterface } from '../../../utility/table/table-column.interface';
 import { CronJobInterface } from './cron-job.interface';
-import { CronJobTaskService } from './cron-job-task.service';
 
 @Component({
-  selector: 'app-admin-cron-job-task-list',
-  templateUrl: 'cron-job-task-list.component.html',
-  providers: [CronJobTaskService]
+  selector: 'app-admin-cron-job-list',
+  templateUrl: 'list.component.html',
+  providers: [CronJobService]
 })
-export class AdminCronJobTaskListComponent implements OnInit, OnDestroy {
+export class AdminCronJobListComponent implements OnInit, OnDestroy {
 
   public tableHeaderBrand: TableHeaderBrandInterface = {
-    title: 'Cron Job Tasks',
-    icon: 'fas fa-fw fa-tasks'
+    title: 'Cron Jobs',
+    icon: 'fas fa-fw fa-clock'
   };
-
-  public tableHeaderLinks: LinkInterface[] = [
-    {
-      url: 'create',
-      title: 'Create',
-      icon: 'fas fa=fw fa-plus-circle'
-    }
-  ];
 
   public columns: TableColumnInterface[] = [
     {
@@ -51,8 +42,8 @@ export class AdminCronJobTaskListComponent implements OnInit, OnDestroy {
       name: null
     },
     {
-      title: 'Tasks',
-      name: 'tasks'
+      title: 'Jobs',
+      name: 'jobs'
     },
     {
       title: 'Actions',
@@ -64,7 +55,7 @@ export class AdminCronJobTaskListComponent implements OnInit, OnDestroy {
 
   constructor(public alertService: AlertService,
               public authenticationService: AuthenticationService,
-              private cronJobTaskService: CronJobTaskService,
+              private cronJobService: CronJobService,
               public loadingService: LoadingService,
               public tableService: TableService) {
   }
@@ -73,7 +64,7 @@ export class AdminCronJobTaskListComponent implements OnInit, OnDestroy {
     this.loadingService.show('Getting the cron job list...');
     this.tableService.config.exporting.filename = 'cron-jobs';
 
-    this.cronJobTaskService.getCronJobTasks().subscribe(
+    this.cronJobService.getCronJobs().subscribe(
       (response) => {
         this.cronJobs = response['data'];
         this.tableService.setColumns(this.columns);

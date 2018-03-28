@@ -1,11 +1,11 @@
 <div class="container-fluid">
   <div class="animated fadeIn">
-    <div class="row py-3">
+    <div class="row py-3" *ngIf="loadingService.isReady()">
       <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-5">
         <div class="card">
           <div class="card-header">
             <i class="fas fa-user fa-fw" aria-hidden="true"></i>
-            Create User
+            Create Cron Job Task
           </div>
           <div class="card-body">
             <div class="col-12">
@@ -21,11 +21,14 @@
                            [formControl]="createForm.get('command')"
                            [ngClass]="{'is-invalid':createForm.get('command').hasError('required') && submitted}">
                   </div>
-                  <div
+                  <p class="text-muted">
+                    e.g. php ../bin/console cache:clear
+                  </p>
+                  <p
                     *ngIf="createForm.get('command').hasError('required') && submitted"
                     class="text-danger">
                     The Command is a required field.
-                  </div>
+                  </p>
                 </div>
                 <div class="form-group">
                   <div class="input-group">
@@ -37,10 +40,10 @@
                     <input class="form-control" name="startDate" placeholder="Start Date" type="text" title="Start Date"
                            [formControl]="createForm.get('startDate')">
                   </div>
-                  <div
+                  <p
                     class="text-muted">
                     Leave empty to start immediately.
-                  </div>
+                  </p>
                 </div>
                 <div class="form-group">
                   <div class="input-group">
@@ -53,11 +56,11 @@
                            title="Interval Period" [formControl]="createForm.get('intervalPeriod')"
                            [ngClass]="{'is-invalid':createForm.get('intervalPeriod').hasError('required') && submitted}">
                   </div>
-                  <div
+                  <p
                     *ngIf="createForm.get('intervalPeriod').hasError('required') && submitted"
                     class="text-danger">
                     The Interval Period is a required field.
-                  </div>
+                  </p>
                 </div>
                 <div class="form-group">
                   <div class="input-group">
@@ -66,14 +69,9 @@
                       <i class="fas fa-comment-alt fa-fw"></i>
                     </span>
                     </div>
-                    <input class="form-control" name="intervalContext" placeholder="Interval Context" type="text"
-                           title="Interval Context" [formControl]="createForm.get('intervalContext')"
-                           [ngClass]="{'is-invalid':createForm.get('intervalContext').hasError('required') && submitted}">
-                  </div>
-                  <div
-                    *ngIf="createForm.get('intervalContext').hasError('required') && submitted"
-                    class="text-danger">
-                    The Interval Context is a required field.
+                    <ngx-select [items]="intervalContexts" [formControl]="createForm.get('intervalContext')"
+                                class="form-control ng2-select" placeholder="Interval Context" title="Interval Context">
+                    </ngx-select>
                   </div>
                 </div>
                 <div class="form-group">
@@ -88,11 +86,11 @@
                            min="1" max="10" [formControl]="createForm.get('priority')"
                            [ngClass]="{'is-invalid':createForm.get('priority').hasError('required') && submitted}">
                   </div>
-                  <div
+                  <p
                     *ngIf="createForm.get('priority').hasError('required') && submitted"
                     class="text-danger">
                     The Priority is a required field.
-                  </div>
+                  </p>
                 </div>
                 <div class="form-group">
                   <button class="btn btn-primary" [disabled]="processing">
@@ -103,7 +101,7 @@
                     <i class="fas fa-fw fa-undo" aria-hidden="true"></i>
                     Reset
                   </button>
-                  <a [routerLink]="['/admin/users']" class="btn btn-warning">
+                  <a [routerLink]="['../']" class="btn btn-warning">
                     <i class="fas fa-fw fa-times" aria-hidden="true"></i>
                     Cancel
                   </a>

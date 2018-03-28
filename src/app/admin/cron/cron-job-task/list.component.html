@@ -10,30 +10,33 @@
             <app-table-columns [tableService]="tableService"></app-table-columns>
             </thead>
             <tbody>
-            <tr *ngFor="let cronJob of tableService.getRows()">
+            <tr *ngFor="let cronJobTasks of tableService.getRows()">
               <td *ngIf="tableService.isColumnVisible(0)">
-                {{ cronJob.hostname }}
+                {{ cronJobTasks.command }}
               </td>
               <td *ngIf="tableService.isColumnVisible(1)">
-                {{ cronJob.pid }}
+                {{ cronJobTasks.startDate | date:"dd/MM/yy HH:mm:ss" }}
               </td>
               <td *ngIf="tableService.isColumnVisible(2)">
-                {{ cronJob.startDate | date:"dd/MM/yy HH:mm:ss" }}
+                {{ cronJobTasks.intervalPeriod }}
               </td>
               <td *ngIf="tableService.isColumnVisible(3)">
-                {{ cronJob.endDate | date:"dd/MM/yy HH:mm:ss" }}
+                {{ cronJobTasks.intervalContext }}
               </td>
               <td *ngIf="tableService.isColumnVisible(4)">
-                {{ cronJob.endDate | amDifference: cronJob.startDate :'seconds' : true : 0}} seconds
+                {{ cronJobTasks.priority }}
               </td>
               <td *ngIf="tableService.isColumnVisible(5)">
-                {{ cronJob.tasks.length }}
+                {{ cronJobTasks.nextRun | date:"dd/MM/yy HH:mm:ss" }}
               </td>
               <td *ngIf="tableService.isColumnVisible(6)">
+                {{ cronJobTasks.active | appYesNo }}
+              </td>
+              <td *ngIf="tableService.isColumnVisible(7)">
                 <div class="btn-group-sm" role="group">
-                  <a [routerLink]="[ 'update', cronJob.id ]" type="button" class="btn btn-warning">
+                  <a [routerLink]="[ 'update', cronJobTasks.id ]" type="button" class="btn btn-warning">
                     <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>
-                    View
+                    Update
                   </a>
                 </div>
               </td>
