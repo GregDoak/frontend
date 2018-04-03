@@ -1,6 +1,6 @@
 import 'jquery';
 import 'bootstrap';
-import 'styles/styles.scss'
+import '../../../styles/styles.scss'
 
 import fontawesome from '@fortawesome/fontawesome';
 

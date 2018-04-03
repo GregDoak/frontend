@@ -1,13 +1,9 @@
 const helpers = require('./helpers');
-const path = require('path');
 const webpack = require('webpack');
-
-const nodeModules = path.join(process.cwd(), 'node_modules');
 
 // Webpack Plugins
 const autoprefixer = require('autoprefixer');
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
-const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
@@ -108,23 +104,6 @@ module.exports = function (options) {
   config.plugins = [
 
     new CheckerPlugin(),
-
-    new CommonsChunkPlugin({
-      name: 'polyfills',
-      chunks: ['polyfills']
-    }),
-
-    new CommonsChunkPlugin({
-      name: 'vendor',
-      chunks: ['main'],
-      minChunks: function (module) {
-        return module.resource && module.resource.startsWith(nodeModules)
-      }
-    }),
-
-    new CommonsChunkPlugin({
-      name: ['polyfills', 'vendor'].reverse()
-    }),
 
     new CopyWebpackPlugin([
         {from: 'src/assets', to: 'assets'}],

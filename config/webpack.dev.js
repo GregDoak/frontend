@@ -1,13 +1,8 @@
 const helpers = require('./helpers');
 const commonConfig = require('./webpack.common.js');
-const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 
-const path = require('path');
-const nodeModules = path.join(process.cwd(), 'node_modules');
-
 // Webpack Plugins
-const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
 
@@ -74,19 +69,6 @@ module.exports = function (options) {
         mainPath: "./src/main.ts",
         tsConfigPath: "./tsconfig.app.json",
         skipCodeGeneration: false
-      }),
-
-
-      // Reference: https://webpack.github.io/docs/code-splitting.html
-      // Reference: https://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
-      new CommonsChunkPlugin({
-        name: "vendor",
-        minChunks: function (module) {
-          return module.resource && module.resource.startsWith(nodeModules)
-        },
-        chunks: [
-          "main"
-        ]
       }),
 
       // Inject script and link tags into html files

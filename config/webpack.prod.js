@@ -1,19 +1,12 @@
 const helpers = require('./helpers');
 var commonConfig = require('./webpack.common.js');
 
-var path = require('path');
 var webpack = require('webpack');
 var webpackMerge = require('webpack-merge');
 
-const nodeModules = path.join(process.cwd(), 'node_modules');
-
 // Webpack Plugins
-const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-const ModuleConcatenationPlugin = webpack.optimize.ModuleConcatenationPlugin;
-const NoEmitOnErrorsPlugin = webpack.NoEmitOnErrorsPlugin;
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
 const PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin;
@@ -38,18 +31,12 @@ module.exports = function (options) {
         },
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: 'css-loader'
-          }),
+          use: ['style-loader', 'css-loader'],
           include: [helpers.root('src', 'styles')]
         },
         {
           test: /\.scss$/,
-          loader: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: 'css-loader!sass-loader'
-          }),
+          use: ['style-loader', 'css-loader', 'sass-loader'],
           include: [helpers.root('src', 'styles')]
         },
 
@@ -69,20 +56,7 @@ module.exports = function (options) {
     },
 
     plugins: [
-
-      new NoEmitOnErrorsPlugin(),
-
       new ProgressPlugin(),
-
-      new CommonsChunkPlugin({
-        name: "vendor",
-        minChunks: function (module) {
-          return module.resource && module.resource.startsWith(nodeModules)
-        },
-        chunks: [
-          "main"
-        ]
-      }),
 
       new AngularCompilerPlugin({
         mainPath: "./src/main.ts",
@@ -98,15 +72,6 @@ module.exports = function (options) {
           return order.indexOf(a.names[0]) - order.indexOf(b.names[0]);
         }
       }),
-
-
-      // Extract css files
-      // Reference: https://github.com/webpack/extract-text-webpack-plugin
-      // Disabled when in test mode or not in build mode
-      new ExtractTextPlugin({filename: '[name].[hash].css', allChunks: true}),
-
-
-      new ModuleConcatenationPlugin(),
 
       new PurifyPlugin(),
 
