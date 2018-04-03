@@ -20,7 +20,7 @@ export class AdminRoleDeleteComponent implements OnInit, OnDestroy {
               public authenticationService: AuthenticationService,
               public loadingService: LoadingService,
               private roleService: RoleService,
-              private router: Router,) {
+              private router: Router) {
   }
 
   public ngOnInit() {

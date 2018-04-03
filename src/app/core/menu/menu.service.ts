@@ -7,6 +7,10 @@ import { navigationItems } from '../navigation/navigation-items';
 export class MenuService {
   private navigationItems: NavigationItemInterface[] = [];
 
+  static getNavigationItemChildren(navigationItem: NavigationItemInterface): NavigationItemInterface[] {
+    return navigationItem.children ? navigationItem.children : [];
+  }
+
   constructor(private router: Router) {
     let level = 0;
     let routes = this.router.url.split('/');
@@ -19,10 +23,6 @@ export class MenuService {
         level++;
       }
     }
-  }
-
-  static getNavigationItemChildren(navigationItem: NavigationItemInterface): NavigationItemInterface[] {
-    return navigationItem.children ? navigationItem.children : [];
   }
 
   public getNavigationItems(): NavigationItemInterface[] {

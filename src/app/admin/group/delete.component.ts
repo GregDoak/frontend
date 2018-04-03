@@ -20,7 +20,7 @@ export class AdminGroupDeleteComponent implements OnInit, OnDestroy {
               public authenticationService: AuthenticationService,
               private groupService: GroupService,
               public loadingService: LoadingService,
-              private router: Router,) {
+              private router: Router) {
   }
 
   public ngOnInit() {
