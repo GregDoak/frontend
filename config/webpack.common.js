@@ -28,6 +28,13 @@ module.exports = function (options) {
     chunkFilename: 'js/[id].[chunkhash].chunk.js'
   };
 
+  config.optimization = {
+    splitChunks: {
+      chunks: 'all'
+    },
+    runtimeChunk: true,
+  };
+
   /**
    * Resolve
    * Reference: http://webpack.github.io/docs/configuration.html#resolve

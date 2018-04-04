@@ -9,7 +9,7 @@
   <main class="main">
     <ol class="breadcrumb" *ngIf="authenticationService.isLoggedIn()">
       <app-breadcrumbs></app-breadcrumbs>
-      <li class="breadcrumb-menu d-md-down-none">
+      <li class="breadcrumb-menu">
         <div class="btn-group" role="group" aria-label="Quick Links">
           <a class="btn" [routerLink]=" [''] " (click)="authenticationService.logout()">
             <i class="fa fa-sign-out-alt" aria-hidden="true"></i>

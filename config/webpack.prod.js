@@ -78,6 +78,7 @@ module.exports = function (options) {
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
       // Minify all javascript, switch loaders to minimizing mode
       new UglifyJsPlugin({
+        parallel: true,
         sourceMap: true,
         beautify: false,
         output: {

@@ -122,7 +122,6 @@ export class AdminUserUpdateComponent implements OnInit, OnDestroy {
         } else {
           valueRoles = this.removeRoles(groupRoles);
         }
-        console.log(groupRoles, valueRoles, action);
         this.updateForm.get('roles').setValue(valueRoles);
       }
     }

@@ -14,7 +14,6 @@ export class MenuService {
   constructor(private router: Router) {
     let level = 0;
     let routes = this.router.url.split('/');
-    console.log(level, routes);
     if (routes.length > 0) {
       for (let navigationItem of navigationItems) {
         if ('/' + routes[level] === navigationItem.url) {

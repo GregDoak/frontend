@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { TokenInterface } from './token.interface';
@@ -18,7 +18,12 @@ export class AuthenticationService {
    */
   constructor(private http: HttpClient, private jwtHelperService: JwtHelperService, private router: Router) {
     this.allowRefresh = true;
-    this.redirectUrl = this.router.routerState.snapshot.url;
+    this.router.events.filter(event => event instanceof NavigationEnd).subscribe(
+      (event: NavigationEnd) => {
+        if (event.url !== '/login') {
+          this.redirectUrl = event.url;
+        }
+      });
   }
 
   /**
@@ -54,7 +59,7 @@ export class AuthenticationService {
             localStorage.setItem('refresh_token', response['data'].refresh_token);
             this.allowRefresh = true;
             let redirect = this.redirectUrl ? this.redirectUrl : '';
-            // this.router.navigate([redirect]).catch(() => 'Routing Error');
+            this.router.navigate([redirect]).catch(() => 'Routing Error');
           },
           () => {
             this.allowRefresh = true;
