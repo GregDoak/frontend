@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AlertModule, TabsModule } from 'ngx-bootstrap';
+import { AlertModule, BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
 import { CoreModule } from '../core.module';
 
@@ -19,6 +19,7 @@ export function jwtOptionsFactory() {
 export const APP_MODULES = [
   AlertModule.forRoot(),
   CoreModule,
+  BsDropdownModule.forRoot(),
   HttpClientModule,
   FormsModule,
   JwtModule.forRoot({
