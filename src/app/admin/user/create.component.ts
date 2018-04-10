@@ -12,7 +12,6 @@ import { UserInterface } from '../../entity/security/user/user.interface';
 import { UserService } from '../../entity/security/user/user.service';
 import { PasswordValidator } from '../../utility/validators/password.validator';
 
-
 @Component({
   selector: 'app-admin-user-create',
   templateUrl: 'create.component.html',

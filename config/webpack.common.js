@@ -99,7 +99,9 @@ module.exports = function (options) {
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: "file-loader"
-      }
+      },
+      // Ignore warnings about System.import in Angular
+      {test: /[\/\\]@angular[\/\\].+\.js$/, parser: {system: true}}
     ]
   };
 
