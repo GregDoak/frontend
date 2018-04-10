@@ -12,7 +12,7 @@
   </ul>
   <ul class="nav navbar-nav ml-auto d-none d-lg-inline-flex" *ngIf="authenticationService.isLoggedIn()">
     <li class="nav-item px-3">
-      <a [routerLink]=" ['my'] " class="nav-link">
+      <a [routerLink]=" ['my/profile'] " class="nav-link">
         <i class="fa fa-user" aria-hidden="true"></i>
         My Account
       </a>
@@ -31,7 +31,7 @@
     </a>
     <ul *dropdownMenu class="dropdown-menu" role="menu">
       <li role="menuitem">
-        <a [routerLink]=" ['my'] " class="dropdown-item">
+        <a [routerLink]=" ['my/profile'] " class="dropdown-item">
           <i class="fa fa-user" aria-hidden="true"></i>
           My Account
         </a>
