@@ -32,7 +32,7 @@ module.exports = function (options) {
     splitChunks: {
       chunks: 'all'
     },
-    runtimeChunk: true,
+    runtimeChunk: true
   };
 
   /**
