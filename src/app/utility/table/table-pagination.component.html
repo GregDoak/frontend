@@ -1,4 +1,4 @@
-<div class="container-fluid" *ngIf="tableService.config.pagination.enabled">
+<div *ngIf="tableService.config.pagination.enabled">
   <pagination [directionLinks]="tableService.config.pagination.directionLinks"
               [boundaryLinks]="tableService.config.pagination.boundaryLinks"
               [totalItems]="tableService.config.pagination.collectionSize"

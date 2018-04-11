@@ -47,8 +47,8 @@ export class AuthenticationService {
    * @returns {boolean}
    */
   public isLoggedIn(): boolean {
-    let token = localStorage.getItem('token');
-    let refreshToken = localStorage.getItem('refresh_token');
+    let token = this.getTokenFromLocalStorage();
+    let refreshToken = this.getRefreshTokenFromLocalStorage();
     if (token !== null) {
       this.token = this.jwtHelperService.decodeToken(token);
       if (this.jwtHelperService.isTokenExpired(token) && this.allowRefresh) {
@@ -84,6 +84,20 @@ export class AuthenticationService {
    */
   public getRoles(): string[] {
     return this.token.roles;
+  }
+
+  /**
+   * @returns {string}
+   */
+  public getRefreshTokenFromLocalStorage(): string {
+    return localStorage.getItem('refresh_token');
+  }
+
+  /**
+   * @returns {string}
+   */
+  public getTokenFromLocalStorage(): string {
+    return localStorage.getItem('token');
   }
 
   /**

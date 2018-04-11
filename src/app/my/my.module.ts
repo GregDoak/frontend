@@ -1,18 +1,26 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { P404Component } from '../core/pages/404.component';
 import { MyPasswordComponent } from './password/password.component';
 import { MyProfileComponent } from './profile/profile.component';
 import { MyTokenComponent } from './token/token.component';
 import { MyComponent } from './my.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TableModule } from '../utility/table/table.module';
+import { OperatingSystemPipe } from '../core/pipes/operating-system-pipe';
+import { BrowserPipe } from '../core/pipes/browser-pipe';
+import { ModalModule } from 'ngx-bootstrap';
 
 const COMPONENTS = [
   MyComponent,
   MyPasswordComponent,
   MyProfileComponent,
   MyTokenComponent
+];
+
+const PIPES = [
+  OperatingSystemPipe,
+  BrowserPipe
 ];
 
 const routes: Routes = [
@@ -26,10 +34,12 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    ModalModule.forRoot(),
     RouterModule.forChild(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TableModule
   ],
-  declarations: [...COMPONENTS]
+  declarations: [...COMPONENTS, ...PIPES]
 })
 export class MyModule {
 }
