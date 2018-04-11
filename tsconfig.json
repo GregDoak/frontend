@@ -1,16 +1,42 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true,
     "strictNullChecks": false,
-    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "suppressImplicitAnyIndexErrors": true,
     "lib": [
       "es2015",
       "dom"
+    ],
+    "baseUrl": "src",
+    "typeRoots": [
+      "node_modules/@types"
     ]
   },
-  "compileOnSave": false,
-  "buildOnSave": false
+  "typedocOptions": {
+    "mode": "modules",
+    "out": "docs",
+    "exclude": "test",
+    "theme": "default",
+    "ignoreCompilerErrors": true,
+    "excludePrivate": true,
+    "excludeNotExported": true,
+    "target": "ES5",
+    "moduleResolution": "node",
+    "preserveConstEnums": true,
+    "stripInternal": true,
+    "suppressExcessPropertyErrors": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "module": "commonjs"
+  },
+  "compileOnSave": true,
+  "buildOnSave": true,
+  "angularCompilerOptions": {
+    "preserveWhitespaces": false
+  }
 }
