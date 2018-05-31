@@ -4,7 +4,7 @@ import { P404Component } from '../../../core/pages/404.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from '../../../utility/table/table.module';
 import { CommonModule } from '@angular/common';
-import { MomentModule } from 'angular2-moment';
+import { MomentModule } from 'ngx-moment';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { AdminCronJobTaskListComponent } from './list.component';
 import { AdminCronJobTaskCreateComponent } from './create.component';

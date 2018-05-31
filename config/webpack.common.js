@@ -17,6 +17,11 @@ module.exports = function (options) {
    */
   var config = {};
 
+  config.node = {
+    fs: 'empty',
+    module: 'empty'
+  };
+
   config.entry = {
     'polyfills': './src/polyfills.ts',
     'main': ['./src/main.ts']
