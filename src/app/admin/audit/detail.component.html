@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="animated fadeIn">
     <div class="row py-3" *ngIf="loadingService.isReady()">
-      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-5">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 col-xl-4">
         <tabset>
           <tab class="px-0 pb-0">
             <ng-template tabHeading>
@@ -18,7 +18,11 @@
             </ng-template>
             <app-admin-audit-log [auditLog]="auditLog"></app-admin-audit-log>
           </tab>
-          <tab class="px-0 pb-0" *ngIf="auditLog.action !== 'inserted'">
+        </tabset>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 col-xl-4" *ngIf="auditLog.action !== 'inserted'">
+        <tabset>
+          <tab class="px-0 pb-0">
             <ng-template tabHeading>
               Previous
               <span class="ml-2 badge badge-pill badge-danger">
