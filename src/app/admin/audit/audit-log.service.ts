@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 import { AuditLogInterface } from './audit-log.interface';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable()
 export class AuditLogService {

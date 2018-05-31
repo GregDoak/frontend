@@ -37,6 +37,7 @@
   "compileOnSave": true,
   "buildOnSave": true,
   "angularCompilerOptions": {
-    "preserveWhitespaces": false
+    "preserveWhitespaces": false,
+    "disableTypeScriptVersionCheck": true
   }
 }

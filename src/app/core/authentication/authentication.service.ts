@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { TokenInterface } from './token.interface';
+import { Observable } from 'rxjs/internal/Observable';
+import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class AuthenticationService {
@@ -18,7 +19,7 @@ export class AuthenticationService {
    */
   constructor(private http: HttpClient, private jwtHelperService: JwtHelperService, private router: Router) {
     this.allowRefresh = true;
-    this.router.events.filter(event => event instanceof NavigationEnd).subscribe(
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(
       (event: NavigationEnd) => {
         if (event.url !== '/login') {
           this.redirectUrl = event.url;

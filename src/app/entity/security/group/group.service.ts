@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 import { GroupInterface } from './group.interface';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable()
 export class GroupService {
