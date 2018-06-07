@@ -38,7 +38,6 @@ export class LoginComponent {
     if (this.authenticationService.isLoggedIn()) {
       this.router.navigate(['']).catch(() => 'Routing Error');
     }
-
   }
 
   /**
@@ -54,6 +53,7 @@ export class LoginComponent {
           localStorage.setItem('refresh_token', response['data'].refresh_token);
           let redirect = this.authenticationService.redirectUrl ? this.authenticationService.redirectUrl : '';
           this.router.navigate([redirect]).catch(() => 'Routing Error');
+          this.alertService.clear();
         },
         (error) => {
           this.processing = false;

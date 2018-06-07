@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { TokenInterface } from './token.interface';
 import { Observable } from 'rxjs/internal/Observable';
 import { filter } from 'rxjs/operators';
+import { LoadingService } from '../../utility/loading/loading.service';
 
 @Injectable()
 export class AuthenticationService {
@@ -15,9 +16,15 @@ export class AuthenticationService {
   /**
    * @param {HttpClient} http
    * @param {JwtHelperService} jwtHelperService
+   * @param {LoadingService} loadingService
    * @param {Router} router
    */
-  constructor(private http: HttpClient, private jwtHelperService: JwtHelperService, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private jwtHelperService: JwtHelperService,
+    private loadingService: LoadingService,
+    private router: Router
+  ) {
     this.allowRefresh = true;
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(
       (event: NavigationEnd) => {
@@ -25,6 +32,20 @@ export class AuthenticationService {
           this.redirectUrl = event.url;
         }
       });
+  }
+
+  /**
+   * @returns {string}
+   */
+  public static getRefreshTokenFromLocalStorage(): string {
+    return localStorage.getItem('refresh_token');
+  }
+
+  /**
+   * @returns {string}
+   */
+  public static getTokenFromLocalStorage(): string {
+    return localStorage.getItem('token');
   }
 
   /**
@@ -48,11 +69,12 @@ export class AuthenticationService {
    * @returns {boolean}
    */
   public isLoggedIn(): boolean {
-    let token = this.getTokenFromLocalStorage();
-    let refreshToken = this.getRefreshTokenFromLocalStorage();
+    let token = AuthenticationService.getTokenFromLocalStorage();
+    let refreshToken = AuthenticationService.getRefreshTokenFromLocalStorage();
     if (token !== null) {
       this.token = this.jwtHelperService.decodeToken(token);
       if (this.jwtHelperService.isTokenExpired(token) && this.allowRefresh) {
+        this.loadingService.show('Getting a new login token...');
         this.allowRefresh = false;
         this.refresh(refreshToken).subscribe(
           (response) => {
@@ -61,8 +83,10 @@ export class AuthenticationService {
             this.allowRefresh = true;
             let redirect = this.redirectUrl ? this.redirectUrl : '';
             this.router.navigate([redirect]).catch(() => 'Routing Error');
+            this.loadingService.clear();
           },
           () => {
+            this.loadingService.clear();
             this.allowRefresh = true;
             this.logout();
           }
@@ -71,34 +95,6 @@ export class AuthenticationService {
     }
 
     return token !== null && refreshToken !== null && !this.jwtHelperService.isTokenExpired(token);
-  }
-
-  /**
-   * @returns {string}
-   */
-  public getUsername(): string {
-    return this.token.username;
-  }
-
-  /**
-   * @returns {string[]}
-   */
-  public getRoles(): string[] {
-    return this.token.roles;
-  }
-
-  /**
-   * @returns {string}
-   */
-  public getRefreshTokenFromLocalStorage(): string {
-    return localStorage.getItem('refresh_token');
-  }
-
-  /**
-   * @returns {string}
-   */
-  public getTokenFromLocalStorage(): string {
-    return localStorage.getItem('token');
   }
 
   /**

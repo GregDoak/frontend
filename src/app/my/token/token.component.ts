@@ -47,7 +47,7 @@ export class MyTokenComponent implements OnInit, OnDestroy {
               private modalService: BsModalService,
               public tableService: TableService,
               private tokenService: TokenService) {
-    this.refreshToken = this.authenticationService.getRefreshTokenFromLocalStorage();
+    this.refreshToken = AuthenticationService.getRefreshTokenFromLocalStorage();
   }
 
   public isRefreshTokenCurrent(refreshToken: string): boolean {
