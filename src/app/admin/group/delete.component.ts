@@ -26,7 +26,7 @@ export class AdminGroupDeleteComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.loadingService.setCounter(1);
     this.loadingService.show('Getting the role...');
-    let group: GroupInterface = {
+    const group: GroupInterface = {
       id: this.activatedRoute.snapshot.params.id
     };
 

@@ -39,10 +39,10 @@ export class AdminUserUpdateComponent implements OnInit, OnDestroy {
     this.updateForm = this.formBuilder.group({
       username: [this.user.username, Validators.required],
       groups: [this.user.groups.map((group: GroupInterface) => {
-        return group.id
+        return group.id;
       })],
       roles: [this.user.roles.map((role: RoleInterface) => {
-        return role.id
+        return role.id;
       })]
     });
   }
@@ -50,7 +50,7 @@ export class AdminUserUpdateComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.loadingService.setCounter(3);
     this.loadingService.show('Generating the form...');
-    let user: UserInterface = {
+    const user: UserInterface = {
       id: this.activatedRoute.snapshot.params.id
     };
 
@@ -89,7 +89,7 @@ export class AdminUserUpdateComponent implements OnInit, OnDestroy {
     if (form.valid) {
       this.loadingService.show('Saving User...');
       this.processing = true;
-      let user: UserInterface = {
+      const user: UserInterface = {
         id: this.user.id,
         username: form.value.username,
         groups: form.value.groups,
@@ -111,9 +111,9 @@ export class AdminUserUpdateComponent implements OnInit, OnDestroy {
   }
 
   public onUpdateGroup(groupId: string, action = 'add') {
-    for (let group of this.groups) {
+    for (const group of this.groups) {
       if (group.id === groupId) {
-        let groupRoles = group.roles.map((role: RoleInterface) => {
+        const groupRoles = group.roles.map((role: RoleInterface) => {
           return role.id;
         });
         let valueRoles = [];
@@ -132,9 +132,9 @@ export class AdminUserUpdateComponent implements OnInit, OnDestroy {
    * @returns {any[]}
    */
   private removeRoles(groupRoles: any[]): any[] {
-    let valueRoles = this.updateForm.get('roles').value;
-    for (let roleId of groupRoles) {
-      let index = valueRoles.indexOf(roleId);
+    const valueRoles = this.updateForm.get('roles').value;
+    for (const roleId of groupRoles) {
+      const index = valueRoles.indexOf(roleId);
       if (index > -1) {
         valueRoles.splice(index, 1);
       }
@@ -143,7 +143,7 @@ export class AdminUserUpdateComponent implements OnInit, OnDestroy {
   }
 
   private addRoles(groupRoles: any[]): any[] {
-    let valueRoles = this.updateForm.get('roles').value;
+    const valueRoles = this.updateForm.get('roles').value;
     return valueRoles.concat(groupRoles);
   }
 }

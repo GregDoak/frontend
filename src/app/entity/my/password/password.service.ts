@@ -10,6 +10,6 @@ export class PasswordService {
   }
 
   public update(password: PasswordInterface): Observable<object> {
-    return this.http.put(process.env.API_URL + 'my/password', password).pipe();
+    return this.http.put('http://localhost:8000/api/' + 'my/password', password).pipe();
   }
 }

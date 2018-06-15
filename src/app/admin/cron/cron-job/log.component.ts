@@ -26,7 +26,7 @@ export class AdminCronJobLogComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.loadingService.show('Getting the cron job logs...');
 
-    let cronJob: CronJobInterface = {
+    const cronJob: CronJobInterface = {
       id: this.activatedRoute.snapshot.params.id
     };
 

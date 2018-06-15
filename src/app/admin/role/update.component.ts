@@ -37,7 +37,7 @@ export class AdminRoleUpdateComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.loadingService.setCounter(1);
     this.loadingService.show('Generating the form...');
-    let role: RoleInterface = {
+    const role: RoleInterface = {
       id: this.activatedRoute.snapshot.params.id
     };
 
@@ -60,7 +60,7 @@ export class AdminRoleUpdateComponent implements OnInit, OnDestroy {
     if (form.valid) {
       this.loadingService.show('Saving Role...');
       this.processing = true;
-      let role = {
+      const role = {
         id: this.role.id,
         title: form.value.title,
         description: form.value.description

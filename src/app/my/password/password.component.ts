@@ -40,7 +40,7 @@ export class MyPasswordComponent implements OnInit, OnDestroy {
     if (form.valid) {
       this.loadingService.show('Updating your password...');
       this.processing = true;
-      let passwords: PasswordInterface = {
+      const passwords: PasswordInterface = {
         currentPassword: form.value.currentPassword,
         password: form.value.password,
         confirmPassword: form.value.confirmPassword

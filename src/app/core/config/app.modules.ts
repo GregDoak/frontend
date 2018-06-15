@@ -14,8 +14,8 @@ export function getToken() {
 export function jwtOptionsFactory() {
   return {
     tokenGetter: getToken,
-    whitelistedDomains: [process.env.API_HOST]
-  }
+    whitelistedDomains: ['localhost:8000']
+  };
 }
 
 export const APP_MODULES = [

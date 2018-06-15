@@ -24,7 +24,7 @@ export class SidebarNavItemComponent {
   }
 
   public isActive(): boolean {
-    return this.router.isActive(this.thisUrl(), false)
+    return this.router.isActive(this.thisUrl(), false);
   }
 
 }

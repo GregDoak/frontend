@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-sidebar-nav-link',
@@ -11,6 +11,12 @@ export class SidebarNavLinkComponent {
     return this.link.variant;
   }
 
+  public hideMobile() {
+    if (document.body.classList.contains('sidebar-mobile-show')) {
+      document.body.classList.toggle('sidebar-mobile-show');
+    }
+  }
+
   public isBadge(): boolean {
     return this.link.badge;
   }
@@ -21,11 +27,5 @@ export class SidebarNavLinkComponent {
 
   public isIcon(): boolean {
     return this.link.icon;
-  }
-
-  public hideMobile() {
-    if (document.body.classList.contains('sidebar-mobile-show')) {
-      document.body.classList.toggle('sidebar-mobile-show')
-    }
   }
 }

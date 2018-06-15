@@ -10,10 +10,10 @@ export class AuditLogService {
   }
 
   public getAuditLogs(): Observable<object> {
-    return this.http.get(process.env.API_URL + 'admin/audit-logs').pipe();
+    return this.http.get('http://localhost:8000/api/' + 'admin/audit-logs').pipe();
   }
 
   public getAuditLog(auditLog: AuditLogInterface): Observable<object> {
-    return this.http.get(process.env.API_URL + 'admin/audit-log/' + auditLog.id).pipe();
+    return this.http.get('http://localhost:8000/api/' + 'admin/audit-log/' + auditLog.id).pipe();
   }
 }

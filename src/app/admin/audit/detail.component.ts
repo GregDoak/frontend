@@ -25,7 +25,7 @@ export class AdminAuditDetailComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.loadingService.show('Getting the audit log');
 
-    let auditLog: AuditLogInterface = {
+    const auditLog: AuditLogInterface = {
       id: this.activatedRoute.snapshot.params.id
     };
 

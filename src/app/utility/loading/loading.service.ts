@@ -34,7 +34,7 @@ export class LoadingService {
 
   public show(message: string) {
     this.loading = (message !== null);
-    let loading: LoadingInterface = {
+    const loading: LoadingInterface = {
       status: this.loading,
       message: message
     };

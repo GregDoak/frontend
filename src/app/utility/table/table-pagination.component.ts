@@ -6,5 +6,5 @@ import { TableService } from './table.service';
   templateUrl: 'table-pagination.component.html',
 })
 export class TablePaginationComponent {
-  @Input() tableService: TableService
+  @Input() tableService: TableService;
 }

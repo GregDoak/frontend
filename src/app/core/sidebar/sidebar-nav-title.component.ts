@@ -30,6 +30,6 @@ export class SidebarNavTitleComponent implements OnInit {
     } else {
       this.renderer.appendChild(li, name);
     }
-    this.renderer.appendChild(nativeElement, li)
+    this.renderer.appendChild(nativeElement, li);
   }
 }

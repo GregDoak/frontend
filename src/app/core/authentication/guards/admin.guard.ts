@@ -14,7 +14,7 @@ export class AdminGuard implements CanActivate {
   }
 
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    let roles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
+    const roles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
     if (this.authenticationService.isLoggedIn() && this.authenticationService.isMembersOf(roles)) {
       return true;
     }

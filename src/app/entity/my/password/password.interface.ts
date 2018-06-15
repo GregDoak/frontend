@@ -1,5 +1,5 @@
 export interface PasswordInterface {
-  currentPassword: string,
-  password: string,
-  confirmPassword: string,
+  currentPassword: string;
+  password: string;
+  confirmPassword: string;
 }

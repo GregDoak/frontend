@@ -11,7 +11,7 @@ export class HomeComponent {
   public navigationItems: NavigationItemInterface[] = [];
 
   public constructor(private router: Router, private route: ActivatedRoute) {
-    for (let navigationItem of navigationItems) {
+    for (const navigationItem of navigationItems) {
       if (this.route.snapshot.data['title'] !== navigationItem.name) {
         this.navigationItems.push(navigationItem);
       }

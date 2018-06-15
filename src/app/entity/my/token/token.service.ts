@@ -10,15 +10,15 @@ export class TokenService {
   }
 
   public getTokens(): Observable<object> {
-    return this.http.get(process.env.API_URL + 'my/tokens').pipe();
+    return this.http.get('http://localhost:8000/api/' + 'my/tokens').pipe();
   }
 
   public delete(token: TokenInterface): Observable<object> {
-    return this.http.delete(process.env.API_URL + 'my/token/' + token.id).pipe();
+    return this.http.delete('http://localhost:8000/api/' + 'my/token/' + token.id).pipe();
   }
 
   public deleteAll(): Observable<object> {
-    return this.http.delete(process.env.API_URL + 'my/tokens').pipe();
+    return this.http.delete('http://localhost:8000/api/' + 'my/tokens').pipe();
   }
 
 }

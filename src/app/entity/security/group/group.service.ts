@@ -10,22 +10,22 @@ export class GroupService {
   }
 
   public getGroups(): Observable<object> {
-    return this.http.get(process.env.API_URL + 'admin/groups').pipe();
+    return this.http.get('http://localhost:8000/api/' + 'admin/groups').pipe();
   }
 
   public getGroup(group: GroupInterface): Observable<object> {
-    return this.http.get(process.env.API_URL + 'admin/group/' + group.id).pipe();
+    return this.http.get('http://localhost:8000/api/' + 'admin/group/' + group.id).pipe();
   }
 
   public create(group: GroupInterface): Observable<object> {
-    return this.http.post(process.env.API_URL + 'admin/group', group).pipe();
+    return this.http.post('http://localhost:8000/api/' + 'admin/group', group).pipe();
   }
 
   public update(group: GroupInterface): Observable<object> {
-    return this.http.put(process.env.API_URL + 'admin/group/' + group.id, group).pipe();
+    return this.http.put('http://localhost:8000/api/' + 'admin/group/' + group.id, group).pipe();
   }
 
   public delete(group: GroupInterface): Observable<object> {
-    return this.http.delete(process.env.API_URL + 'admin/group/' + group.id).pipe();
+    return this.http.delete('http://localhost:8000/api/' + 'admin/group/' + group.id).pipe();
   }
 }

@@ -6,5 +6,5 @@ import { TableService } from './table.service';
   templateUrl: 'table-columns.component.html',
 })
 export class TableColumnsComponent {
-  @Input() tableService: TableService
+  @Input() tableService: TableService;
 }

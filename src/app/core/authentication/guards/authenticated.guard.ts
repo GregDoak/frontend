@@ -17,7 +17,7 @@ export class AuthenticatedGuard implements CanActivate {
    * @returns {boolean}
    */
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    let roles = ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
+    const roles = ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
     if (this.authenticationService.isLoggedIn() && this.authenticationService.isMembersOf(roles)) {
       return true;
     }

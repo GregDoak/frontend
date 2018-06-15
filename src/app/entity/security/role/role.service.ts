@@ -10,22 +10,22 @@ export class RoleService {
   }
 
   public getRoles(): Observable<object> {
-    return this.http.get(process.env.API_URL + 'admin/roles').pipe();
+    return this.http.get('http://localhost:8000/api/' + 'admin/roles').pipe();
   }
 
   public getRole(role: RoleInterface): Observable<object> {
-    return this.http.get(process.env.API_URL + 'admin/role/' + role.id).pipe();
+    return this.http.get('http://localhost:8000/api/' + 'admin/role/' + role.id).pipe();
   }
 
   public create(role: RoleInterface): Observable<object> {
-    return this.http.post(process.env.API_URL + 'admin/role', role).pipe();
+    return this.http.post('http://localhost:8000/api/' + 'admin/role', role).pipe();
   }
 
   public update(role: RoleInterface): Observable<object> {
-    return this.http.put(process.env.API_URL + 'admin/role/' + role.id, role).pipe();
+    return this.http.put('http://localhost:8000/api/' + 'admin/role/' + role.id, role).pipe();
   }
 
   public delete(role: RoleInterface): Observable<object> {
-    return this.http.delete(process.env.API_URL + 'admin/role/' + role.id).pipe();
+    return this.http.delete('http://localhost:8000/api/' + 'admin/role/' + role.id).pipe();
   }
 }

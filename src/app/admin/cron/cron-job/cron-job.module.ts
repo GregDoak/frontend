@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { P404Component } from '../../../core/pages/404.component';
 import { AdminCronJobListComponent } from './list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from '../../../utility/table/table.module';
@@ -16,8 +15,7 @@ const COMPONENTS = [
 
 const routes: Routes = [
   {path: '', component: AdminCronJobListComponent, pathMatch: 'full', data: {title: 'List'}},
-  {path: 'log/:id', component: AdminCronJobLogComponent, pathMatch: 'full', data: {title: 'Log'}},
-  {path: '**', component: P404Component, data: {title: '404'}}
+  {path: 'log/:id', component: AdminCronJobLogComponent, pathMatch: 'full', data: {title: 'Log'}}
 ];
 
 @NgModule({

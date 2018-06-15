@@ -28,7 +28,7 @@ export class AdminAuditLogComponent implements OnInit {
   }
 
   public isDateField(key: string): boolean {
-    let dateFields = ['createdOn', 'updatedOn'];
+    const dateFields = ['createdOn', 'updatedOn'];
     return dateFields.indexOf(key) > -1;
   }
 
@@ -44,12 +44,12 @@ export class AdminAuditLogComponent implements OnInit {
   }
 
   public isTitleArray(key: string): boolean {
-    let titleFields = ['groups', 'roles'];
+    const titleFields = ['groups', 'roles'];
     return titleFields.indexOf(key) > -1;
   }
 
   public isUserField(key: string): boolean {
-    let userFields = ['createdBy', 'updatedBy'];
+    const userFields = ['createdBy', 'updatedBy'];
     return userFields.indexOf(key) > -1;
   }
 

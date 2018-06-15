@@ -31,13 +31,13 @@ export class BreadcrumbsComponent {
             const routeSnapshot = childrenRoute.snapshot;
             url += '/' + routeSnapshot.url.map(segment => segment.path).join('/');
 
-            let breadcrumb = {
+            const breadcrumb = {
               label: childrenRoute.snapshot.data,
               url: url
             };
 
-            let results = this.breadcrumbs.map(value => {
-              return breadcrumb.label.title === value['label'].title && breadcrumb.url === value['url']
+            const results = this.breadcrumbs.map(value => {
+              return breadcrumb.label.title === value['label'].title && breadcrumb.url === value['url'];
             });
 
             if (results.indexOf(true) === -1) {

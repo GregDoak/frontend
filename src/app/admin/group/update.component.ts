@@ -36,7 +36,7 @@ export class AdminGroupUpdateComponent implements OnInit, OnDestroy {
       title: [this.group.title, Validators.required],
       description: [this.group.description, Validators.required],
       roles: [this.group.roles.map((role: RoleInterface) => {
-        return role.id
+        return role.id;
       })]
     });
   }
@@ -45,7 +45,7 @@ export class AdminGroupUpdateComponent implements OnInit, OnDestroy {
     this.loadingService.setCounter(2);
     this.loadingService.show('Generating the form...');
 
-    let group: GroupInterface = {
+    const group: GroupInterface = {
       id: this.activatedRoute.snapshot.params.id
     };
 

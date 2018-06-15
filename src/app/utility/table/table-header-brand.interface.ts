@@ -1,4 +1,4 @@
 export interface TableHeaderBrandInterface {
-  title?: string,
-  icon?: string
-};
+  title?: string;
+  icon?: string;
+}

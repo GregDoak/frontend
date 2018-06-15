@@ -26,7 +26,7 @@ export class AdminUserDeleteComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.loadingService.setCounter(1);
     this.loadingService.show('Getting the user...');
-    let user: UserInterface = {
+    const user: UserInterface = {
       id: this.activatedRoute.snapshot.params.id
     };
 
@@ -46,7 +46,7 @@ export class AdminUserDeleteComponent implements OnInit, OnDestroy {
   public onSubmit() {
     this.loadingService.show('Deleting User...');
     this.processing = true;
-    let user: UserInterface = {
+    const user: UserInterface = {
       id: this.user.id
     };
     this.userService.delete(user).subscribe(

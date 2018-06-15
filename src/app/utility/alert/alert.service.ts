@@ -55,7 +55,7 @@ export class AlertService {
   }
 
   public clear(delay = 0) {
-    let type = this.alertStatus.getValue().type;
+    const type = this.alertStatus.getValue().type;
     delay = (type === 'danger') ? 0 : delay;
     setTimeout(() => {
       this.show(null, null, null);
@@ -66,9 +66,9 @@ export class AlertService {
     if (error.error) {
       error = error.error.data;
     }
-    let type = 'danger';
-    let message = AlertService.formatMessage(error);
-    let messages = error.messages ? error.messages : [];
+    const type = 'danger';
+    const message = AlertService.formatMessage(error);
+    const messages = error.messages ? error.messages : [];
     this.show(type, message, messages);
   }
 
@@ -76,9 +76,9 @@ export class AlertService {
     if (success.data) {
       success = success.data;
     }
-    let type = success.type;
-    let message = AlertService.formatMessage(success);
-    let messages = success.messages ? success.messages : [];
+    const type = success.type;
+    const message = AlertService.formatMessage(success);
+    const messages = success.messages ? success.messages : [];
     this.show(type, message, messages);
   }
 

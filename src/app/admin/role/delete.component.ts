@@ -26,7 +26,7 @@ export class AdminRoleDeleteComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.loadingService.setCounter(1);
     this.loadingService.show('Getting the role...');
-    let role: RoleInterface = {
+    const role: RoleInterface = {
       id: this.activatedRoute.snapshot.params.id
     };
 
@@ -46,7 +46,7 @@ export class AdminRoleDeleteComponent implements OnInit, OnDestroy {
   public onSubmit() {
     this.loadingService.show('Deleting Role...');
     this.processing = true;
-    let role: RoleInterface = {
+    const role: RoleInterface = {
       id: this.role.id
     };
     this.roleService.delete(role).subscribe(

@@ -54,9 +54,9 @@ export class AuthenticationService {
    * @returns {Observable<object>}
    */
   public login(username: string, password: string): Observable<object> {
-    let body = JSON.stringify({username: username, password: password});
-    let options = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
-    return this.http.post(process.env.API_URL + 'authentication/login', body, options).pipe();
+    const body = JSON.stringify({username: username, password: password});
+    const options = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
+    return this.http.post('http://localhost:8000/api/' + 'authentication/login', body, options).pipe();
   }
 
   public logout(): void {
@@ -69,8 +69,8 @@ export class AuthenticationService {
    * @returns {boolean}
    */
   public isLoggedIn(): boolean {
-    let token = AuthenticationService.getTokenFromLocalStorage();
-    let refreshToken = AuthenticationService.getRefreshTokenFromLocalStorage();
+    const token = AuthenticationService.getTokenFromLocalStorage();
+    const refreshToken = AuthenticationService.getRefreshTokenFromLocalStorage();
     if (token !== null) {
       this.token = this.jwtHelperService.decodeToken(token);
       if (this.jwtHelperService.isTokenExpired(token) && this.allowRefresh) {
@@ -81,7 +81,7 @@ export class AuthenticationService {
             localStorage.setItem('token', response['data'].token);
             localStorage.setItem('refresh_token', response['data'].refresh_token);
             this.allowRefresh = true;
-            let redirect = this.redirectUrl ? this.redirectUrl : '';
+            const redirect = this.redirectUrl ? this.redirectUrl : '';
             this.router.navigate([redirect]).catch(() => 'Routing Error');
             this.loadingService.clear();
           },
@@ -110,7 +110,7 @@ export class AuthenticationService {
    * @returns {boolean}
    */
   public isMembersOf(members: string[]): boolean {
-    for (let member of members) {
+    for (const member of members) {
       if (this.isMemberOf(member)) {
         return true;
       }
@@ -123,8 +123,8 @@ export class AuthenticationService {
    * @returns {Observable<object>}
    */
   private refresh(refreshToken: string): Observable<object> {
-    let body = JSON.stringify({refresh_token: refreshToken});
-    let options = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
-    return this.http.post(process.env.API_URL + 'authentication/refresh', body, options).pipe();
+    const body = JSON.stringify({refresh_token: refreshToken});
+    const options = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
+    return this.http.post('http://localhost:8000/api/' + 'authentication/refresh', body, options).pipe();
   }
 }

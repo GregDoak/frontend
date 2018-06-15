@@ -44,7 +44,7 @@ export class AdminCronJobTaskCreateComponent {
       if (startDate === null) {
         startDate = moment().format('Y-MM-DD HH:mm:ss');
       }
-      let cronJobTask: CronJobTaskInterface = {
+      const cronJobTask: CronJobTaskInterface = {
         command: form.value.command,
         startDate: startDate,
         intervalPeriod: form.value.intervalPeriod,

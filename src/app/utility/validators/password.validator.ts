@@ -2,9 +2,9 @@ import { AbstractControl } from '@angular/forms';
 
 export class PasswordValidator {
   static matchPassword(abstractControl: AbstractControl) {
-    let password = abstractControl.get('password').value;
-    let confirmPassword = abstractControl.get('confirmPassword').value;
-    let field = abstractControl.get('confirmPassword');
+    const password = abstractControl.get('password').value;
+    const confirmPassword = abstractControl.get('confirmPassword').value;
+    const field = abstractControl.get('confirmPassword');
 
     if (password !== confirmPassword) {
       if (field.errors === null) {

@@ -41,7 +41,7 @@ export class AdminCronJobTaskUpdateComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.loadingService.setCounter(1);
     this.loadingService.show('Generating the form...');
-    let cronJobTask: CronJobTaskInterface = {
+    const cronJobTask: CronJobTaskInterface = {
       id: this.activatedRoute.snapshot.params.id
     };
 
@@ -64,7 +64,7 @@ export class AdminCronJobTaskUpdateComponent implements OnInit, OnDestroy {
     if (form.valid) {
       this.loadingService.show('Saving Cron Job Task...');
       this.processing = true;
-      let cronJobTask: CronJobTaskInterface = {
+      const cronJobTask: CronJobTaskInterface = {
         id: this.cronJobTask.id,
         command: form.value.command,
         intervalPeriod: form.value.intervalPeriod,

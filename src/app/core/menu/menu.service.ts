@@ -13,11 +13,11 @@ export class MenuService {
 
   constructor(private router: Router) {
     let level = 0;
-    let routes = this.router.url.split('/');
+    const routes = this.router.url.split('/');
     if (routes.length > 0) {
-      for (let navigationItem of navigationItems) {
+      for (const navigationItem of navigationItems) {
         if ('/' + routes[level] === navigationItem.url) {
-          this.navigationItems = MenuService.getNavigationItemChildren(navigationItem)
+          this.navigationItems = MenuService.getNavigationItemChildren(navigationItem);
         }
         level++;
       }

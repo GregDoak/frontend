@@ -10,18 +10,18 @@ export class CronJobTaskService {
   }
 
   public getCronJobTasks(): Observable<object> {
-    return this.http.get(process.env.API_URL + 'admin/cron-job-tasks').pipe();
+    return this.http.get('http://localhost:8000/api/' + 'admin/cron-job-tasks').pipe();
   }
 
   public getCronJobTask(cronJobTask: CronJobTaskInterface): Observable<object> {
-    return this.http.get(process.env.API_URL + 'admin/cron-job-task/' + cronJobTask.id).pipe();
+    return this.http.get('http://localhost:8000/api/' + 'admin/cron-job-task/' + cronJobTask.id).pipe();
   }
 
   public create(cronJobTask: CronJobTaskInterface): Observable<object> {
-    return this.http.post(process.env.API_URL + 'admin/cron-job-task', cronJobTask).pipe();
+    return this.http.post('http://localhost:8000/api/' + 'admin/cron-job-task', cronJobTask).pipe();
   }
 
   public update(cronJobTask: CronJobTaskInterface): Observable<object> {
-    return this.http.put(process.env.API_URL + 'admin/cron-job-task/' + cronJobTask.id, cronJobTask).pipe();
+    return this.http.put('http://localhost:8000/api/' + 'admin/cron-job-task/' + cronJobTask.id, cronJobTask).pipe();
   }
 }

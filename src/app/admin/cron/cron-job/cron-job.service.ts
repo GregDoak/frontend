@@ -10,10 +10,10 @@ export class CronJobService {
   }
 
   public getCronJobs(): Observable<object> {
-    return this.http.get(process.env.API_URL + 'admin/cron-jobs').pipe();
+    return this.http.get('http://localhost:8000/api/' + 'admin/cron-jobs').pipe();
   }
 
   public getCronJob(cronjob: CronJobInterface): Observable<object> {
-    return this.http.get(process.env.API_URL + 'admin/cron-job/' + cronjob.id).pipe();
+    return this.http.get('http://localhost:8000/api/' + 'admin/cron-job/' + cronjob.id).pipe();
   }
 }

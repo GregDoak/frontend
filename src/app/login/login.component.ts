@@ -51,7 +51,7 @@ export class LoginComponent {
         (response) => {
           localStorage.setItem('token', response['data'].token);
           localStorage.setItem('refresh_token', response['data'].refresh_token);
-          let redirect = this.authenticationService.redirectUrl ? this.authenticationService.redirectUrl : '';
+          const redirect = this.authenticationService.redirectUrl ? this.authenticationService.redirectUrl : '';
           this.router.navigate([redirect]).catch(() => 'Routing Error');
           this.alertService.clear();
         },

@@ -19,19 +19,19 @@ export class TableService {
   }
 
   public doExport(type = 'csv') {
-    let rows: any[] = this.rows;
+    const rows: any[] = this.rows;
     if (!this.config.exporting.enabled || rows.length === 0) {
       return false;
     }
 
-    let headers: TableColumnInterface[] = this.columns.map((column: TableColumnInterface) => {
+    const headers: TableColumnInterface[] = this.columns.map((column: TableColumnInterface) => {
       return column.name !== null && column.visible !== false ? column : null;
     }).filter(column => column);
 
-    let data: any[] = rows.map(
+    const data: any[] = rows.map(
       (row) => headers.map(
         (field) => {
-          let value = row[field.name];
+          const value = row[field.name];
           return value === null || value === undefined ? '' : value;
         }
       )
@@ -79,8 +79,8 @@ export class TableService {
   }
 
   public onChangeTable(): void {
-    let filteredData = this.onChangeFilter();
-    let sortedData = this.onChangeSort(filteredData);
+    const filteredData = this.onChangeFilter();
+    const sortedData = this.onChangeSort(filteredData);
     this.rows = this.onChangePage(sortedData);
   }
 
@@ -153,16 +153,16 @@ export class TableService {
    * @param {any[]} rows
    */
   private exportCsv(columns: TableColumnInterface[], rows: any[]): void {
-    let data = [columns.map((column: TableColumnInterface) => column.title)].concat(rows);
-    let csv: string = data.map((row) => row.map((column) => JSON.stringify(column))).join('\r\n');
+    const data = [columns.map((column: TableColumnInterface) => column.title)].concat(rows);
+    const csv: string = data.map((row) => row.map((column) => JSON.stringify(column))).join('\r\n');
 
-    let blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+    const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
     if (navigator.msSaveBlob) {
       navigator.msSaveBlob(blob, this.config.exporting.filename + '.csv');
     } else {
-      let link = document.createElement('a');
+      const link = document.createElement('a');
       if (link.download !== undefined) {
-        let url = URL.createObjectURL(blob);
+        const url = URL.createObjectURL(blob);
         link.setAttribute('href', url);
         link.setAttribute('download', this.config.exporting.filename + '.csv');
         link.style.visibility = 'hidden';
@@ -178,9 +178,9 @@ export class TableService {
    * @param {any[]} rows
    */
   private exportPdf(columns: TableColumnInterface[], rows: any[]): void {
-    let header = columns.map((column: TableColumnInterface) => column.title);
+    const header = columns.map((column: TableColumnInterface) => column.title);
 
-    let pdf = new jsPDF();
+    const pdf = new jsPDF();
     pdf.autoTable(header, rows);
     pdf.save(this.config.exporting.filename + '.pdf');
   }
@@ -199,10 +199,10 @@ export class TableService {
       return filteredData;
     }
 
-    let tempArray: any[] = [];
+    const tempArray: any[] = [];
     filteredData.forEach((item: any) => {
       let match = false;
-      let columns = Object.keys(item);
+      const columns = Object.keys(item);
       columns.forEach((column: any) => {
         if (
           item[column] !== null &&
@@ -257,7 +257,7 @@ export class TableService {
       return sortedData;
     }
     this.config.pagination.collectionSize = sortedData.length;
-    let start = (this.config.pagination.page - 1) * this.config.pagination.itemsPerPage;
+    const start = (this.config.pagination.page - 1) * this.config.pagination.itemsPerPage;
     let end = this.config.pagination.itemsPerPage > -1 ?
       (start + this.config.pagination.itemsPerPage) : sortedData.length;
     if (end > sortedData.length) {
