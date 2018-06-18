@@ -20,14 +20,14 @@
         </a>
       </li>
     </ul>
-    <ul class="navbar-nav">
-      <li class="nav-item dropdown" *ngIf="tableService.config.toggling.enabled">
+    <ul dropdown class="navbar-nav" *ngIf="tableService.config.toggling.enabled">
+      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" (click)="false" id="columnsDropdown" role="button"
-           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
           <i class="fas fa-fw fa-columns" aria-hidden="true"></i>
           Columns
         </a>
-        <div class="dropdown-menu" aria-labelledby="columnsDropdown">
+        <div *dropdownMenu class="dropdown-menu" aria-labelledby="columnsDropdown">
           <button class="dropdown-item" type="button" (click)="tableService.onToggleColumn(index)"
                   *ngFor="let column of tableService.getColumns();let index = index">
               <span *ngIf="!tableService.isColumnVisible(index)">
@@ -40,13 +40,15 @@
           </button>
         </div>
       </li>
-      <li class="nav-item dropdown" *ngIf="tableService.config.exporting.enabled">
+    </ul>
+    <ul dropdown class="navbar-nav" *ngIf="tableService.config.exporting.enabled">
+      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" (click)="false" id="exportingDropdown" role="button"
-           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
           <i class="fas fa-fw fa-download" aria-hidden="true"></i>
           Export
         </a>
-        <div class="dropdown-menu" aria-labelledby="exportingDropdown">
+        <div *dropdownMenu class="dropdown-menu" aria-labelledby="exportingDropdown">
           <button class="dropdown-item" type="button" (click)="tableService.doExport('csv')">
             <i class="far fa-fw fa-file" aria-hidden="true"></i>
             As CSV

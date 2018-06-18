@@ -79,12 +79,12 @@
     // }
   }
 
-  .main, .app-footer {
+  .main, .app-footer, .table-pagination {
     margin-left: $sidebar-width;
   }
 
   &.sidebar-hidden {
-    .main, .app-footer {
+    .main, .app-footer, .table-pagination {
       margin-left: 0;
     }
   }
@@ -111,7 +111,7 @@
     }
 
     &.sidebar-fixed {
-      .main, .app-footer {
+      .main, .app-footer, .table-pagination {
         margin-left: $sidebar-compact-width;
       }
 
@@ -120,7 +120,7 @@
       }
 
       &.sidebar-hidden {
-        .main, .app-footer {
+        .main, .app-footer, .table-pagination {
           margin-left: 0;
         }
       }
@@ -142,7 +142,7 @@
     }
 
     &.sidebar-fixed {
-      .main, .app-footer {
+      .main, .app-footer, .table-pagination {
         margin-left: $sidebar-minimized-width;
       }
 
@@ -151,7 +151,7 @@
       }
 
       &.sidebar-hidden {
-        .main, .app-footer {
+        .main, .app-footer, .table-pagination {
           margin-left: 0;
         }
       }
@@ -179,12 +179,12 @@
     }
   }
 
-  .main, .app-footer {
+  .main, .app-footer, .table-pagination {
     margin-right: $aside-menu-width;
   }
 
   &.aside-menu-hidden {
-    .main, .app-footer {
+    .main, .app-footer, .table-pagination {
       margin-right: 0;
     }
   }
@@ -285,6 +285,7 @@
 //
 .app-header,
 .app-footer,
+.table-pagination,
 .sidebar,
 .main,
 .aside-menu {
@@ -357,7 +358,7 @@
     }
   }
 
-  .main, .app-footer {
+  .main, .app-footer, .table-pagination {
     margin-left: 0 !important;
   }
 
