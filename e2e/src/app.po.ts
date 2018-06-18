@@ -17,10 +17,6 @@ export class AppPage {
     return element(by.css('app-alert p')).getText();
   }
 
-  public static getBrowser() {
-    return browser;
-  }
-
   public static getFormButton() {
     return element(by.css('.btn-primary'));
   }
