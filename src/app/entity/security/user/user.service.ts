@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { UserInterface } from './user.interface';
-import { Observable } from 'rxjs/internal/Observable';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {UserInterface} from './user.interface';
+import {Observable} from 'rxjs/internal/Observable';
+import {environment} from '../../../../environments/environment';
 
 @Injectable()
 export class UserService {
@@ -10,22 +11,22 @@ export class UserService {
   }
 
   public getUsers(): Observable<object> {
-    return this.http.get('http://localhost:8000/api/' + 'admin/users').pipe();
+    return this.http.get(environment.apiUrl + 'admin/users').pipe();
   }
 
   public getUser(user: UserInterface): Observable<object> {
-    return this.http.get('http://localhost:8000/api/' + 'admin/user/' + user.id).pipe();
+    return this.http.get(environment.apiUrl + 'admin/user/' + user.id).pipe();
   }
 
   public create(user: UserInterface): Observable<object> {
-    return this.http.post('http://localhost:8000/api/' + 'admin/user', user).pipe();
+    return this.http.post(environment.apiUrl + 'admin/user', user).pipe();
   }
 
   public update(user: UserInterface): Observable<object> {
-    return this.http.put('http://localhost:8000/api/' + 'admin/user/' + user.id, user).pipe();
+    return this.http.put(environment.apiUrl + 'admin/user/' + user.id, user).pipe();
   }
 
   public delete(user: UserInterface): Observable<object> {
-    return this.http.delete('http://localhost:8000/api/' + 'admin/user/' + user.id).pipe();
+    return this.http.delete(environment.apiUrl + 'admin/user/' + user.id).pipe();
   }
 }

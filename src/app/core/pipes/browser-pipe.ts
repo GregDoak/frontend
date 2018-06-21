@@ -1,8 +1,12 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 @Pipe({name: 'appBrowser'})
 export class BrowserPipe implements PipeTransform {
-  transform(value: string): string {
+  constructor(private sanitizer: DomSanitizer) {
+  }
+
+  transform(value: string): SafeHtml {
     let family = 'fas';
     let icon = 'fa-question';
     switch (value.toLowerCase()) {
@@ -32,6 +36,6 @@ export class BrowserPipe implements PipeTransform {
         break;
     }
 
-    return '<i class="' + family + ' fa-fw ' + icon + '" aria-hidden="true"></i>';
+    return this.sanitizer.bypassSecurityTrustHtml('<i class="' + family + ' fa-fw ' + icon + '" aria-hidden="true"></i>');
   }
 }

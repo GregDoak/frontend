@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { TokenInterface } from './token.interface';
-import { Observable } from 'rxjs/internal/Observable';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {TokenInterface} from './token.interface';
+import {Observable} from 'rxjs/internal/Observable';
+import {environment} from '../../../../environments/environment';
 
 @Injectable()
 export class TokenService {
@@ -10,15 +11,15 @@ export class TokenService {
   }
 
   public getTokens(): Observable<object> {
-    return this.http.get('http://localhost:8000/api/' + 'my/tokens').pipe();
+    return this.http.get(environment.apiUrl + 'my/tokens').pipe();
   }
 
   public delete(token: TokenInterface): Observable<object> {
-    return this.http.delete('http://localhost:8000/api/' + 'my/token/' + token.id).pipe();
+    return this.http.delete(environment.apiUrl + 'my/token/' + token.id).pipe();
   }
 
   public deleteAll(): Observable<object> {
-    return this.http.delete('http://localhost:8000/api/' + 'my/tokens').pipe();
+    return this.http.delete(environment.apiUrl + 'my/tokens').pipe();
   }
 
 }

@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { AuditLogInterface } from './audit-log.interface';
-import { Observable } from 'rxjs/internal/Observable';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {AuditLogInterface} from './audit-log.interface';
+import {Observable} from 'rxjs/internal/Observable';
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class AuditLogService {
@@ -10,10 +11,10 @@ export class AuditLogService {
   }
 
   public getAuditLogs(): Observable<object> {
-    return this.http.get('http://localhost:8000/api/' + 'admin/audit-logs').pipe();
+    return this.http.get(environment.apiUrl + 'admin/audit-logs').pipe();
   }
 
   public getAuditLog(auditLog: AuditLogInterface): Observable<object> {
-    return this.http.get('http://localhost:8000/api/' + 'admin/audit-log/' + auditLog.id).pipe();
+    return this.http.get(environment.apiUrl + 'admin/audit-log/' + auditLog.id).pipe();
   }
 }

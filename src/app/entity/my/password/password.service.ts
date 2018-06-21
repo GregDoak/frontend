@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PasswordInterface } from './password.interface';
 import { Observable } from 'rxjs/internal/Observable';
+import {environment} from '../../../../environments/environment';
 
 @Injectable()
 export class PasswordService {
@@ -10,6 +11,6 @@ export class PasswordService {
   }
 
   public update(password: PasswordInterface): Observable<object> {
-    return this.http.put('http://localhost:8000/api/' + 'my/password', password).pipe();
+    return this.http.put(environment.apiUrl + 'my/password', password).pipe();
   }
 }

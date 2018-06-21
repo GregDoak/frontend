@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
-import { AuthenticationService } from '../../../core/authentication/authentication.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LoadingService } from '../../../utility/loading/loading.service';
-import { CronJobTaskService } from './cron-job-task.service';
-import { CronJobTaskInterface } from './cron-job-task.interface';
-import { AlertService } from '../../../utility/alert/alert.service';
-import { moment } from 'ngx-bootstrap/chronos/test/chain';
+import {Component} from '@angular/core';
+import {AuthenticationService} from '../../../core/authentication/authentication.service';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {LoadingService} from '../../../utility/loading/loading.service';
+import {CronJobTaskService} from './cron-job-task.service';
+import {CronJobTaskInterface} from './cron-job-task.interface';
+import {AlertService} from '../../../utility/alert/alert.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-admin-cron-job-task-create',
@@ -25,9 +25,12 @@ export class AdminCronJobTaskCreateComponent {
               private formBuilder: FormBuilder,
               public loadingService: LoadingService,
               private router: Router) {
+    const initialStartTime = new Date();
+    initialStartTime.setSeconds(0);
     this.createForm = this.formBuilder.group({
       command: [null, Validators.required],
-      startDate: [null],
+      startDate: [new Date(), Validators.required],
+      startTime: [initialStartTime, Validators.required],
       intervalPeriod: [null, Validators.required],
       intervalContext: ['minute', Validators.required],
       priority: [5, Validators.required]
@@ -41,12 +44,14 @@ export class AdminCronJobTaskCreateComponent {
       this.loadingService.show('Saving Cron Job Task...');
       this.processing = true;
       let startDate = form.value.startDate;
-      if (startDate === null) {
-        startDate = moment().format('Y-MM-DD HH:mm:ss');
-      }
+      let startTime = form.value.startTime;
+      startDate = startDate === null ? moment() : moment(startDate);
+      startTime = startTime === null ? moment() : moment(startTime);
+      startDate.hours(startTime.hours()).minutes(startTime.minutes()).seconds(startTime.seconds());
+
       const cronJobTask: CronJobTaskInterface = {
         command: form.value.command,
-        startDate: startDate,
+        startDate: startDate.format('Y-MM-DD HH:mm:ss'),
         intervalPeriod: form.value.intervalPeriod,
         intervalContext: form.value.intervalContext,
         priority: form.value.priority
@@ -55,7 +60,7 @@ export class AdminCronJobTaskCreateComponent {
         (response) => {
           this.alertService.handleSuccess(response);
           this.loadingService.clear();
-          this.router.navigate(['/admin/cron-jobs/tasks']).catch(() => 'Routing Error');
+          this.router.navigate(['/admin/cron-job-tasks']).catch(() => 'Routing Error');
         },
         (error) => {
           this.processing = false;

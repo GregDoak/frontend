@@ -55,6 +55,11 @@ export class MyTokenComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit() {
+    this.tableService.config.exporting.enabled = false;
+    this.tableService.config.filtering.enabled = false;
+    this.tableService.config.pagination.enabled = false;
+    this.tableService.config.exporting.enabled = false;
+    this.tableService.config.toggling.enabled = false;
     this.loadingService.show('Getting your tokens...');
     this.getTokens();
   }

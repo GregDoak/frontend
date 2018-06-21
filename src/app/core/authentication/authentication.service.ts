@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { TokenInterface } from './token.interface';
-import { Observable } from 'rxjs/internal/Observable';
-import { filter } from 'rxjs/operators';
-import { LoadingService } from '../../utility/loading/loading.service';
+import {Injectable} from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {TokenInterface} from './token.interface';
+import {Observable} from 'rxjs/internal/Observable';
+import {filter} from 'rxjs/operators';
+import {LoadingService} from '../../utility/loading/loading.service';
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class AuthenticationService {
@@ -56,7 +57,7 @@ export class AuthenticationService {
   public login(username: string, password: string): Observable<object> {
     const body = JSON.stringify({username: username, password: password});
     const options = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
-    return this.http.post('http://localhost:8000/api/' + 'authentication/login', body, options).pipe();
+    return this.http.post(environment.apiUrl + 'authentication/login', body, options).pipe();
   }
 
   public logout(): void {
@@ -125,6 +126,6 @@ export class AuthenticationService {
   private refresh(refreshToken: string): Observable<object> {
     const body = JSON.stringify({refresh_token: refreshToken});
     const options = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
-    return this.http.post('http://localhost:8000/api/' + 'authentication/refresh', body, options).pipe();
+    return this.http.post(environment.apiUrl + 'authentication/refresh', body, options).pipe();
   }
 }

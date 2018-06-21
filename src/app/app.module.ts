@@ -1,6 +1,11 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
+import {defineLocale} from 'ngx-bootstrap/chronos';
+import {enGbLocale} from 'ngx-bootstrap/locale';
+
+// The string MUST be lower case - even though the examples give it as enGb
+defineLocale('engb', enGbLocale);
 
 import './core/config/app.imports';
 

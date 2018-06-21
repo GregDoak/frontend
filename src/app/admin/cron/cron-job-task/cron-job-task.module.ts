@@ -9,6 +9,7 @@ import {AdminCronJobTaskListComponent} from './list.component';
 import {AdminCronJobTaskCreateComponent} from './create.component';
 import {AdminCronJobTaskUpdateComponent} from './update.component';
 import {YesNoPipe} from '../../../core/pipes/yes-no.pipe';
+import {BsDatepickerModule, TimepickerModule} from 'ngx-bootstrap';
 
 const COMPONENTS = [
   AdminCronJobTaskListComponent,
@@ -28,13 +29,15 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    BsDatepickerModule.forRoot(),
     CommonModule,
     FormsModule,
     MomentModule,
     NgxSelectModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    TableModule
+    TableModule,
+    TimepickerModule.forRoot()
   ],
   declarations: [...COMPONENTS, ...PIPES]
 })
