@@ -28,7 +28,8 @@
                 "glob": "**/*",
                 "input": "src/meta",
                 "output": "/"
-              }
+              },
+              "src/manifest.json"
             ],
             "styles": [
               "src/styles/styles.scss"
@@ -50,7 +51,8 @@
               "namedChunks": false,
               "aot": true,
               "vendorChunk": true,
-              "buildOptimizer": true
+              "buildOptimizer": true,
+              "serviceWorker": true
             },
             "staging": {
               "fileReplacements": [
@@ -66,7 +68,8 @@
               "namedChunks": false,
               "aot": true,
               "vendorChunk": true,
-              "buildOptimizer": true
+              "buildOptimizer": true,
+              "serviceWorker": true
             }
           }
         },
@@ -100,7 +103,8 @@
             ],
             "scripts": [],
             "assets": [
-              "src/assets"
+              "src/assets",
+              "src/manifest.json"
             ]
           }
         },

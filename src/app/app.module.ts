@@ -15,6 +15,8 @@ import {APP_COMPONENTS} from './core/config/app.components';
 import {APP_DIRECTIVES} from './core/config/app.directives';
 import {APP_MODULES} from './core/config/app.modules';
 import {APP_PROVIDERS} from './core/config/app.providers';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import {APP_PROVIDERS} from './core/config/app.providers';
   imports: [
     BrowserModule,
     RouterModule.forRoot(ROUTES),
-    ...APP_MODULES
+    ...APP_MODULES,
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

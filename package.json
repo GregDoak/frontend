@@ -20,6 +20,7 @@
     "@angular/http": "^6.0.6",
     "@angular/platform-browser": "^6.0.6",
     "@angular/platform-browser-dynamic": "^6.0.6",
+    "@angular/pwa": "^0.6.8",
     "@angular/router": "^6.0.6",
     "@auth0/angular-jwt": "^2.0.0",
     "@fortawesome/fontawesome": "^1.1.8",
@@ -38,7 +39,8 @@
     "ngx-select-ex": "^3.5.9",
     "rxjs": "^6.2.1",
     "rxjs-compat": "^6.2.1",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "@angular/service-worker": "^6.0.6"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.6.8",
