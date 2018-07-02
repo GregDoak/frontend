@@ -1,0 +1,16 @@
+<a *ngIf="!isExternalLink(); else external"
+   [ngClass]="hasVariant() ? 'nav-link nav-link-' + link['variant'] : 'nav-link'"
+   routerLinkActive="active"
+   [routerLink]="[link.url]"
+   (click)="hideMobile()">
+  <i *ngIf="isIcon()" class="{{ link.icon }}"></i>
+  {{ link.name }}
+  <span *ngIf="isBadge()" [ngClass]="'badge badge-' + link['badge']['variant']">{{ link.badge.text }}</span>
+</a>
+<ng-template #external>
+  <a [ngClass]="hasVariant() ? 'nav-link nav-link-' + link['variant'] : 'nav-link'" href="{{link.url}}">
+    <i *ngIf="isIcon()" class="{{ link.icon }}"></i>
+    {{ link.name }}
+    <span *ngIf="isBadge()" [ngClass]="'badge badge-' + link['badge']['variant']">{{ link['badge']['text'] }}</span>
+  </a>
+</ng-template>

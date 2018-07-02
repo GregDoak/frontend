@@ -1,0 +1,22 @@
+<ngx-loading-bar></ngx-loading-bar>
+<app-authenticated-header></app-authenticated-header>
+
+<div class="app-body">
+  <div class="sidebar">
+    <app-sidebar-nav></app-sidebar-nav>
+    <button class="sidebar-minimizer" type="button" appSidebarMinimizer appBrandMinimizer></button>
+  </div>
+
+  <main class="main">
+    <ol class="breadcrumb">
+      <app-breadcrumbs></app-breadcrumbs>
+    </ol>
+    <app-alert></app-alert>
+    <app-loading></app-loading>
+    <router-outlet></router-outlet>
+  </main>
+
+  <app-aside></app-aside>
+</div>
+
+<app-footer></app-footer>

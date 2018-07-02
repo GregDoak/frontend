@@ -6,6 +6,7 @@ import {LoadingBarHttpClientModule} from '@ngx-loading-bar/http-client';
 import {LoadingBarRouterModule} from '@ngx-loading-bar/router';
 import {CoreModule} from '../core.module';
 import {environment} from '../../../environments/environment';
+import {MomentModule} from 'ngx-moment';
 
 export function getToken() {
   return localStorage.getItem('token');
@@ -26,6 +27,7 @@ export const APP_MODULES = [
   FormsModule,
   LoadingBarHttpClientModule,
   LoadingBarRouterModule,
+  MomentModule,
   JwtModule.forRoot({
     jwtOptionsProvider: {
       provide: JWT_OPTIONS,

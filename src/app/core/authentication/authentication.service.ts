@@ -5,7 +5,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import {TokenInterface} from './token.interface';
 import {Observable} from 'rxjs/internal/Observable';
 import {filter} from 'rxjs/operators';
-import {LoadingService} from '../../utility/loading/loading.service';
+import {LoadingService} from '../../utilities/loading/loading.service';
 import {environment} from '../../../environments/environment';
 
 @Injectable()
@@ -38,15 +38,24 @@ export class AuthenticationService {
   /**
    * @returns {string}
    */
-  public static getRefreshTokenFromLocalStorage(): string {
+  public static getRefreshToken(): string {
     return localStorage.getItem('refresh_token');
   }
 
   /**
    * @returns {string}
    */
-  public static getTokenFromLocalStorage(): string {
+  public static getToken(): string {
     return localStorage.getItem('token');
+  }
+
+  /**
+   * @param {string} token
+   * @param {string} refreshToken
+   */
+  public static setTokens(token, refreshToken) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('refresh_token', refreshToken);
   }
 
   /**
@@ -70,8 +79,8 @@ export class AuthenticationService {
    * @returns {boolean}
    */
   public isLoggedIn(): boolean {
-    const token = AuthenticationService.getTokenFromLocalStorage();
-    const refreshToken = AuthenticationService.getRefreshTokenFromLocalStorage();
+    const token = AuthenticationService.getToken();
+    const refreshToken = AuthenticationService.getRefreshToken();
     if (token !== null) {
       this.token = this.jwtHelperService.decodeToken(token);
       if (this.jwtHelperService.isTokenExpired(token) && this.allowRefresh) {
@@ -79,8 +88,7 @@ export class AuthenticationService {
         this.allowRefresh = false;
         this.refresh(refreshToken).subscribe(
           (response) => {
-            localStorage.setItem('token', response['data'].token);
-            localStorage.setItem('refresh_token', response['data'].refresh_token);
+            AuthenticationService.setTokens(response['data'].token, response['data'].refresh_token);
             this.allowRefresh = true;
             const redirect = this.redirectUrl ? this.redirectUrl : '';
             this.router.navigate([redirect]).catch(() => 'Routing Error');
