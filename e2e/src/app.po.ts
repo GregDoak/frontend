@@ -1,23 +1,34 @@
 import {browser, by, element} from 'protractor';
 
 export class AppPage {
-  public static navigateTo() {
-    return browser.get('/');
+  /**
+   * @param {string} destination
+   * @returns {promise.Promise<any>}
+   */
+  public static navigateTo(destination: string) {
+    return browser.get(destination);
   }
 
-  public static setFormUsername() {
-    return element(by.name('username')).sendKeys('jackfedrick@gmail.com');
+  /**
+   * @returns {ProtractorBrowser}
+   */
+  public static getBrowser() {
+    return browser;
   }
 
-  public static setFormPassword() {
-    return element(by.name('password')).sendKeys('jackfedrick@gmail.com');
+  /**
+   * @param {string} selector
+   * @returns {ElementFinder}
+   */
+  public static getElementByCss(selector: string) {
+    return element(by.css(selector));
   }
 
-  public static getAlertText() {
-    return element(by.css('app-alert p')).getText();
-  }
-
-  public static getFormButton() {
-    return element(by.css('.btn-primary'));
+  /**
+   * @param {string} selector
+   * @returns {ElementFinder}
+   */
+  public static getElementByName(selector: string) {
+    return element(by.name(selector));
   }
 }
