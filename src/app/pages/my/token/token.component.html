@@ -6,7 +6,7 @@
   <div class="card-body">
     <div class="col-12">
       <div class="pb-3">
-        <button class="btn btn-danger" (click)="openModal(deleteAllModal)">
+        <button class="btn btn-danger" name="delete-all-button" (click)="openModal(deleteAllModal)">
           <i class="far fa-fw fa-trash-alt" aria-hidden="true"></i>
           Delete All
         </button>
@@ -42,13 +42,21 @@
             {{ token.valid | date:"dd/MM/yy HH:mm:ss" }}
           </td>
           <td>
-            <button class="btn btn-danger" (click)="openModal(deleteSingleModal, token)">
-              <i class="far fa-fw fa-trash-alt" aria-hidden="true"></i>
-              Delete
-              <span *ngIf="isRefreshTokenCurrent(token.refreshToken)">
-                (Current)
-              </span>
-            </button>
+            <span *ngIf="isRefreshTokenCurrent(token.refreshToken); then currentText else notCurrentText"></span>
+            <ng-template #currentText>
+              <button class="btn btn-danger" name="delete-current-button"
+                      (click)="openModal(deleteSingleModal, token)">
+                <i class="far fa-fw fa-trash-alt" aria-hidden="true"></i>
+                Delete (Current)
+              </button>
+            </ng-template>
+            <ng-template #notCurrentText>
+              <button class="btn btn-danger" name="delete-single-button"
+                      (click)="openModal(deleteSingleModal, token)">
+                <i class="far fa-fw fa-trash-alt" aria-hidden="true"></i>
+                Delete
+              </button>
+            </ng-template>
           </td>
         </tr>
         </tbody>

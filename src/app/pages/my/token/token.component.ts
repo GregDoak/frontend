@@ -40,7 +40,7 @@ export class MyTokenComponent implements OnInit, OnDestroy {
   public selectedToken: TokenInterface;
   public tokens: TokenInterface[];
   private modalReference: BsModalRef;
-  private refreshToken: string;
+  private readonly refreshToken: string;
 
   constructor(public alertService: AlertService,
               public authenticationService: AuthenticationService,

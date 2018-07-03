@@ -18,6 +18,7 @@ export class MyPasswordComponent implements OnInit, OnDestroy {
   public passwordForm: FormGroup;
   public processing = false;
   public submitted = false;
+  public passwords: PasswordInterface;
 
   constructor(public alertService: AlertService,
               public authenticationService: AuthenticationService,
@@ -42,12 +43,12 @@ export class MyPasswordComponent implements OnInit, OnDestroy {
     if (form.valid) {
       this.loadingService.show('Updating your password...');
       this.processing = true;
-      const passwords: PasswordInterface = {
+      this.passwords = {
         currentPassword: form.value.currentPassword,
         password: form.value.password,
         confirmPassword: form.value.confirmPassword
       };
-      this.passwordService.update(passwords).subscribe(
+      this.passwordService.update(this.passwords).subscribe(
         (response) => {
           this.alertService.handleSuccess(response);
           this.loadingService.clear();

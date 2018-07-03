@@ -1,34 +1,28 @@
-import {browser, by, element} from 'protractor';
+import {Helper} from './helper';
 
 export class AppPage {
-  /**
-   * @param {string} destination
-   * @returns {promise.Promise<any>}
-   */
-  public static navigateTo(destination: string) {
-    return browser.get(destination);
+  public constructor() {
+    Helper.navigateTo('/');
   }
 
   /**
-   * @returns {ProtractorBrowser}
-   */
-  public static getBrowser() {
-    return browser;
-  }
-
-  /**
-   * @param {string} selector
    * @returns {ElementFinder}
    */
-  public static getElementByCss(selector: string) {
-    return element(by.css(selector));
+  public static getLoginButton() {
+    return Helper.getElementByCss('.btn-primary');
   }
 
   /**
-   * @param {string} selector
    * @returns {ElementFinder}
    */
-  public static getElementByName(selector: string) {
-    return element(by.name(selector));
+  public static getPasswordInput() {
+    return Helper.getElementByName('password');
+  }
+
+  /**
+   * @returns {ElementFinder}
+   */
+  public static getUsernameInput() {
+    return Helper.getElementByName('username');
   }
 }
