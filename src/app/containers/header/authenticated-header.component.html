@@ -2,7 +2,7 @@
   <button class="navbar-toggler d-lg-none" type="button" appMobileSidebarToggler>
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" [routerLink]="[ '' ]"></a>
+  <a class="navbar-brand" [routerLink]="[ '' ]" aria-label="Home"></a>
   <ul class="nav navbar-nav d-md-down-none" *ngIf="authenticationService.isLoggedIn()">
     <li class="nav-item">
       <button class="navbar-toggler d-md-down-none" type="button" appSidebarToggler>
