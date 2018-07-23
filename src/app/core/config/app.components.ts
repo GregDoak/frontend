@@ -11,6 +11,7 @@ import {HomeComponent} from '../../pages/home/home.component';
 import {LoadingComponent} from '../../utilities/loading/loading.component';
 import {LoginComponent} from '../../pages/login/login.component';
 import {MyComponent} from '../../pages/my/my.component';
+import {EventTabComponent} from '../../utilities/event-tab/event-tab.component';
 
 export const APP_COMPONENTS = [
   ...APP_SIDEBAR,
@@ -22,6 +23,7 @@ export const APP_COMPONENTS = [
   DefaultFooterComponent,
   DefaultHeaderComponent,
   DefaultMainComponent,
+  EventTabComponent,
   HomeComponent,
   LoadingComponent,
   LoginComponent,

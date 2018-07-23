@@ -11,6 +11,7 @@ import {BrowserPipe} from '../../pipes/browser-pipe';
 import {ModalModule} from 'ngx-bootstrap';
 import {P404Component} from '../404/404.component';
 import {CoreModule} from '../../core/core.module';
+import {AuthenticatedGuard} from '../../core/authentication/guards';
 
 const COMPONENTS = [
   MyPasswordComponent,
@@ -25,6 +26,12 @@ const PIPES = [
 
 const routes: Routes = [
   {path: '', redirectTo: 'profile', pathMatch: 'full'},
+  {
+    path: 'events',
+    loadChildren: './event/event.module#MyEventModule',
+    canActivate: [AuthenticatedGuard],
+    data: {title: 'Events'}
+  },
   {path: 'password', component: MyPasswordComponent, data: {title: 'Password'}},
   {path: 'profile', component: MyProfileComponent, data: {title: 'Profile'}},
   {path: 'tokens', component: MyTokenComponent, data: {title: 'Token'}},

@@ -1,0 +1,131 @@
+<div class="animated fadeIn">
+  <div class="row" *ngIf="loadingService.isReady()">
+    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-xl-8">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-user fa-fw" aria-hidden="true"></i>
+          Create User
+        </div>
+        <div class="card-body">
+          <div class="col-12">
+            <form [formGroup]="createForm" (submit)="onSubmit(createForm)" novalidate>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fas fa-fw fa-quote-left" aria-hidden="true"></i>
+                      </span>
+                  </div>
+                  <textarea class="form-control" name="description" placeholder="Description" title="Description"
+                            rows="5" maxlength="1000" [formControl]="createForm.get('description')"
+                            [ngClass]="{'is-invalid':createForm.get('description').hasError('required') && submitted}"></textarea>
+                </div>
+                <p class="text-muted">
+                  {{ 1000 - (createForm.get('description').value !== null ? createForm.get('description').value.length
+                  : 0) }} characters remaining.
+                </p>
+                <p
+                  *ngIf="createForm.get('description').hasError('required') && submitted"
+                  class="text-danger">
+                  The description is a required field.
+                </p>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fa  fa-fw fa-map-marker-alt"></i>
+                    </span>
+                  </div>
+                  <input class="form-control" name="location" placeholder="Location" type="text" title="Location"
+                         [formControl]="createForm.get('location')"
+                         [ngClass]="{'is-invalid':createForm.get('location').hasError('required') && submitted}">
+                </div>
+                <div
+                  *ngIf="createForm.get('location').hasError('required') && submitted"
+                  class="text-danger">
+                  The location is a required field.
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-calendar fa-fw"></i>
+                    </span>
+                  </div>
+                  <input class="form-control datepicker" name="startDate" placeholder="Start Date" type="text"
+                         title="Start Date" [formControl]="createForm.get('startDate')" readonly="readonly"
+                         bsDatepicker
+                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', locale: 'engb', showWeekNumbers : false, containerClass: 'theme-default' }"
+                         [minDate]="initialStartDateTime">
+                  <timepicker [formControl]="createForm.get('startTime')" [showSpinners]="false" [showMeridian]="false"
+                              class="px-1"></timepicker>
+                </div>
+                <p
+                  *ngIf="createForm.get('startDate').hasError('required') && submitted" class="text-danger">
+                  The Start Date is a required field.
+                </p>
+                <p
+                  *ngIf="createForm.get('startTime').hasError('required') && submitted" class="text-danger">
+                  Please enter a valid time.
+                </p>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-calendar fa-fw"></i>
+                    </span>
+                  </div>
+                  <input class="form-control datepicker" name="endDate" placeholder="End Date" type="text"
+                         title="End Date" [formControl]="createForm.get('endDate')" readonly="readonly"
+                         bsDatepicker
+                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', locale: 'engb', showWeekNumbers : false, containerClass: 'theme-default' }"
+                         [minDate]="initialStartDateTime">
+                  <timepicker [formControl]="createForm.get('endTime')" [showSpinners]="false" [showMeridian]="false"
+                              class="px-1"></timepicker>
+                </div>
+                <p
+                  *ngIf="createForm.get('endDate').hasError('required') && submitted" class="text-danger">
+                  The End Date is a required field.
+                </p>
+                <p
+                  *ngIf="createForm.get('endTime').hasError('required') && submitted" class="text-danger">
+                  Please enter a valid time.
+                </p>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-users fa-fw"></i>
+                    </span>
+                  </div>
+                  <ngx-select [multiple]="true" [items]="users" optionTextField="username"
+                              [formControl]="createForm.get('users')" class="form-control ng2-select"
+                              placeholder="Users" title="Users">
+                  </ngx-select>
+                </div>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-primary" [disabled]="processing">
+                  <i class="far fa-fw fa-save" aria-hidden="true"></i>
+                  Save
+                </button>
+                <button type="button" class="btn btn-danger" (click)="createForm.reset();">
+                  <i class="fas fa-fw fa-undo" aria-hidden="true"></i>
+                  Reset
+                </button>
+                <a [routerLink]="['../']" class="btn btn-warning">
+                  <i class="fas fa-fw fa-times" aria-hidden="true"></i>
+                  Cancel
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
