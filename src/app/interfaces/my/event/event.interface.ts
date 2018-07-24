@@ -7,4 +7,9 @@ export interface EventInterface {
   startDateTime?: string;
   endDateTime?: string;
   users?: UserInterface[];
+  createdBy?: UserInterface;
+  createdOn?: string;
+  updatedBy?: UserInterface;
+  updatedOn?: string;
+  active?: boolean;
 }

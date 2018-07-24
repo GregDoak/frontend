@@ -107,6 +107,13 @@ export class AuthenticationService {
   }
 
   /**
+   * @returns {string}
+   */
+  public getUsername(): string {
+    return this.token.username;
+  }
+
+  /**
    * @param {string} member
    * @returns {boolean}
    */
