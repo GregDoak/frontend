@@ -1,1 +1,60 @@
-list
+<div class="animated fadeIn">
+  <app-table-header [tableService]="tableService" [tableHeaderBrand]="tableHeaderBrand"
+                    [links]="tableHeaderLinks"></app-table-header>
+  <div class="row" *ngIf="loadingService.isReady()">
+    <div class="col-12">
+      <div class="card card-fixed">
+        <div class="card-body card-body-fixed">
+          <table class="table table-fixed table-striped">
+            <thead>
+            <app-table-columns [tableService]="tableService"></app-table-columns>
+            </thead>
+            <tbody>
+            <tr *ngFor="let event of tableService.getRows()">
+              <td *ngIf="tableService.isColumnVisible(0)">
+                {{ event.description }}
+              </td>
+              <td *ngIf="tableService.isColumnVisible(1)">
+                {{ event.location }}
+              </td>
+              <td *ngIf="tableService.isColumnVisible(2)">
+                {{ event.startDateTime | date:"dd/MM/yy HH:mm:ss" }}
+              </td>
+              <td *ngIf="tableService.isColumnVisible(3)">
+                {{ event.endDateTime | date:"dd/MM/yy HH:mm:ss" }}
+              </td>
+              <td *ngIf="tableService.isColumnVisible(4)">
+                {{ event.users.length }}
+                <!--suppress HtmlUnknownAttribute -->
+                <span *ngIf="event.users.length > 0"
+                      [popover]="usersTemplate"
+                      popoverTitle="Users"
+                      placement="right"
+                      triggers="mouseenter:mouseleave">
+                  <i class="fas fa-1x fa-question-circle" aria-hidden="true"></i>
+                </span>
+              </td>
+              <td *ngIf="tableService.isColumnVisible(5)">
+                <div class="btn-group-sm" role="group">
+                  <a [routerLink]="[ 'update', event.id ]" type="button" class="btn btn-warning">
+                    <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>
+                    Update
+                  </a>
+                </div>
+              </td>
+              <ng-template #usersTemplate>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let user of event.users">
+                    {{ user.username }}
+                  </li>
+                </ul>
+              </ng-template>
+            </tr>
+            </tbody>
+          </table>
+          <app-table-pagination [tableService]="tableService"></app-table-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

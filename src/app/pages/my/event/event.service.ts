@@ -10,6 +10,10 @@ export class MyEventService {
   constructor(private http: HttpClient) {
   }
 
+  public getEvents(): Observable<object> {
+    return this.http.get(environment.apiUrl + 'my/events').pipe();
+  }
+
   public create(event: EventInterface): Observable<object> {
     return this.http.post(environment.apiUrl + 'my/event', event).pipe();
   }
