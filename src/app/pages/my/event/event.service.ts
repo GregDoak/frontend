@@ -14,7 +14,15 @@ export class MyEventService {
     return this.http.get(environment.apiUrl + 'my/events').pipe();
   }
 
+  public getEvent(event: EventInterface): Observable<object> {
+    return this.http.get(environment.apiUrl + 'my/event/' + event.id).pipe();
+  }
+
   public create(event: EventInterface): Observable<object> {
     return this.http.post(environment.apiUrl + 'my/event', event).pipe();
+  }
+
+  public update(event: EventInterface): Observable<object> {
+    return this.http.put(environment.apiUrl + 'my/event/' + event.id, event).pipe();
   }
 }
